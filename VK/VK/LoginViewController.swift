@@ -5,7 +5,15 @@ import UIKit
 
 /// User authentication
 final class LoginViewController: UIViewController {
-    // MARK: - Private Visual Components
+    // MARK: - Constants
+    private enum Constants {
+        static let loginText = "1"
+        static let passwordText = "1"
+        static let errorText = "Error"
+        static let wrongPasswordText = "Wrong Password"
+        static let okText = "Ok"
+    }
+    // MARK: - IBOutlets
 
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
@@ -27,6 +35,8 @@ final class LoginViewController: UIViewController {
         super.viewWillDisappear(animated)
         removeObserver()
     }
+
+    // MARK: - Public Methods
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         let checkResult = checkUserData()
@@ -97,16 +107,19 @@ final class LoginViewController: UIViewController {
     private func checkUserData() -> Bool {
         let login = loginTextField.text
         let password = passwordTextField.text
-        if login == "1", password == "1" {
+        if login == Constants.loginText, password == Constants.passwordText {
             return true
         } else {
             return false
         }
     }
+}
 
-    private func showLoginError() {
-        let alertWrongPassword = UIAlertController(title: "Ошибка", message: "Неверный пароль", preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+// MARK: - AlertController
+private extension LoginViewController {
+    func showLoginError() {
+        let alertWrongPassword = UIAlertController(title: Constants.errorText, message: Constants.wrongPasswordText, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: Constants.okText, style: .default, handler: nil)
         alertWrongPassword.addAction(okButton)
         present(alertWrongPassword, animated: true, completion: nil)
     }
