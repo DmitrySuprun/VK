@@ -7,7 +7,9 @@ import UIKit
 final class FriendsTableViewCell: UITableViewCell {
     // MARK: - IBOutlets
 
-    @IBOutlet private var avatarImageView: UIImageView!
+//    @IBOutlet private var avatarImageView: UIImageView!
+
+    @IBOutlet var avatarView: AvatarView!
     @IBOutlet private var nameLabel: UILabel!
 
     // MARK: - LifeCycle
@@ -24,6 +26,6 @@ final class FriendsTableViewCell: UITableViewCell {
 
     func configure(nameLabelText: String, avatarImageName: String) {
         nameLabel.text = nameLabelText
-        avatarImageView.image = UIImage(named: avatarImageName)
+        avatarView.image = UIImage(named: avatarImageName)
     }
 }

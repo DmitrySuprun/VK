@@ -7,5 +7,5 @@ import Foundation
 struct FriendsInfo {
     var name: String
     var avatarName: String
-    var likesCout: Int
+    var likesCount: Int
 }

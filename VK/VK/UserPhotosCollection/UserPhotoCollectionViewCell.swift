@@ -5,13 +5,17 @@ import UIKit
 
 /// User Single ImagePost
 final class UserPhotoCollectionViewCell: UICollectionViewCell {
-    // MARK: - Private IBOutlets
+    // MARK: - Private IBOutletsz
 
     @IBOutlet private var userPhotoImageView: UIImageView!
+    @IBOutlet var likeControl: LikeControl!
+
+    // MARK: - Life Cycle
 
     // MARK: - Public Methods
 
-    func configure(imageName: String) {
+    func configure(imageName: String, likesCount: Int) {
         userPhotoImageView.image = UIImage(named: imageName)
+        likeControl.likeCount = likesCount
     }
 }

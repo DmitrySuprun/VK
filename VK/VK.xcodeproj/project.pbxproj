@@ -23,6 +23,8 @@
 		D56643EC29145A7E00306D42 /* GroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D56643EA29145A7E00306D42 /* GroupTableViewCell.xib */; };
 		D56643F1291460A000306D42 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643F0291460A000306D42 /* Group.swift */; };
 		D56643F32914618500306D42 /* AllGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643F22914618500306D42 /* AllGroupsTableViewController.swift */; };
+		D56643F529147F0A00306D42 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643F429147F0A00306D42 /* AvatarView.swift */; };
+		D56643FC2914920500306D42 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643FB2914920500306D42 /* LikeControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		D56643EA29145A7E00306D42 /* GroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupTableViewCell.xib; sourceTree = "<group>"; };
 		D56643F0291460A000306D42 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		D56643F22914618500306D42 /* AllGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewController.swift; sourceTree = "<group>"; };
+		D56643F429147F0A00306D42 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		D56643FB2914920500306D42 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +80,13 @@
 		D566438F2911605D00306D42 /* VK */ = {
 			isa = PBXGroup;
 			children = (
+				D56643FA291491F100306D42 /* LikeControl */,
 				D56643E62914594E00306D42 /* AllGroups */,
 				D56643E52914592F00306D42 /* UserGroups */,
 				D56643D82913160300306D42 /* Login */,
 				D56643D92913164200306D42 /* FriendsList */,
 				D56643E029144EA800306D42 /* UserPhotosCollection */,
+				D56643F629147F1300306D42 /* CustomView */,
 				D56643902911605D00306D42 /* AppDelegate.swift */,
 				D56643922911605D00306D42 /* SceneDelegate.swift */,
 				D56643962911605D00306D42 /* Main.storyboard */,
@@ -159,6 +165,22 @@
 				D56643DC291442A500306D42 /* FriendsTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D56643F629147F1300306D42 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				D56643F429147F0A00306D42 /* AvatarView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		D56643FA291491F100306D42 /* LikeControl */ = {
+			isa = PBXGroup;
+			children = (
+				D56643FB2914920500306D42 /* LikeControl.swift */,
+			);
+			path = LikeControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,8 +300,10 @@
 			files = (
 				D56643F1291460A000306D42 /* Group.swift in Sources */,
 				D56643952911605D00306D42 /* LoginViewController.swift in Sources */,
+				D56643FC2914920500306D42 /* LikeControl.swift in Sources */,
 				D56643DB2914427F00306D42 /* FriendsListTableViewController.swift in Sources */,
 				D56643DD291442A500306D42 /* FriendsTableViewCell.swift in Sources */,
+				D56643F529147F0A00306D42 /* AvatarView.swift in Sources */,
 				D56643912911605D00306D42 /* AppDelegate.swift in Sources */,
 				D56643F32914618500306D42 /* AllGroupsTableViewController.swift in Sources */,
 				D56643E42914508300306D42 /* UserPhotoCollectionViewCell.swift in Sources */,

@@ -13,7 +13,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     // MARK: - Public Properties
 
-    var photos: [String] = []
+    var friendsInfo: [FriendsInfo] = []
 
     // MARK: - LifeCycle
 
@@ -28,7 +28,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos.count
+        friendsInfo.count
     }
 
     override func collectionView(
@@ -40,7 +40,10 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
             for: indexPath
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
-        cell.configure(imageName: photos[indexPath.row])
+        cell.configure(
+            imageName: friendsInfo[indexPath.row].avatarName,
+            likesCount: friendsInfo[indexPath.row].likesCount
+        )
         return cell
     }
 }
