@@ -8,9 +8,7 @@ final class UserPhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Private IBOutletsz
 
     @IBOutlet private var userPhotoImageView: UIImageView!
-    @IBOutlet var likeControl: LikeControl!
-
-    // MARK: - Life Cycle
+    @IBOutlet private var likeControl: LikeControl!
 
     // MARK: - Public Methods
 

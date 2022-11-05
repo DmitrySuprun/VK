@@ -28,11 +28,19 @@ final class AllGroupsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+    }
+
+    // MARK: - Private Properties
+
+    private func setupTableView() {
         tableView.register(
             UINib(nibName: Constants.cellNibName, bundle: nil),
             forCellReuseIdentifier: Constants.groupCellID
         )
     }
+    
+    
 
     // MARK: - Table view data source
 

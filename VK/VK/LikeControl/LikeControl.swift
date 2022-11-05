@@ -2,8 +2,15 @@
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
+
 /// Control for display like count and change value
-class LikeControl: UIControl {
+final class LikeControl: UIControl {
+    // MARK: - Private Constants
+    private enum Constants {
+        static let likedImageName = "heart.fill"
+        static let unLikesImageName = "heart"
+    }
+    
     // MARK: - Public Properties
 
     var likeCount = 0 {
@@ -14,12 +21,11 @@ class LikeControl: UIControl {
 
     var isLiked = true {
         didSet {
-            heartImageView.image = image
             likeCountLabel.text = String(likeCount)
             if isLiked {
-                heartImageView.image = UIImage(systemName: "heart")
+                heartImageView.image = UIImage(systemName: Constants.unLikesImageName)
             } else {
-                heartImageView.image = UIImage(systemName: "heart.fill")
+                heartImageView.image = UIImage(systemName: Constants.likedImageName)
             }
         }
     }
@@ -28,7 +34,6 @@ class LikeControl: UIControl {
 
     private var heartImageView = UIImageView()
     private var likeCountLabel = UILabel()
-    private lazy var image: UIImage? = self.isLiked ? UIImage(systemName: "heart") : UIImage(systemName: "heart.fill")
 
     // MARK: - Initializers
 
@@ -42,9 +47,8 @@ class LikeControl: UIControl {
         setupUI()
     }
 
-    @objc func touchUpInside() {
+    @objc private func touchUpInside() {
         let animation = CASpringAnimation(keyPath: #keyPath(CALayer.bounds))
-
         animation.fromValue = CGRect(
             x: 0,
             y: 0,
@@ -71,30 +75,34 @@ class LikeControl: UIControl {
     // MARK: - Private Methods
 
     private func setupUI() {
-        likeCountLabel.text = String(likeCount)
-        likeCountLabel.textAlignment = .center
-        likeCountLabel.textColor = .white
-
-        heartImageView.translatesAutoresizingMaskIntoConstraints = false
-        likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        backgroundColor = UIColor.clear
+        
         addSubview(heartImageView)
         addSubview(likeCountLabel)
+        setupConstraints()
+        
+        likeCountLabel.textAlignment = .center
+        likeCountLabel.textColor = .label
+
+        heartImageView.image = isLiked ?
+        UIImage(systemName: Constants.unLikesImageName) : UIImage(systemName: Constants.likedImageName)
+        
+        heartImageView.contentMode = .scaleAspectFit
+
+        addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
+    }
+    
+    private func setupConstraints() {
+        heartImageView.translatesAutoresizingMaskIntoConstraints = false
+        likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
 
         heartImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         heartImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1).isActive = true
         heartImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         heartImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-
-        heartImageView.image = image
-        heartImageView.contentMode = .scaleAspectFit
-
+        
         likeCountLabel.leadingAnchor.constraint(equalTo: heartImageView.trailingAnchor).isActive = true
         likeCountLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         likeCountLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
-        backgroundColor = UIColor.clear
-
-        addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
     }
 }

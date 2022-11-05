@@ -15,12 +15,6 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     var friendsInfo: [FriendsInfo] = []
 
-    // MARK: - LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

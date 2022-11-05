@@ -87,8 +87,7 @@
 				D56643D92913164200306D42 /* FriendsList */,
 				D56643E029144EA800306D42 /* UserPhotosCollection */,
 				D56643F629147F1300306D42 /* CustomView */,
-				D56643902911605D00306D42 /* AppDelegate.swift */,
-				D56643922911605D00306D42 /* SceneDelegate.swift */,
+				D5CFB2552915E4B3003DD149 /* Application */,
 				D56643962911605D00306D42 /* Main.storyboard */,
 				D56643992911605E00306D42 /* Assets.xcassets */,
 				D566439B2911605E00306D42 /* LaunchScreen.storyboard */,
@@ -181,6 +180,15 @@
 				D56643FB2914920500306D42 /* LikeControl.swift */,
 			);
 			path = LikeControl;
+			sourceTree = "<group>";
+		};
+		D5CFB2552915E4B3003DD149 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				D56643902911605D00306D42 /* AppDelegate.swift */,
+				D56643922911605D00306D42 /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

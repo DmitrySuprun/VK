@@ -20,14 +20,15 @@ final class UserGroupsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+    }
+    
+    // MARK: - Private Methods
+    private func setupTableView() {
         tableView.register(
             UINib(nibName: Constants.cellNibName, bundle: nil),
             forCellReuseIdentifier: Constants.groupCellID
         )
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
 
     // MARK: - Table view data source

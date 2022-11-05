@@ -4,22 +4,30 @@
 import UIKit
 
 /// Custom AvatarView
-class AvatarView: UIView {
-    // MARK: - IBInspectable Properties
+final class AvatarView: UIView {
+    // MARK: - Public Properties
 
-    @IBInspectable var shadowColor: UIColor = .black {
+    var image: UIImage? {
+        didSet {
+            avatarImageView.image = image
+        }
+    }
+
+    // MARK: - Private IBInspectable Properties
+
+    @IBInspectable private var shadowColor: UIColor = .black {
         didSet {
             layer.shadowColor = shadowColor.cgColor
         }
     }
 
-    @IBInspectable var shadowOpacity: Float = 0.8 {
+    @IBInspectable private var shadowOpacity: Float = 0.8 {
         didSet {
             layer.shadowOpacity = shadowOpacity
         }
     }
 
-    @IBInspectable var shadowRadius: CGFloat = 5 {
+    @IBInspectable private var shadowRadius: CGFloat = 5 {
         didSet {
             layer.shadowRadius = shadowRadius
         }
@@ -36,14 +44,6 @@ class AvatarView: UIView {
         return imageView
     }()
 
-    // MARK: - Public Properties
-
-    var image: UIImage? {
-        didSet {
-            avatarImageView.image = image
-        }
-    }
-
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -56,7 +56,7 @@ class AvatarView: UIView {
         setupUI()
     }
 
-    // MARK: - Private Properties
+    // MARK: - Private Methods
 
     private func setupUI() {
         addSubview(avatarImageView)
