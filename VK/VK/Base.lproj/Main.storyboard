@@ -154,7 +154,7 @@
                     <navigationItem key="navigationItem" id="tG4-mE-yye">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Lg8-8l-MTO">
                             <connections>
-                                <segue destination="yGg-Cv-Ea7" kind="show" id="YJm-VL-por"/>
+                                <segue destination="O9j-Hr-EuJ" kind="show" id="Omb-MS-SKw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -163,38 +163,45 @@
             </objects>
             <point key="canvasLocation" x="2650" y="736"/>
         </scene>
-        <!--All Groups Table View Controller-->
-        <scene sceneID="y1J-kW-P5g">
+        <!--All Groups View Controller-->
+        <scene sceneID="RYE-Ya-WdI">
             <objects>
-                <tableViewController id="yGg-Cv-Ea7" customClass="AllGroupsTableViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="tac-dD-3qA">
+                <tableViewController id="O9j-Hr-EuJ" customClass="AllGroupsViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="tM5-oL-gMF">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="szJ-uO-Eiw">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="O9j-Hr-EuJ" id="bld-d9-3KQ"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupCellID" id="ptr-TF-3sw" customClass="GroupTableViewCell" customModule="VK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="xfY-OZ-cFp">
+                                <rect key="frame" x="0.0" y="94" width="393" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ptr-TF-3sw" id="OXf-s9-Bho" customClass="GroupTableViewCell" customModule="VK" customModuleProvider="target">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xfY-OZ-cFp" id="lM6-l2-13F">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="CUd-cg-GnH" kind="unwind" unwindAction="addGroupWithSegue:" id="Fhe-cX-7pb"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="yGg-Cv-Ea7" id="VjN-gd-3cY"/>
-                            <outlet property="delegate" destination="yGg-Cv-Ea7" id="0SC-t5-32K"/>
+                            <outlet property="dataSource" destination="O9j-Hr-EuJ" id="Ghf-Nl-Mcw"/>
+                            <outlet property="delegate" destination="O9j-Hr-EuJ" id="9gd-WV-l1X"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="fNp-DP-e7c"/>
+                    <navigationItem key="navigationItem" id="u2H-Xn-x0O"/>
+                    <connections>
+                        <outlet property="groupsSearchBar" destination="szJ-uO-Eiw" id="TTf-Ga-gsv"/>
+                    </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y1L-A8-eHi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="CUd-cg-GnH" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bKQ-3M-S5G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3509" y="736"/>
+            <point key="canvasLocation" x="3500" y="736"/>
         </scene>
         <!--Groups-->
         <scene sceneID="U5e-uU-Zax">

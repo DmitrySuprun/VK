@@ -6,11 +6,12 @@ import UIKit
 /// Control for display like count and change value
 final class LikeControl: UIControl {
     // MARK: - Private Constants
+
     private enum Constants {
         static let likedImageName = "heart.fill"
         static let unLikesImageName = "heart"
     }
-    
+
     // MARK: - Public Properties
 
     var likeCount = 0 {
@@ -76,22 +77,22 @@ final class LikeControl: UIControl {
 
     private func setupUI() {
         backgroundColor = UIColor.clear
-        
+
         addSubview(heartImageView)
         addSubview(likeCountLabel)
         setupConstraints()
-        
+
         likeCountLabel.textAlignment = .center
         likeCountLabel.textColor = .label
 
         heartImageView.image = isLiked ?
-        UIImage(systemName: Constants.unLikesImageName) : UIImage(systemName: Constants.likedImageName)
-        
+            UIImage(systemName: Constants.unLikesImageName) : UIImage(systemName: Constants.likedImageName)
+
         heartImageView.contentMode = .scaleAspectFit
 
         addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
     }
-    
+
     private func setupConstraints() {
         heartImageView.translatesAutoresizingMaskIntoConstraints = false
         likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +101,7 @@ final class LikeControl: UIControl {
         heartImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1).isActive = true
         heartImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         heartImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        
+
         likeCountLabel.leadingAnchor.constraint(equalTo: heartImageView.trailingAnchor).isActive = true
         likeCountLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         likeCountLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true

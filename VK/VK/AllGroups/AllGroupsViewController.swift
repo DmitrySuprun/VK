@@ -1,16 +1,20 @@
-// AllGroupsTableViewController.swift
+// AllGroupsViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// All existing groups
-final class AllGroupsTableViewController: UITableViewController {
+final class AllGroupsViewController: UITableViewController {
     // MARK: - Constants
 
     private enum Constants {
         static let groupCellID = "groupCellID"
         static let cellNibName = "GroupTableViewCell"
     }
+
+    // MARK: - IBOutlets
+
+    @IBOutlet var groupsSearchBar: UISearchBar!
 
     // MARK: - Public Properties
 
@@ -23,6 +27,15 @@ final class AllGroupsTableViewController: UITableViewController {
         Group(name: "Water", imageName: "106"),
         Group(name: "Air", imageName: "100")
     ]
+
+    var filteredGroups: [Group] {
+        let searchText = groupsSearchBar.text ?? ""
+        if searchText.isEmpty {
+            return groups
+        } else {
+            return groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+    }
 
     // MARK: - Life Cycle
 
@@ -39,17 +52,15 @@ final class AllGroupsTableViewController: UITableViewController {
             forCellReuseIdentifier: Constants.groupCellID
         )
     }
-    
-    
 
-    // MARK: - Table view data source
+    // MARK: - TableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groups.count
+        filteredGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,7 +69,7 @@ final class AllGroupsTableViewController: UITableViewController {
             for: indexPath
         ) as? GroupTableViewCell
         else { return UITableViewCell() }
-        let group = groups[indexPath.row]
+        let group = filteredGroups[indexPath.row]
         cell.configure(nameLabelText: group.name, groupsImageName: group.imageName)
         return cell
     }
@@ -69,9 +80,17 @@ final class AllGroupsTableViewController: UITableViewController {
         else { return }
 
         if !userGroupsViewController.groups.contains(where: { $0.name == groups[indexPath.row].name }) {
-            userGroupsViewController.groups.append(groups[indexPath.row])
+            userGroupsViewController.groups.append(filteredGroups[indexPath.row])
             userGroupsViewController.tableView.reloadData()
         }
         navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension AllGroupsViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        tableView.reloadData()
     }
 }

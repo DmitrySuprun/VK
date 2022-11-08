@@ -10,6 +10,7 @@ final class FriendsListTableViewController: UITableViewController {
     private enum Constants {
         static let friendsCellID = "friendsCellID"
         static let friendsInfoSegueID = "friendsInfoSegueID"
+        static let emptyCharacter = Character("")
     }
 
     // MARK: - Public Properties
@@ -57,10 +58,34 @@ final class FriendsListTableViewController: UITableViewController {
         FriendsInfo(name: "Ibrahim", avatarName: "39", likesCount: 96)
     ]
 
+    // MARK: - Private Properties
+
+    private var sortedFriendsList: [Character: [FriendsInfo]] = [:]
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        sortedFriendsList = makeFriendsSortedList(friendsInfo: friendsList)
+    }
+
+    // MARK: - Private Methods
+
+    private func makeFriendsSortedList(friendsInfo: [FriendsInfo]) -> [Character: [FriendsInfo]] {
+        var list: [Character: [FriendsInfo]] = [:]
+        for info in friendsInfo {
+            if let key = info.name.first {
+                if list[key] == nil {
+                    list[key] = [info]
+                } else {
+                    list[key]?.append(info)
+                    list[key]?.sort {
+                        $0.name.first ?? Constants.emptyCharacter > $1.name.first ?? Constants.emptyCharacter
+                    }
+                }
+            }
+        }
+        return list
     }
 
     // MARK: - Public Methods
@@ -69,18 +94,23 @@ final class FriendsListTableViewController: UITableViewController {
         guard segue.identifier == Constants.friendsInfoSegueID,
               let userPhotosViewController = segue.destination as? UserPhotosCollectionViewController
         else { return }
-        let photoIndex = tableView.indexPathForSelectedRow?.row ?? 0
-        userPhotosViewController.friendsInfo.append(friendsList[photoIndex])
+        guard let friendInfoIndexPath = tableView.indexPathForSelectedRow else { return }
+        let sortedKeys = sortedFriendsList.keys.sorted()
+        let key = sortedKeys[friendInfoIndexPath.section]
+        guard let friendsInfo = sortedFriendsList[key]?[friendInfoIndexPath.row] else { return }
+        userPhotosViewController.friendsInfo.append(friendsInfo)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        sortedFriendsList.keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendsList.count
+        let sortedKeys = sortedFriendsList.keys.sorted()
+        let key = sortedKeys[section]
+        return sortedFriendsList[key]?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,8 +119,25 @@ final class FriendsListTableViewController: UITableViewController {
             for: indexPath
         ) as? FriendsTableViewCell
         else { return UITableViewCell() }
-        let friendsInfo = friendsList[indexPath.row]
+        let sortedKeys = sortedFriendsList.keys.sorted()
+        let key = sortedKeys[indexPath.section]
+        guard let friendsListSection = sortedFriendsList[key] else { return UITableViewCell() }
+        let friendsInfo = friendsListSection[indexPath.row]
         cell.configure(nameLabelText: friendsInfo.name, avatarImageName: friendsInfo.avatarName)
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sortedKeys = sortedFriendsList.keys.sorted()
+        return String(sortedKeys[section])
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let headerView = view as? UITableViewHeaderFooterView
+        headerView?.contentView.backgroundColor = .systemBlue
+        headerView?.contentView.alpha = 0.3
+//        let config = headerView?.contentConfiguration
+//        let config2 = UIListContentConfiguration
+//        config2.te
     }
 }
