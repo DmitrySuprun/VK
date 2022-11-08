@@ -134,10 +134,7 @@ final class FriendsListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let headerView = view as? UITableViewHeaderFooterView
-        headerView?.contentView.backgroundColor = .systemBlue
+        headerView?.contentView.backgroundColor = .systemGray6
         headerView?.contentView.alpha = 0.3
-//        let config = headerView?.contentConfiguration
-//        let config2 = UIListContentConfiguration
-//        config2.te
     }
 }

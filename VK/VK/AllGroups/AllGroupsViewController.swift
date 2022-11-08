@@ -28,7 +28,9 @@ final class AllGroupsViewController: UITableViewController {
         Group(name: "Air", imageName: "100")
     ]
 
-    var filteredGroups: [Group] {
+    // MARK: - Private Properties
+
+    private var filteredGroups: [Group] {
         let searchText = groupsSearchBar.text ?? ""
         if searchText.isEmpty {
             return groups
@@ -44,7 +46,7 @@ final class AllGroupsViewController: UITableViewController {
         setupTableView()
     }
 
-    // MARK: - Private Properties
+    // MARK: - Private Methods
 
     private func setupTableView() {
         tableView.register(

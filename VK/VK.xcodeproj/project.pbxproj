@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D507E383291ACBCF00679342 /* DotsAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507E382291ACBCF00679342 /* DotsAnimationView.swift */; };
+		D507E385291ADD3E00679342 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507E384291ADD3E00679342 /* StartViewController.swift */; };
 		D549998F291A84C70085A3B7 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D549998E291A84C70085A3B7 /* NewsTableViewController.swift */; };
 		D5499991291A86160085A3B7 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5499990291A86160085A3B7 /* NewsTableViewCell.swift */; };
 		D56643912911605D00306D42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643902911605D00306D42 /* AppDelegate.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D507E382291ACBCF00679342 /* DotsAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsAnimationView.swift; sourceTree = "<group>"; };
+		D507E384291ADD3E00679342 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		D549998E291A84C70085A3B7 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		D5499990291A86160085A3B7 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		D566438D2911605D00306D42 /* VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +69,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D507E381291ACB9D00679342 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				D507E382291ACBCF00679342 /* DotsAnimationView.swift */,
+				D507E384291ADD3E00679342 /* StartViewController.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		D549998D291A84A10085A3B7 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +106,7 @@
 		D566438F2911605D00306D42 /* VK */ = {
 			isa = PBXGroup;
 			children = (
+				D507E381291ACB9D00679342 /* Animation */,
 				D549998D291A84A10085A3B7 /* News */,
 				D56643FA291491F100306D42 /* LikeControl */,
 				D56643E62914594E00306D42 /* AllGroups */,
@@ -321,9 +335,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D56643F1291460A000306D42 /* Group.swift in Sources */,
+				D507E383291ACBCF00679342 /* DotsAnimationView.swift in Sources */,
 				D56643952911605D00306D42 /* LoginViewController.swift in Sources */,
 				D5499991291A86160085A3B7 /* NewsTableViewCell.swift in Sources */,
 				D56643FC2914920500306D42 /* LikeControl.swift in Sources */,
+				D507E385291ADD3E00679342 /* StartViewController.swift in Sources */,
 				D56643DB2914427F00306D42 /* FriendsListTableViewController.swift in Sources */,
 				D56643DD291442A500306D42 /* FriendsTableViewCell.swift in Sources */,
 				D56643F529147F0A00306D42 /* AvatarView.swift in Sources */,

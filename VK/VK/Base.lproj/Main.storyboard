@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rXp-rr-TdO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jte-qQ-jBB">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginViewControllerID" id="BYZ-38-t0r" customClass="LoginViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9.375" y="-3.1690140845070425"/>
+            <point key="canvasLocation" x="-103" y="-1"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="nbN-of-U5f">
@@ -259,33 +259,59 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="news01" translatesAutoresizingMaskIntoConstraints="NO" id="Yf7-h7-Hlf">
-                                                    <rect key="frame" x="0.0" y="60" width="393" height="263"/>
+                                                    <rect key="frame" x="0.0" y="60" width="393" height="213"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Text Text Text Text Text Text Text Text Text Text Text Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdF-Fb-hmL">
-                                                    <rect key="frame" x="0.0" y="323" width="393" height="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdF-Fb-hmL">
+                                                    <rect key="frame" x="0.0" y="273" width="393" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="His-dk-fj1"/>
+                                                        <constraint firstAttribute="height" constant="50" id="His-dk-fj1"/>
                                                     </constraints>
+                                                    <string key="text">Как то приехали американцы в Грузию и решили поспорить с одним грузином где живут дольше. Американцы рассказали грузина, что в больнице у них лежит старик с возрастом 104 года. </string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Text Text Text Text Text Text Text Text Text Text Text Text Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W04-pz-tOP">
-                                                    <rect key="frame" x="0.0" y="348" width="393" height="25"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vme-Kh-9Oy">
+                                                    <rect key="frame" x="0.0" y="323" width="393" height="50"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYB-a5-eTe">
+                                                            <rect key="frame" x="8" y="8" width="78.333333333333329" height="34.333333333333336"/>
+                                                            <color key="tintColor" systemColor="systemGrayColor"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="gray" image="heart" catalog="system" title="251"/>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nlk-a3-3bt">
+                                                            <rect key="frame" x="94" y="8" width="73.333333333333314" height="34.333333333333336"/>
+                                                            <color key="tintColor" systemColor="systemGrayColor"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="gray" image="bubble.right" catalog="system" title="23"/>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-w4-erT">
+                                                            <rect key="frame" x="175" y="8" width="72" height="34.333333333333336"/>
+                                                            <color key="tintColor" systemColor="systemGrayColor"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.right" catalog="system" title="48"/>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="RTY-mC-2Rm"/>
+                                                        <constraint firstItem="Nlk-a3-3bt" firstAttribute="centerY" secondItem="PYB-a5-eTe" secondAttribute="centerY" id="1FG-EN-pKK"/>
+                                                        <constraint firstItem="Sbb-w4-erT" firstAttribute="centerY" secondItem="Nlk-a3-3bt" secondAttribute="centerY" id="9Yd-2m-Ai1"/>
+                                                        <constraint firstItem="PYB-a5-eTe" firstAttribute="leading" secondItem="Vme-Kh-9Oy" secondAttribute="leading" constant="8" id="Ig2-YA-7p3"/>
+                                                        <constraint firstAttribute="height" constant="50" id="Jsy-lA-c5U"/>
+                                                        <constraint firstItem="PYB-a5-eTe" firstAttribute="centerY" secondItem="Vme-Kh-9Oy" secondAttribute="centerY" id="ULa-ie-6FL"/>
+                                                        <constraint firstItem="Nlk-a3-3bt" firstAttribute="leading" secondItem="PYB-a5-eTe" secondAttribute="trailing" constant="7.6666666666666714" id="fip-Ge-avp"/>
+                                                        <constraint firstItem="Sbb-w4-erT" firstAttribute="leading" secondItem="Nlk-a3-3bt" secondAttribute="trailing" constant="7.6666666666666856" id="tC7-7m-bo4"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="W04-pz-tOP" secondAttribute="bottom" id="5aw-o2-xEX"/>
                                                 <constraint firstItem="WdF-Fb-hmL" firstAttribute="leading" secondItem="ojO-Rv-qQ0" secondAttribute="leading" id="Vii-9r-TqT"/>
-                                                <constraint firstItem="W04-pz-tOP" firstAttribute="leading" secondItem="ojO-Rv-qQ0" secondAttribute="leading" id="aqb-ob-aJt"/>
+                                                <constraint firstAttribute="trailing" secondItem="Vme-Kh-9Oy" secondAttribute="trailing" id="WtW-SI-D3C"/>
+                                                <constraint firstAttribute="bottom" secondItem="Vme-Kh-9Oy" secondAttribute="bottom" id="eTp-oe-vPW"/>
+                                                <constraint firstItem="Vme-Kh-9Oy" firstAttribute="leading" secondItem="ojO-Rv-qQ0" secondAttribute="leading" id="ssZ-SG-71s"/>
+                                                <constraint firstItem="Vme-Kh-9Oy" firstAttribute="top" secondItem="WdF-Fb-hmL" secondAttribute="bottom" id="w8u-MM-zzk"/>
                                                 <constraint firstAttribute="trailing" secondItem="WdF-Fb-hmL" secondAttribute="trailing" id="wh3-rr-P3n"/>
-                                                <constraint firstAttribute="trailing" secondItem="W04-pz-tOP" secondAttribute="trailing" id="zHW-FH-2uj"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
@@ -461,6 +487,28 @@
             </objects>
             <point key="canvasLocation" x="1766" y="-1"/>
         </scene>
+        <!--Start View Controller-->
+        <scene sceneID="1AL-W9-l0H">
+            <objects>
+                <viewController id="Jte-qQ-jBB" customClass="StartViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fZe-iY-hRW">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYG-nG-aYE" customClass="DotsAnimationView" customModule="VK" customModuleProvider="target">
+                                <rect key="frame" x="76" y="362" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="GS1-T6-f3q"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n8Z-5z-7Oh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1013" y="-1"/>
+        </scene>
         <!--News-->
         <scene sceneID="A5x-aG-VeV">
             <objects>
@@ -483,6 +531,9 @@
     </scenes>
     <resources>
         <image name="0" width="184" height="184"/>
+        <image name="arrowshape.turn.up.right" catalog="system" width="128" height="104"/>
+        <image name="bubble.right" catalog="system" width="128" height="110"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
         <image name="logo" width="72" height="72"/>
         <image name="news01" width="900" height="506"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
