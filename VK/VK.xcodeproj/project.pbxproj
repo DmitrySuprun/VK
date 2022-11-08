@@ -13,6 +13,18 @@
 		D56643982911605D00306D42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D56643962911605D00306D42 /* Main.storyboard */; };
 		D566439A2911605E00306D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D56643992911605E00306D42 /* Assets.xcassets */; };
 		D566439D2911605E00306D42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D566439B2911605E00306D42 /* LaunchScreen.storyboard */; };
+		D56643DB2914427F00306D42 /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643DA2914427F00306D42 /* FriendsListTableViewController.swift */; };
+		D56643DD291442A500306D42 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643DC291442A500306D42 /* FriendsTableViewCell.swift */; };
+		D56643DF2914459900306D42 /* FriendsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643DE2914459900306D42 /* FriendsInfo.swift */; };
+		D56643E22914504D00306D42 /* UserPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643E12914504D00306D42 /* UserPhotosCollectionViewController.swift */; };
+		D56643E42914508300306D42 /* UserPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643E32914508300306D42 /* UserPhotoCollectionViewCell.swift */; };
+		D56643E82914599900306D42 /* UserGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643E72914599900306D42 /* UserGroupsTableViewController.swift */; };
+		D56643EB29145A7E00306D42 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643E929145A7E00306D42 /* GroupTableViewCell.swift */; };
+		D56643EC29145A7E00306D42 /* GroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D56643EA29145A7E00306D42 /* GroupTableViewCell.xib */; };
+		D56643F1291460A000306D42 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643F0291460A000306D42 /* Group.swift */; };
+		D56643F32914618500306D42 /* AllGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643F22914618500306D42 /* AllGroupsTableViewController.swift */; };
+		D56643F529147F0A00306D42 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643F429147F0A00306D42 /* AvatarView.swift */; };
+		D56643FC2914920500306D42 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643FB2914920500306D42 /* LikeControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +36,18 @@
 		D56643992911605E00306D42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D566439C2911605E00306D42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D566439E2911605E00306D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D56643DA2914427F00306D42 /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
+		D56643DC291442A500306D42 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
+		D56643DE2914459900306D42 /* FriendsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInfo.swift; sourceTree = "<group>"; };
+		D56643E12914504D00306D42 /* UserPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotosCollectionViewController.swift; sourceTree = "<group>"; };
+		D56643E32914508300306D42 /* UserPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		D56643E72914599900306D42 /* UserGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsTableViewController.swift; sourceTree = "<group>"; };
+		D56643E929145A7E00306D42 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
+		D56643EA29145A7E00306D42 /* GroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupTableViewCell.xib; sourceTree = "<group>"; };
+		D56643F0291460A000306D42 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		D56643F22914618500306D42 /* AllGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewController.swift; sourceTree = "<group>"; };
+		D56643F429147F0A00306D42 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		D56643FB2914920500306D42 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +80,115 @@
 		D566438F2911605D00306D42 /* VK */ = {
 			isa = PBXGroup;
 			children = (
-				D56643902911605D00306D42 /* AppDelegate.swift */,
-				D56643922911605D00306D42 /* SceneDelegate.swift */,
-				D56643942911605D00306D42 /* LoginViewController.swift */,
+				D56643FA291491F100306D42 /* LikeControl */,
+				D56643E62914594E00306D42 /* AllGroups */,
+				D56643E52914592F00306D42 /* UserGroups */,
+				D56643D82913160300306D42 /* Login */,
+				D56643D92913164200306D42 /* FriendsList */,
+				D56643E029144EA800306D42 /* UserPhotosCollection */,
+				D56643F629147F1300306D42 /* CustomView */,
+				D5CFB2552915E4B3003DD149 /* Application */,
 				D56643962911605D00306D42 /* Main.storyboard */,
 				D56643992911605E00306D42 /* Assets.xcassets */,
 				D566439B2911605E00306D42 /* LaunchScreen.storyboard */,
 				D566439E2911605E00306D42 /* Info.plist */,
 			);
 			path = VK;
+			sourceTree = "<group>";
+		};
+		D56643D82913160300306D42 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D56643942911605D00306D42 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D56643D92913164200306D42 /* FriendsList */ = {
+			isa = PBXGroup;
+			children = (
+				D56643ED29145F3200306D42 /* VC */,
+				D56643EF29145F4C00306D42 /* Cell */,
+				D56643EE29145F4000306D42 /* Model */,
+			);
+			path = FriendsList;
+			sourceTree = "<group>";
+		};
+		D56643E029144EA800306D42 /* UserPhotosCollection */ = {
+			isa = PBXGroup;
+			children = (
+				D56643E12914504D00306D42 /* UserPhotosCollectionViewController.swift */,
+				D56643E32914508300306D42 /* UserPhotoCollectionViewCell.swift */,
+			);
+			path = UserPhotosCollection;
+			sourceTree = "<group>";
+		};
+		D56643E52914592F00306D42 /* UserGroups */ = {
+			isa = PBXGroup;
+			children = (
+				D56643E72914599900306D42 /* UserGroupsTableViewController.swift */,
+				D56643E929145A7E00306D42 /* GroupTableViewCell.swift */,
+				D56643F0291460A000306D42 /* Group.swift */,
+				D56643EA29145A7E00306D42 /* GroupTableViewCell.xib */,
+			);
+			path = UserGroups;
+			sourceTree = "<group>";
+		};
+		D56643E62914594E00306D42 /* AllGroups */ = {
+			isa = PBXGroup;
+			children = (
+				D56643F22914618500306D42 /* AllGroupsTableViewController.swift */,
+			);
+			path = AllGroups;
+			sourceTree = "<group>";
+		};
+		D56643ED29145F3200306D42 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				D56643DA2914427F00306D42 /* FriendsListTableViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		D56643EE29145F4000306D42 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D56643DE2914459900306D42 /* FriendsInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D56643EF29145F4C00306D42 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D56643DC291442A500306D42 /* FriendsTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		D56643F629147F1300306D42 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				D56643F429147F0A00306D42 /* AvatarView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		D56643FA291491F100306D42 /* LikeControl */ = {
+			isa = PBXGroup;
+			children = (
+				D56643FB2914920500306D42 /* LikeControl.swift */,
+			);
+			path = LikeControl;
+			sourceTree = "<group>";
+		};
+		D5CFB2552915E4B3003DD149 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				D56643902911605D00306D42 /* AppDelegate.swift */,
+				D56643922911605D00306D42 /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +254,7 @@
 				D566439D2911605E00306D42 /* LaunchScreen.storyboard in Resources */,
 				D566439A2911605E00306D42 /* Assets.xcassets in Resources */,
 				D56643982911605D00306D42 /* Main.storyboard in Resources */,
+				D56643EC29145A7E00306D42 /* GroupTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,9 +306,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D56643F1291460A000306D42 /* Group.swift in Sources */,
 				D56643952911605D00306D42 /* LoginViewController.swift in Sources */,
+				D56643FC2914920500306D42 /* LikeControl.swift in Sources */,
+				D56643DB2914427F00306D42 /* FriendsListTableViewController.swift in Sources */,
+				D56643DD291442A500306D42 /* FriendsTableViewCell.swift in Sources */,
+				D56643F529147F0A00306D42 /* AvatarView.swift in Sources */,
 				D56643912911605D00306D42 /* AppDelegate.swift in Sources */,
+				D56643F32914618500306D42 /* AllGroupsTableViewController.swift in Sources */,
+				D56643E42914508300306D42 /* UserPhotoCollectionViewCell.swift in Sources */,
 				D56643932911605D00306D42 /* SceneDelegate.swift in Sources */,
+				D56643E22914504D00306D42 /* UserPhotosCollectionViewController.swift in Sources */,
+				D56643E82914599900306D42 /* UserGroupsTableViewController.swift in Sources */,
+				D56643DF2914459900306D42 /* FriendsInfo.swift in Sources */,
+				D56643EB29145A7E00306D42 /* GroupTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,7 @@ import UIKit
 /// User authentication
 final class LoginViewController: UIViewController {
     // MARK: - Constants
+
     private enum Constants {
         static let loginText = "1"
         static let passwordText = "1"
@@ -13,6 +14,7 @@ final class LoginViewController: UIViewController {
         static let wrongPasswordText = "Wrong Password"
         static let okText = "Ok"
     }
+
     // MARK: - IBOutlets
 
     @IBOutlet private var loginTextField: UITextField!
@@ -116,9 +118,14 @@ final class LoginViewController: UIViewController {
 }
 
 // MARK: - AlertController
+
 private extension LoginViewController {
     func showLoginError() {
-        let alertWrongPassword = UIAlertController(title: Constants.errorText, message: Constants.wrongPasswordText, preferredStyle: .alert)
+        let alertWrongPassword = UIAlertController(
+            title: Constants.errorText,
+            message: Constants.wrongPasswordText,
+            preferredStyle: .alert
+        )
         let okButton = UIAlertAction(title: Constants.okText, style: .default, handler: nil)
         alertWrongPassword.addAction(okButton)
         present(alertWrongPassword, animated: true, completion: nil)
