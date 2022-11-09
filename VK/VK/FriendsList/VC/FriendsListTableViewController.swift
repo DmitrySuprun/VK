@@ -10,6 +10,7 @@ final class FriendsListTableViewController: UITableViewController {
     private enum Constants {
         static let friendsCellID = "friendsCellID"
         static let friendsInfoSegueID = "friendsInfoSegueID"
+        static let emptyCharacter = Character("")
     }
 
     // MARK: - Public Properties
@@ -57,10 +58,35 @@ final class FriendsListTableViewController: UITableViewController {
         FriendsInfo(name: "Ibrahim", avatarName: "39", likesCount: 96)
     ]
 
+    // MARK: - Private Properties
+
+    private var sortedFriendsMap: [Character: [FriendsInfo]] = [:]
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        makeFriendsSortedMap(friendsInfo: friendsList)
+    }
+
+    // MARK: - Private Methods
+//    private func make
+
+    private func makeFriendsSortedMap(friendsInfo: [FriendsInfo]) {
+        var friendsMap: [Character: [FriendsInfo]] = [:]
+        for info in friendsInfo {
+            if let key = info.name.first {
+                if friendsMap[key] == nil {
+                    friendsMap[key] = [info]
+                } else {
+                    friendsMap[key]?.append(info)
+                    friendsMap[key]?.sort {
+                        $0.name.first ?? Constants.emptyCharacter > $1.name.first ?? Constants.emptyCharacter
+                    }
+                }
+            }
+        }
+        sortedFriendsMap = friendsMap
     }
 
     // MARK: - Public Methods
@@ -69,18 +95,23 @@ final class FriendsListTableViewController: UITableViewController {
         guard segue.identifier == Constants.friendsInfoSegueID,
               let userPhotosViewController = segue.destination as? UserPhotosCollectionViewController
         else { return }
-        let photoIndex = tableView.indexPathForSelectedRow?.row ?? 0
-        userPhotosViewController.friendsInfo.append(friendsList[photoIndex])
+        guard let friendInfoIndexPath = tableView.indexPathForSelectedRow else { return }
+        let sortedKeys = sortedFriendsMap.keys.sorted()
+        let key = sortedKeys[friendInfoIndexPath.section]
+        guard let friendsInfo = sortedFriendsMap[key]?[friendInfoIndexPath.row] else { return }
+        userPhotosViewController.friendsInfo.append(friendsInfo)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        sortedFriendsMap.keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendsList.count
+        let sortedKeys = sortedFriendsMap.keys.sorted()
+        let key = sortedKeys[section]
+        return sortedFriendsMap[key]?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,8 +120,22 @@ final class FriendsListTableViewController: UITableViewController {
             for: indexPath
         ) as? FriendsTableViewCell
         else { return UITableViewCell() }
-        let friendsInfo = friendsList[indexPath.row]
+        let sortedKeys = sortedFriendsMap.keys.sorted()
+        let key = sortedKeys[indexPath.section]
+        guard let friendsListSection = sortedFriendsMap[key] else { return UITableViewCell() }
+        let friendsInfo = friendsListSection[indexPath.row]
         cell.configure(nameLabelText: friendsInfo.name, avatarImageName: friendsInfo.avatarName)
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sortedKeys = sortedFriendsMap.keys.sorted()
+        return String(sortedKeys[section])
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let headerView = view as? UITableViewHeaderFooterView
+        headerView?.contentView.backgroundColor = .systemGray6
+        headerView?.contentView.alpha = 0.3
     }
 }

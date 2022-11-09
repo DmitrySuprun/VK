@@ -22,8 +22,9 @@ final class UserGroupsTableViewController: UITableViewController {
         super.viewDidLoad()
         setupTableView()
     }
-    
+
     // MARK: - Private Methods
+
     private func setupTableView() {
         tableView.register(
             UINib(nibName: Constants.cellNibName, bundle: nil),

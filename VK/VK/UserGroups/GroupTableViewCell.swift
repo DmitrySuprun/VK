@@ -10,6 +10,8 @@ final class GroupTableViewCell: UITableViewCell {
     @IBOutlet private var groupsImageView: UIImageView!
     @IBOutlet private var groupsNameLabel: UILabel!
 
+    // MARK: - Public Properties
+
     func configure(nameLabelText: String, groupsImageName: String) {
         groupsNameLabel.text = nameLabelText
         groupsImageView.image = UIImage(named: groupsImageName)
