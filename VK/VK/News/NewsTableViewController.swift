@@ -11,12 +11,6 @@ final class NewsTableViewController: UITableViewController {
         static let newsTableViewCellID = "newsTableViewCellID"
     }
 
-    // MARK: - Life Cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

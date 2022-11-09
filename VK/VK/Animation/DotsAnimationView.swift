@@ -7,10 +7,10 @@ import UIKit
 final class DotsAnimationView: UIView {
     // MARK: - Private Visual Components
 
-    private let dot1 = UIView()
-    private let dot2 = UIView()
-    private let dot3 = UIView()
-    private let hStack = UIStackView()
+    private let firstDotView = UIView()
+    private let middleDotView = UIView()
+    private let lastDotView = UIView()
+    private let dotsHorizontalStackView = UIStackView()
 
     // MARK: - Life Cycle
 
@@ -26,21 +26,21 @@ final class DotsAnimationView: UIView {
         guard let superviewCenter = superview?.center else { return }
         center = superviewCenter
 
-        addSubview(hStack)
-        hStack.axis = .horizontal
-        hStack.spacing = 20
-        hStack.distribution = .fillEqually
-        hStack.frame = CGRect(origin: .zero, size: frame.size)
+        addSubview(dotsHorizontalStackView)
+        dotsHorizontalStackView.axis = .horizontal
+        dotsHorizontalStackView.spacing = 20
+        dotsHorizontalStackView.distribution = .fillEqually
+        dotsHorizontalStackView.frame = CGRect(origin: .zero, size: frame.size)
 
-        setupView(view: dot1)
-        setupView(view: dot2)
-        setupView(view: dot3)
-        hStack.addArrangedSubview(dot1)
-        hStack.addArrangedSubview(dot2)
-        hStack.addArrangedSubview(dot3)
-        flashAnimation(view: dot1, startDelay: 0)
-        flashAnimation(view: dot2, startDelay: 0.3)
-        flashAnimation(view: dot3, startDelay: 0.6)
+        setupView(view: firstDotView)
+        setupView(view: middleDotView)
+        setupView(view: lastDotView)
+        dotsHorizontalStackView.addArrangedSubview(firstDotView)
+        dotsHorizontalStackView.addArrangedSubview(middleDotView)
+        dotsHorizontalStackView.addArrangedSubview(lastDotView)
+        flashAnimation(view: firstDotView, startDelay: 0)
+        flashAnimation(view: middleDotView, startDelay: 0.3)
+        flashAnimation(view: lastDotView, startDelay: 0.6)
     }
 
     private func setupView(view: UIView) {

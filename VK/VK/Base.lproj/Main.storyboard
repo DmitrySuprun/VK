@@ -487,10 +487,10 @@
             </objects>
             <point key="canvasLocation" x="1766" y="-1"/>
         </scene>
-        <!--Start View Controller-->
+        <!--Greeting Animation View Controller-->
         <scene sceneID="1AL-W9-l0H">
             <objects>
-                <viewController id="Jte-qQ-jBB" customClass="StartViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Jte-qQ-jBB" customClass="GreetingAnimationViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fZe-iY-hRW">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

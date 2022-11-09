@@ -14,7 +14,7 @@ final class AllGroupsViewController: UITableViewController {
 
     // MARK: - IBOutlets
 
-    @IBOutlet var groupsSearchBar: UISearchBar!
+    @IBOutlet private var groupsSearchBar: UISearchBar!
 
     // MARK: - Public Properties
 

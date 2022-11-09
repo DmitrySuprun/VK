@@ -14,7 +14,7 @@ final class FriendsTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupGesture()
+        setupTapGestureRecognizer()
     }
 
     // MARK: - Public Properties
@@ -26,13 +26,13 @@ final class FriendsTableViewCell: UITableViewCell {
 
     // MARK: - Private Properties
 
-    private func setupGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchAnimationAction))
+    private func setupTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSpringAnimationAction))
         avatarView.isUserInteractionEnabled = true
         avatarView.addGestureRecognizer(tapGesture)
     }
 
-    @objc private func touchAnimationAction() {
+    @objc private func showSpringAnimationAction() {
         let animation = CASpringAnimation(keyPath: #keyPath(CALayer.bounds))
         animation.fromValue = CGRect(
             x: 0,

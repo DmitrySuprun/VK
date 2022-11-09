@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Control for display like count and change value
+/// Control for like count
 final class LikeControl: UIControl {
     // MARK: - Private Constants
 
