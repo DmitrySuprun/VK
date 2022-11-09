@@ -9,11 +9,21 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     private enum Constants {
         static let userPhotosCollectionViewCellID = "userPhotosCollectionViewCellID"
+        static let photoViewControllerSegueID = "photoViewControllerSegueID"
     }
 
     // MARK: - Public Properties
 
-    var friendsInfo: [FriendsInfo] = []
+    var friendsInfo: [UserInfo] = []
+
+    // MARK: - Public Properties
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == Constants.photoViewControllerSegueID,
+              let photoViewController = segue.destination as? UserPhotosViewController
+        else { return }
+        photoViewController.userInfo = friendsInfo.first
+    }
 
     // MARK: UICollectionViewDataSource
 

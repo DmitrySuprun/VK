@@ -6,10 +6,12 @@ import UIKit
 /// Greeting with tree dots animation
 final class GreetingAnimationViewController: UIViewController {
     // MARK: - Private Constants
+
     private enum Constants {
         static let loginViewControllerID = "loginViewControllerID"
         static let storyboardName = "Main"
     }
+
     // MARK: - Life Cycle
 
     override func viewDidAppear(_ animated: Bool) {

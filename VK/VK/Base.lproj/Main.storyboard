@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jte-qQ-jBB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rXp-rr-TdO">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -454,6 +454,7 @@
                                 <connections>
                                     <outlet property="likeControl" destination="I7U-u2-ypC" id="x1d-dy-vO2"/>
                                     <outlet property="userPhotoImageView" destination="tNi-WT-Fx7" id="VOj-FD-6fr"/>
+                                    <segue destination="ADL-HF-DD8" kind="show" identifier="photoViewControllerSegueID" id="4LU-za-haq"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -471,7 +472,7 @@
         <!--Friends-->
         <scene sceneID="SCl-Ho-6ip">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2re-8l-pxj" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2re-8l-pxj" customClass="MillAnimationNavigationViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person" catalog="system" id="dCW-Sq-La2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xft-tr-TKN">
@@ -528,9 +529,62 @@
             </objects>
             <point key="canvasLocation" x="1766" y="-703"/>
         </scene>
+        <!--Photo-->
+        <scene sceneID="Qt0-mh-l2w">
+            <objects>
+                <viewController id="ADL-HF-DD8" customClass="UserPhotosViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NIx-YH-g3o">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="qBf-UN-2s9">
+                                <rect key="frame" x="146.66666666666666" y="376" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="0hn-lf-SUO"/>
+                                    <constraint firstAttribute="height" constant="100" id="pai-d8-g8i"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="24G-RY-c9r">
+                                <rect key="frame" x="76.666666666666686" y="306" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="PD3-pk-s68"/>
+                                    <constraint firstAttribute="height" constant="240" id="fN1-Ny-1wS"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="RhP-YM-joa">
+                                <rect key="frame" x="393" y="306" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="kux-l0-RY7"/>
+                                    <constraint firstAttribute="height" constant="240" id="xfC-7x-7Di"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="y4z-o2-9yt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qBf-UN-2s9" firstAttribute="centerX" secondItem="NIx-YH-g3o" secondAttribute="centerX" id="0kx-z8-TcW"/>
+                            <constraint firstItem="24G-RY-c9r" firstAttribute="centerX" secondItem="NIx-YH-g3o" secondAttribute="centerX" id="4t9-Ae-W6i"/>
+                            <constraint firstItem="RhP-YM-joa" firstAttribute="centerY" secondItem="24G-RY-c9r" secondAttribute="centerY" id="IWf-HE-BPQ"/>
+                            <constraint firstItem="RhP-YM-joa" firstAttribute="leading" secondItem="NIx-YH-g3o" secondAttribute="trailing" id="o7c-eI-dn8"/>
+                            <constraint firstItem="24G-RY-c9r" firstAttribute="centerY" secondItem="NIx-YH-g3o" secondAttribute="centerY" id="oYY-ae-B10"/>
+                            <constraint firstItem="qBf-UN-2s9" firstAttribute="centerY" secondItem="NIx-YH-g3o" secondAttribute="centerY" id="zJd-Qu-did"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Photo" id="PBq-tI-Iuz"/>
+                    <connections>
+                        <outlet property="currentImageView" destination="24G-RY-c9r" id="MOM-wv-33y"/>
+                        <outlet property="nextImageView" destination="qBf-UN-2s9" id="9bM-cl-DfC"/>
+                        <outlet property="previousImageView" destination="RhP-YM-joa" id="Mkl-pX-RRt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uAb-xR-KHe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4431" y="20"/>
+        </scene>
     </scenes>
     <resources>
         <image name="0" width="184" height="184"/>
+        <image name="1" width="184" height="184"/>
         <image name="arrowshape.turn.up.right" catalog="system" width="128" height="104"/>
         <image name="bubble.right" catalog="system" width="128" height="110"/>
         <image name="heart" catalog="system" width="128" height="107"/>
