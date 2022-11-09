@@ -9,10 +9,16 @@ final class StartViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        sleep(2)
+        performSegue(withDuration: 2)
+    }
+
+    // MARK: - Private Methods
+
+    private func performSegue(withDuration: UInt32) {
+        sleep(withDuration)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "loginViewControllerID")
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        let nextViewController = storyboard.instantiateViewController(withIdentifier: "loginViewControllerID")
+        nextViewController.modalPresentationStyle = .fullScreen
+        present(nextViewController, animated: true)
     }
 }
