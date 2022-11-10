@@ -187,7 +187,7 @@
         <!--Groups-->
         <scene sceneID="U5e-uU-Zax">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WcR-jk-kbC" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WcR-jk-kbC" customClass="CustomPopAnimationNavigationViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Groups" image="person.2" catalog="system" id="4M9-qf-Dfu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="48w-IF-jF4">

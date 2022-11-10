@@ -23,8 +23,10 @@ extension MillAnimationNavigationViewController: UINavigationControllerDelegate 
         to toVC: UIViewController
     ) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
-        case .pop: return PopViewControllerAnimatedTransitioning()
-        case .push: return PushViewControllerAnimatedTransitioning()
+        case .pop: return
+            PopViewControllerAnimatedTransitioning()
+        case .push: return
+            PushViewControllerAnimatedTransitioning()
         case .none: return nil
         @unknown default: return nil
         }

@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// PushViewController animation
+/// PopViewController animation
 class PopViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
     // MARK: - Private Methods
 
@@ -16,8 +16,9 @@ class PopViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimated
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let source = transitionContext.view(forKey: .from) else { return }
-        guard let destination = transitionContext.view(forKey: .to) else { return }
+        guard let source = transitionContext.view(forKey: .from),
+              let destination = transitionContext.view(forKey: .to)
+        else { return }
         destination.alpha = 0
 
         let heightView = transitionContext.containerView.frame.height
