@@ -24,7 +24,7 @@ extension CustomPopAnimationNavigationViewController: UINavigationControllerDele
         _ navigationController: UINavigationController,
         interactionControllerFor animationController: UIViewControllerAnimatedTransitioning
     ) -> UIViewControllerInteractiveTransitioning? {
-        interactiveTransition.hasStarted ? interactiveTransition : nil
+        interactiveTransition.isStarted ? interactiveTransition : nil
     }
 
     func navigationController(

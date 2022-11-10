@@ -21,8 +21,8 @@ class PopViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimated
         else { return }
         destination.alpha = 0
 
-        let heightView = transitionContext.containerView.frame.height
-        let widthView = transitionContext.containerView.frame.width
+        let viewHeight = transitionContext.containerView.frame.height
+        let viewWidth = transitionContext.containerView.frame.width
 
         transitionContext.containerView.addSubview(destination)
         destination.frame = transitionContext.containerView.frame
@@ -30,7 +30,7 @@ class PopViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimated
         source.frame = transitionContext.containerView.frame
         UIView.animate(withDuration: timeInterval, delay: 0, options: .curveEaseIn) {
             source.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
-                .concatenating(CGAffineTransform(translationX: heightView / 2 + widthView / 2, y: -widthView / 2))
+                .concatenating(CGAffineTransform(translationX: viewHeight / 2 + viewWidth / 2, y: -viewWidth / 2))
 
             destination.alpha = 1
             destination.layer.cornerRadius = 0
