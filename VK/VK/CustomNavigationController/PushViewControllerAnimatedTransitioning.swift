@@ -5,9 +5,9 @@ import UIKit
 
 /// PushViewController animation
 final class PushViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
-    // MARK: - Private Methods
+    // MARK: - Private properties
 
-    let timeInterval = 0.5
+    private let timeInterval = 0.5
 
     // MARK: - Public Methods
 

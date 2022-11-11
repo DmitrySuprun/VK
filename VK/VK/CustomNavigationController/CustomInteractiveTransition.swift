@@ -21,9 +21,9 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
     var isStarted: Bool = false
     var isFinished: Bool = false
 
-    // MARK: - Public Methods
+    // MARK: - Private Methods
 
-    @objc func handleScreenEdgeGestureAction(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+    @objc private func handleScreenEdgeGestureAction(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             isStarted = true
