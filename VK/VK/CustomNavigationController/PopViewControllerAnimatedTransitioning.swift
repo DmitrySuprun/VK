@@ -4,7 +4,7 @@
 import UIKit
 
 /// PopViewController animation
-class PopViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
+final class PopViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
     // MARK: - Private Properties
 
     private let timeInterval = 0.5

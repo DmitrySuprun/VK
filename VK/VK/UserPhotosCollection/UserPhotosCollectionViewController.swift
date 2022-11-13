@@ -14,7 +14,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     // MARK: - Public Properties
 
-    var friendsInfo: [UserInfo] = []
+    var usersInfo: [UserInfo] = []
 
     // MARK: - Public Properties
 
@@ -22,7 +22,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         guard segue.identifier == Constants.photoViewControllerSegueID,
               let photoViewController = segue.destination as? UserPhotosViewController
         else { return }
-        photoViewController.userInfo = friendsInfo.first
+        photoViewController.userInfo = usersInfo.first
     }
 
     // MARK: UICollectionViewDataSource
@@ -32,7 +32,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        friendsInfo.count
+        usersInfo.count
     }
 
     override func collectionView(
@@ -45,8 +45,8 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
         cell.configure(
-            imageName: friendsInfo[indexPath.row].avatarName,
-            likesCount: friendsInfo[indexPath.row].likesCount
+            imageName: usersInfo[indexPath.row].avatarName,
+            likesCount: usersInfo[indexPath.row].likesCount
         )
         return cell
     }

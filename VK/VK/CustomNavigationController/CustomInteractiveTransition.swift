@@ -6,6 +6,9 @@ import UIKit
 /// Custom animation closing ViewController
 final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
     // MARK: - Public Properties
+    
+    var isStarted: Bool = false
+    var isFinished: Bool = false
 
     var viewController: UIViewController? {
         didSet {
@@ -17,9 +20,6 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
             viewController?.view.addGestureRecognizer(recognizer)
         }
     }
-
-    var isStarted: Bool = false
-    var isFinished: Bool = false
 
     // MARK: - Private Methods
 

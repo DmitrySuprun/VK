@@ -9,7 +9,7 @@ final class GreetingAnimationViewController: UIViewController {
 
     private enum Constants {
         static let loginViewControllerID = "loginViewControllerID"
-        static let storyboardName = "Main"
+        static let mainStoryboardName = "Main"
     }
 
     // MARK: - Life Cycle
@@ -23,7 +23,7 @@ final class GreetingAnimationViewController: UIViewController {
 
     private func performSegue(withDuration: UInt32) {
         sleep(withDuration)
-        let storyboard = UIStoryboard(name: Constants.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: Constants.mainStoryboardName, bundle: nil)
         let loginViewController = storyboard.instantiateViewController(withIdentifier: Constants.loginViewControllerID)
         loginViewController.modalPresentationStyle = .fullScreen
         present(loginViewController, animated: true)

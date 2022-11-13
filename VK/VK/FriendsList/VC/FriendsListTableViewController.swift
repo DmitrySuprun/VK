@@ -15,7 +15,7 @@ final class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var friendsList = [
+    var users = [
         UserInfo(name: "Salvadore", avatarName: "0", likesCount: 10),
         UserInfo(name: "Ivan", avatarName: "1", likesCount: 13),
         UserInfo(name: "Piotr", avatarName: "2", likesCount: 23),
@@ -66,7 +66,7 @@ final class FriendsListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeFriendsSortedMap(friendsInfo: friendsList)
+        makeFriendsSortedMap(friendsInfo: users)
     }
 
     // MARK: - Private Methods
@@ -100,7 +100,7 @@ final class FriendsListTableViewController: UITableViewController {
         let sortedKeys = sortedFriendsMap.keys.sorted()
         let key = sortedKeys[friendInfoIndexPath.section]
         guard let friendsInfo = sortedFriendsMap[key]?[friendInfoIndexPath.row] else { return }
-        userPhotosViewController.friendsInfo.append(friendsInfo)
+        userPhotosViewController.usersInfo.append(friendsInfo)
     }
 
     // MARK: - Table view data source

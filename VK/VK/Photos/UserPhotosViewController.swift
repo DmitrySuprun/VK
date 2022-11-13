@@ -9,6 +9,7 @@ final class UserPhotosViewController: UIViewController {
 
     private enum Constants {
         static let emptyText = ""
+        static let twoIndeses = 2
     }
 
     // MARK: - Private IBOutlets
@@ -38,12 +39,12 @@ final class UserPhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImages()
-        setupUI()
+        setupPanGestureRecognizer()
     }
 
     // MARK: - @objc Private Methods
 
-    @objc private func viewPanned(_ recognizer: UIPanGestureRecognizer) {
+    @objc private func viewPannedAction(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             let distanceAnimation = view.frame.width / 2 + currentImageView.frame.width / 2
@@ -78,36 +79,36 @@ final class UserPhotosViewController: UIViewController {
             toRightViewPropertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 1)
             appearViewPropertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 1)
 
-            toRightViewPropertyAnimator.addCompletion { _ in
-                self.previousImageView.image = self.currentImageView.image
-                self.currentImageView.image = self.nextImageView.image
-                self.currentImageIndex += 1
-                if self.currentImageIndex == self.userInfo?.imagesNames.count {
-                    self.currentImageIndex = 0
+            toRightViewPropertyAnimator.addCompletion { [weak self] _ in
+                self?.previousImageView.image = self?.currentImageView.image
+                self?.currentImageView.image = self?.nextImageView.image
+                self?.currentImageIndex += 1
+                if self?.currentImageIndex == self?.userInfo?.imagesNames.count {
+                    self?.currentImageIndex = 0
                 }
-                self.calculatePreviousNextIndex()
-                self.nextImageView.image = UIImage(
-                    named: self.userInfo?.imagesNames[self.nextImageIndex] ?? Constants.emptyText
+                self?.calculatePreviousNextIndex()
+                self?.nextImageView.image = UIImage(
+                    named: self?.userInfo?.imagesNames[self?.nextImageIndex ?? 0] ?? Constants.emptyText
                 )
-                self.currentImageView.transform = .identity
-                self.nextImageView.transform = .identity
-                self.nextImageView.alpha = 0
+                self?.currentImageView.transform = .identity
+                self?.nextImageView.transform = .identity
+                self?.nextImageView.alpha = 0
             }
 
-            toLeftViewPropertyAnimator.addCompletion { _ in
-                self.nextImageView.image = self.currentImageView.image
-                self.currentImageView.image = self.previousImageView.image
-                self.currentImageIndex -= 1
-                if self.currentImageIndex < 0 {
-                    self.currentImageIndex = (self.userInfo?.imagesNames.count ?? 0) - 1
+            toLeftViewPropertyAnimator.addCompletion { [weak self] _ in
+                self?.nextImageView.image = self?.currentImageView.image
+                self?.currentImageView.image = self?.previousImageView.image
+                self?.currentImageIndex -= 1
+                if self?.currentImageIndex ?? 0 < 0 {
+                    self?.currentImageIndex = (self?.userInfo?.imagesNames.count ?? 0) - 1
                 }
-                self.calculatePreviousNextIndex()
-                self.previousImageView.image = UIImage(
-                    named: self.userInfo?.imagesNames[self.previousImageIndex] ?? Constants.emptyText
+                self?.calculatePreviousNextIndex()
+                self?.previousImageView.image = UIImage(
+                    named: self?.userInfo?.imagesNames[self?.previousImageIndex ?? 0] ?? Constants.emptyText
                 )
-                self.currentImageView.transform = .identity
-                self.currentImageView.alpha = 1
-                self.previousImageView.transform = .identity
+                self?.currentImageView.transform = .identity
+                self?.currentImageView.alpha = 1
+                self?.previousImageView.transform = .identity
             }
 
         default: break
@@ -116,8 +117,8 @@ final class UserPhotosViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func setupUI() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
+    private func setupPanGestureRecognizer() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(viewPannedAction(_:)))
         view.addGestureRecognizer(panGestureRecognizer)
     }
 
@@ -140,7 +141,7 @@ final class UserPhotosViewController: UIViewController {
             previousImageIndex = (userInfo?.imagesNames.count ?? 0) - 1
             nextImageIndex = 1
         case (userInfo?.imagesNames.count ?? 0) - 1:
-            previousImageIndex = (userInfo?.imagesNames.count ?? 0) - 2
+            previousImageIndex = (userInfo?.imagesNames.count ?? 0) - Constants.twoIndeses
             nextImageIndex = 0
         default:
             previousImageIndex = currentImageIndex - 1
