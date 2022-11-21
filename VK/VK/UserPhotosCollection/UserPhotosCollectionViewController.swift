@@ -9,11 +9,21 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     private enum Constants {
         static let userPhotosCollectionViewCellID = "userPhotosCollectionViewCellID"
+        static let photoViewControllerSegueID = "photoViewControllerSegueID"
     }
 
     // MARK: - Public Properties
 
-    var friendsInfo: [FriendsInfo] = []
+    var usersInfo: [UserInfo] = []
+
+    // MARK: - Public Properties
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == Constants.photoViewControllerSegueID,
+              let photoViewController = segue.destination as? UserPhotosViewController
+        else { return }
+        photoViewController.userInfo = usersInfo.first
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -22,7 +32,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        friendsInfo.count
+        usersInfo.count
     }
 
     override func collectionView(
@@ -35,8 +45,8 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
         cell.configure(
-            imageName: friendsInfo[indexPath.row].avatarName,
-            likesCount: friendsInfo[indexPath.row].likesCount
+            imageName: usersInfo[indexPath.row].avatarName,
+            likesCount: usersInfo[indexPath.row].likesCount
         )
         return cell
     }
