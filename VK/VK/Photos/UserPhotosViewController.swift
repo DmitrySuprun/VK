@@ -9,7 +9,7 @@ final class UserPhotosViewController: UIViewController {
 
     private enum Constants {
         static let emptyText = ""
-        static let twoIndeses = 2
+        static let twoIndices = 2
     }
 
     // MARK: - Private IBOutlets
@@ -141,7 +141,7 @@ final class UserPhotosViewController: UIViewController {
             previousImageIndex = (userInfo?.imagesNames.count ?? 0) - 1
             nextImageIndex = 1
         case (userInfo?.imagesNames.count ?? 0) - 1:
-            previousImageIndex = (userInfo?.imagesNames.count ?? 0) - Constants.twoIndeses
+            previousImageIndex = (userInfo?.imagesNames.count ?? 0) - Constants.twoIndices
             nextImageIndex = 0
         default:
             previousImageIndex = currentImageIndex - 1
