@@ -13,8 +13,8 @@ class Session {
     static var shared = Session()
     
     // MARK: - Public Properties
-    var userID: Int = 0
-    var token: String = ""
+    var userID = 0
+    var token = ""
     
     // MARK: - Private Initializer
     private init() {}

@@ -16,6 +16,8 @@
 		D507E397291D811D00679342 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507E396291D811D00679342 /* CustomInteractiveTransition.swift */; };
 		D507E399291D85AA00679342 /* CustomPopAnimationNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507E398291D85AA00679342 /* CustomPopAnimationNavigationViewController.swift */; };
 		D52A17AA292B8D6600B49180 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A17A9292B8D6600B49180 /* Session.swift */; };
+		D52A17AE292CF87500B49180 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A17AD292CF87500B49180 /* NetworkService.swift */; };
+		D52A17B1292D27A700B49180 /* WebViewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A17B0292D27A700B49180 /* WebViewLoginViewController.swift */; };
 		D549998F291A84C70085A3B7 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D549998E291A84C70085A3B7 /* NewsTableViewController.swift */; };
 		D5499991291A86160085A3B7 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5499990291A86160085A3B7 /* NewsTableViewCell.swift */; };
 		D56643912911605D00306D42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56643902911605D00306D42 /* AppDelegate.swift */; };
@@ -48,6 +50,8 @@
 		D507E396291D811D00679342 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		D507E398291D85AA00679342 /* CustomPopAnimationNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimationNavigationViewController.swift; sourceTree = "<group>"; };
 		D52A17A9292B8D6600B49180 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		D52A17AD292CF87500B49180 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		D52A17B0292D27A700B49180 /* WebViewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewLoginViewController.swift; sourceTree = "<group>"; };
 		D549998E291A84C70085A3B7 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		D5499990291A86160085A3B7 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		D566438D2911605D00306D42 /* VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +124,22 @@
 			path = Singletone;
 			sourceTree = "<group>";
 		};
+		D52A17AC292CF81E00B49180 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D52A17AD292CF87500B49180 /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D52A17AF292D277400B49180 /* WebViewLogin */ = {
+			isa = PBXGroup;
+			children = (
+				D52A17B0292D27A700B49180 /* WebViewLoginViewController.swift */,
+			);
+			path = WebViewLogin;
+			sourceTree = "<group>";
+		};
 		D549998D291A84A10085A3B7 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +168,8 @@
 		D566438F2911605D00306D42 /* VK */ = {
 			isa = PBXGroup;
 			children = (
+				D52A17AF292D277400B49180 /* WebViewLogin */,
+				D52A17AC292CF81E00B49180 /* Services */,
 				D52A17AB292B8D6F00B49180 /* Singletone */,
 				D507E389291C1E7300679342 /* CustomNavigationController */,
 				D507E386291C010600679342 /* Photos */,
@@ -400,8 +422,10 @@
 				D56643932911605D00306D42 /* SceneDelegate.swift in Sources */,
 				D507E391291C219800679342 /* PopViewControllerAnimatedTransitioning.swift in Sources */,
 				D56643E22914504D00306D42 /* UserPhotosCollectionViewController.swift in Sources */,
+				D52A17B1292D27A700B49180 /* WebViewLoginViewController.swift in Sources */,
 				D56643E82914599900306D42 /* UserGroupsTableViewController.swift in Sources */,
 				D56643DF2914459900306D42 /* UserInfo.swift in Sources */,
+				D52A17AE292CF87500B49180 /* NetworkService.swift in Sources */,
 				D56643EB29145A7E00306D42 /* GroupTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
