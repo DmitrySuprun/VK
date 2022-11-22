@@ -14,7 +14,9 @@ final class NetworkService {
         static let scheme = "http"
         static let host = "api.vk.com"
         static let path = "/method/"
-        static let accessTokenKey = "access_token"
+        static let accessTokenKeyName = "access_token"
+        static let versionKeyName = "v"
+        static let versionValueName = "5.131"
     }
     
     // MARK: - Private Properties
@@ -26,9 +28,11 @@ final class NetworkService {
         urlComponents.host = Constants.host
         urlComponents.path = Constants.path + method
         urlComponents.queryItems = queryItems
-        urlComponents.queryItems?.append(URLQueryItem(name: Constants.accessTokenKey,
+        urlComponents.queryItems?.append(URLQueryItem(name: Constants.accessTokenKeyName,
                                                       value: Session.shared.token))
-        
+        urlComponents.queryItems?.append(URLQueryItem(name: Constants.versionKeyName,
+                                                      value: Constants.versionValueName))
+
         guard let url = urlComponents.url else { return }
         let request = URLRequest(url: url)
         
