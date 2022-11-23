@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Service  for loading API data
+/// Service for loading API data
 final class NetworkService {
     // MARK: - Private Constants
     private enum Constants {

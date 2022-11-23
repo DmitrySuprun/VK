@@ -26,7 +26,7 @@ final class WebViewLoginViewController: UIViewController {
     }
     // MARK: - Private IBOutlets
 
-    @IBOutlet weak var vkWKWebView: WKWebView!
+    @IBOutlet private weak var vkWKWebView: WKWebView!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ final class WebViewLoginViewController: UIViewController {
         setupWKWebView()
     }
     
-    // MARK: - Private Properties
+    // MARK: - Private Methods
     private func setupWKWebView() {
         vkWKWebView.navigationDelegate = self
         guard let url = URL(string: Constants.oAuthURLName)
@@ -42,8 +42,17 @@ final class WebViewLoginViewController: UIViewController {
         let request = URLRequest(url: url)
         vkWKWebView.load(request)
     }
+    
+    private func presentNextViewController() {
+        let storyboard = UIStoryboard(name: Constants.storyboardMainName, bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            withIdentifier: Constants.tabBarViewControllerID)
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
 }
 
+// MARK: - WKNavigationDelegate
 extension WebViewLoginViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView,
@@ -51,7 +60,8 @@ extension WebViewLoginViewController: WKNavigationDelegate {
                  decisionHandler: @escaping (WKNavigationResponsePolicy) ->
                  Void) {
         
-        guard let url = navigationResponse.response.url,
+        guard
+            let url = navigationResponse.response.url,
               url.path == Constants.validPathName,
               let fragment = url.fragment
         else {
@@ -64,8 +74,8 @@ extension WebViewLoginViewController: WKNavigationDelegate {
             .map { $0.components(separatedBy: Constants.equalCharacterName) }
             .reduce([String: String]()) { result, parameter in
                 var params = result
-                let key = parameter[0]
-                let value = parameter[1]
+                let key = parameter.first ?? ""
+                let value = parameter.last
                 params[key] = value
                 return params
             }
@@ -76,10 +86,6 @@ extension WebViewLoginViewController: WKNavigationDelegate {
         Session.shared.userID = Int(userID ?? Constants.emptyCharacterName) ?? Constants.defaultValueInt
         decisionHandler(.cancel)
         
-        let storyboard = UIStoryboard(name: Constants.storyboardMainName, bundle: nil)
-        let viewController = storyboard.instantiateViewController(
-            withIdentifier: Constants.tabBarViewControllerID)
-        viewController.modalPresentationStyle = .fullScreen
-        present(viewController, animated: true)
+        presentNextViewController()
     }
 }
