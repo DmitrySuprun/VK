@@ -72,12 +72,15 @@ final class FriendsListTableViewController: UITableViewController {
     }
 
     // MARK: - Private Methods
-    
+
     private func fetchData() {
         // Friends
         networkService.fetchData(method: "friends.get", queryItems: [URLQueryItem(name: "fields", value: "nickname")])
         // Photos
-        networkService.fetchData(method: "photos.getAll", queryItems: [URLQueryItem(name: "owner_id", value: "159716695")])
+        networkService.fetchData(
+            method: "photos.getAll",
+            queryItems: [URLQueryItem(name: "owner_id", value: "159716695")]
+        )
         // Groups
         networkService.fetchData(method: "groups.get", queryItems: [URLQueryItem(name: "owner_id", value: "159716695")])
         // Groups search
