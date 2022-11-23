@@ -18,12 +18,10 @@ final class NetworkService {
         static let versionKeyName = "v"
         static let versionValueName = "5.131"
     }
-    
-    // MARK: - Private Properties
-    private var urlComponents = URLComponents()
-    
+        
     // MARK: - Public Methods
     func fetchData(method: String, queryItems: [URLQueryItem]) {
+        var urlComponents = URLComponents()
         urlComponents.scheme = Constants.scheme
         urlComponents.host = Constants.host
         urlComponents.path = Constants.path + method

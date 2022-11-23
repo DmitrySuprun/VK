@@ -61,7 +61,7 @@ final class FriendsListTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private var sortedFriendsMap: [Character: [UserInfo]] = [:]
-    private var service = NetworkService()
+    private var networkService = NetworkService()
 
     // MARK: - Life Cycle
 
@@ -75,13 +75,13 @@ final class FriendsListTableViewController: UITableViewController {
     
     private func fetchData() {
         // Friends
-        service.fetchData(method: "friends.get", queryItems: [URLQueryItem(name: "fields", value: "nickname")])
+        networkService.fetchData(method: "friends.get", queryItems: [URLQueryItem(name: "fields", value: "nickname")])
         // Photos
-        service.fetchData(method: "photos.getAll", queryItems: [URLQueryItem(name: "owner_id", value: "159716695")])
+        networkService.fetchData(method: "photos.getAll", queryItems: [URLQueryItem(name: "owner_id", value: "159716695")])
         // Groups
-        service.fetchData(method: "groups.get", queryItems: [URLQueryItem(name: "owner_id", value: "159716695")])
+        networkService.fetchData(method: "groups.get", queryItems: [URLQueryItem(name: "owner_id", value: "159716695")])
         // Groups search
-        service.fetchData(method: "groups.search", queryItems: [URLQueryItem(name: "q", value: "котики")])
+        networkService.fetchData(method: "groups.search", queryItems: [URLQueryItem(name: "q", value: "котики")])
     }
 
     private func makeFriendsSortedMap(friendsInfo: [UserInfo]) {

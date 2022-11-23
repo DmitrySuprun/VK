@@ -31,11 +31,11 @@ final class WebViewLoginViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupWKWebView()
+        loadWKWebView()
     }
     
     // MARK: - Private Methods
-    private func setupWKWebView() {
+    private func loadWKWebView() {
         vkWKWebView.navigationDelegate = self
         guard let url = URL(string: Constants.oAuthURLName)
         else { return }
