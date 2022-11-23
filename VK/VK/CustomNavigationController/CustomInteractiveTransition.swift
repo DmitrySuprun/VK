@@ -6,7 +6,7 @@ import UIKit
 /// Custom animation closing ViewController
 final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
     // MARK: - Public Properties
-    
+
     var isStarted: Bool = false
     var isFinished: Bool = false
 

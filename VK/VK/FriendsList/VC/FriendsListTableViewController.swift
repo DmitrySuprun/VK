@@ -61,17 +61,31 @@ final class FriendsListTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private var sortedFriendsMap: [Character: [UserInfo]] = [:]
+    private var networkService = NetworkService()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         makeFriendsSortedMap(friendsInfo: users)
+        fetchData()
     }
 
     // MARK: - Private Methods
 
-//    private func make
+    private func fetchData() {
+        // Friends
+        networkService.fetchData(method: "friends.get", queryItems: [URLQueryItem(name: "fields", value: "nickname")])
+        // Photos
+        networkService.fetchData(
+            method: "photos.getAll",
+            queryItems: [URLQueryItem(name: "owner_id", value: "159716695")]
+        )
+        // Groups
+        networkService.fetchData(method: "groups.get", queryItems: [URLQueryItem(name: "owner_id", value: "159716695")])
+        // Groups search
+        networkService.fetchData(method: "groups.search", queryItems: [URLQueryItem(name: "q", value: "котики")])
+    }
 
     private func makeFriendsSortedMap(friendsInfo: [UserInfo]) {
         var friendsMap: [Character: [UserInfo]] = [:]
