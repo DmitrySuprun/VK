@@ -37,7 +37,7 @@ final class FriendsListTableViewController: UITableViewController {
         networkService.fetchFriends { result in
             switch result {
             case let .success(friends):
-                self.friends = friends.response.items
+                self.friends = friends.response.friends
                 self.makeFriendsSortedMap(friendsInfo: self.friends)
                 self.tableView.reloadData()
             case let .failure(error): print(error)
@@ -101,7 +101,7 @@ final class FriendsListTableViewController: UITableViewController {
         guard let friendsListSection = sortedFriendsMap[key] else { return UITableViewCell() }
         let friend = friendsListSection[indexPath.row]
         cell.configure(
-            nameLabelText: "\(friend.firstName + Constants.spaceName + friend.lastName)",
+            nameLabelText: "\(friend.lastName + Constants.spaceName + friend.firstName)",
             avatarImageName: friend.photo
         )
         return cell

@@ -9,7 +9,11 @@ struct Groups: Decodable {
     let response: Response
 
     struct Response: Decodable {
-        let items: [Group]
+        let groups: [Group]
+
+        enum CodingKeys: String, CodingKey {
+            case groups = "items"
+        }
     }
 }
 

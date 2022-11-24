@@ -9,7 +9,11 @@ struct Photos: Decodable {
     let response: Response
 
     struct Response: Decodable {
-        let items: [Item]
+        let photos: [Item]
+
+        enum CodingKeys: String, CodingKey {
+            case photos = "items"
+        }
     }
 
     struct Item: Decodable {

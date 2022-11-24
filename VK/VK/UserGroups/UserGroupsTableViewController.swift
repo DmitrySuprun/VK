@@ -40,7 +40,7 @@ final class UserGroupsTableViewController: UITableViewController {
     private func fetchGroups() {
         networkService.fetchUserGroups(userID: 159_716_695) { [weak self] result in
             switch result {
-            case let .success(groups): self?.groups = groups.response.items
+            case let .success(groups): self?.groups = groups.response.groups
             case let .failure(error): print(error)
             }
             self?.tableView.reloadData()

@@ -10,7 +10,8 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     private struct Constants {
         static let userPhotosCollectionViewCellID = "userPhotosCollectionViewCellID"
         static let photoViewControllerSegueID = "photoViewControllerSegueID"
-        static let defaultValue
+        static let defaultIntValue = 0
+        static let defaultStringValue = ""
     }
 
     // MARK: - Public Properties
@@ -57,7 +58,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        usersPhotos?.response.items.count ?? 0
+        usersPhotos?.response.photos.count ?? 0
     }
 
     override func collectionView(
@@ -70,8 +71,8 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
         cell.configure(
-            imageName: usersPhotos?.response.items[indexPath.row].sizes.last?.url ?? "",
-            likesCount: usersPhotos?.response.items[indexPath.row].likes.count ?? 0
+            imageName: usersPhotos?.response.photos[indexPath.row].sizes.last?.url ?? Constants.defaultStringValue,
+            likesCount: usersPhotos?.response.photos[indexPath.row].likes.count ?? Constants.defaultIntValue
         )
         return cell
     }

@@ -36,7 +36,7 @@ final class AllGroupsViewController: UITableViewController {
     private func fetchGroups(searchName: String) {
         networkService.fetchGroupsSearch(searchName: searchName) { [weak self] result in
             switch result {
-            case let .success(groups): self?.groups = groups.response.items
+            case let .success(groups): self?.groups = groups.response.groups
             case let .failure(error): print(error)
             }
             self?.tableView?.reloadData()

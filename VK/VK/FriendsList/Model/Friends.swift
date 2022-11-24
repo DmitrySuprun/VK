@@ -9,7 +9,11 @@ struct Friends: Decodable {
     let response: Response
 
     struct Response: Decodable {
-        let items: [Friend]
+        let friends: [Friend]
+
+        enum CodingKeys: String, CodingKey {
+            case friends = "items"
+        }
     }
 }
 
