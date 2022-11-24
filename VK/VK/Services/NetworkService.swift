@@ -19,6 +19,13 @@ final class NetworkService {
 
     // MARK: - Public Methods
 
+    func fetchGroupsSearch(searchName: String, completion: @escaping (Result<Groups, Error>) -> ()) {
+        let queryItems = [
+            URLQueryItem(name: "q", value: searchName)
+        ]
+        fetchData(queryItems: queryItems, method: "groups.search", completion: completion)
+    }
+
     func fetchUserGroups(userID: Int, completion: @escaping (Result<Groups, Error>) -> ()) {
         let queryItems = [
             URLQueryItem(name: "owner_id", value: String(userID)),
@@ -43,7 +50,9 @@ final class NetworkService {
         fetchData(queryItems: queryItems, method: "friends.get", completion: completion)
     }
 
-    func fetchData<T: Decodable>(
+    // MARK: - Private Methods
+
+    private func fetchData<T: Decodable>(
         queryItems: [URLQueryItem],
         method: String,
         completion: @escaping (Result<T, Error>) -> ()
