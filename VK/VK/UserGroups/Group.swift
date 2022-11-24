@@ -2,6 +2,8 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import RealmSwift
+
 /// Group info
 struct Group {
     let name: String
@@ -13,18 +15,19 @@ struct Groups: Decodable {
     let response: Response
 
     struct Response: Decodable {
-        let items: [Items]
+        let items: [GroupsItems]
     }
+}
 
-    struct Items: Decodable {
-        let id: Int
-        let photo: String
-        let name: String
+/// Realm object
+final class GroupsItems: Object, Decodable {
+    @Persisted var id: Int
+    @Persisted var photo: String
+    @Persisted var name: String
 
-        enum CodingKeys: String, CodingKey {
-            case id
-            case photo = "photo_100"
-            case name
-        }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case photo = "photo_100"
+        case name
     }
 }

@@ -2,26 +2,28 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import RealmSwift
 
 /// Information about friends
 struct Friends: Decodable {
     let response: Response
 
     struct Response: Decodable {
-        let items: [Items]
+        let items: [Friend]
     }
+}
 
-    struct Items: Decodable {
-        let id: Int
-        let photo: String
-        let firstName: String
-        let lastName: String
+/// Realm object
+final class Friend: Object, Decodable {
+    @Persisted var id: Int
+    @Persisted var photo: String
+    @Persisted var firstName: String
+    @Persisted var lastName: String
 
-        enum CodingKeys: String, CodingKey {
-            case id
-            case photo = "photo_100"
-            case firstName = "first_name"
-            case lastName = "last_name"
-        }
+    enum CodingKeys: String, CodingKey {
+        case id
+        case photo = "photo_100"
+        case firstName = "first_name"
+        case lastName = "last_name"
     }
 }

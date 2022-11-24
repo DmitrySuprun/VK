@@ -14,7 +14,7 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var groups: [Groups.Items] = []
+    var groups: [GroupsItems] = []
 
     // MARK: - Private Properties
 

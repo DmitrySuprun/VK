@@ -16,11 +16,11 @@ final class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var users = [Friends.Items]()
+    var users: [Friend] = []
 
     // MARK: - Private Properties
 
-    private var sortedFriendsMap: [Character: [Friends.Items]] = [:]
+    private var sortedFriendsMap: [Character: [Friend]] = [:]
     private var networkService = NetworkService()
 
     // MARK: - Life Cycle
@@ -48,8 +48,8 @@ final class FriendsListTableViewController: UITableViewController {
         }
     }
 
-    private func makeFriendsSortedMap(friendsInfo: [Friends.Items]) {
-        var friendsMap: [Character: [Friends.Items]] = [:]
+    private func makeFriendsSortedMap(friendsInfo: [Friend]) {
+        var friendsMap: [Character: [Friend]] = [:]
         for info in friendsInfo {
             if let key = info.lastName.first {
                 if friendsMap[key] == nil {

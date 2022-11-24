@@ -2,25 +2,26 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import RealmSwift
 
 /// All user photos with additional info
 struct Photos: Decodable {
     let response: Response
 
     struct Response: Decodable {
-        let items: [Items]
+        let items: [Item]
     }
 
-    struct Items: Decodable {
+    struct Item: Decodable {
         let sizes: [Sizes]
         let likes: Likes
     }
+}
 
-    struct Sizes: Decodable {
-        let url: String
-    }
+final class Sizes: Object, Decodable {
+    @Persisted var url: String
+}
 
-    struct Likes: Decodable {
-        let count: Int
-    }
+final class Likes: Object, Decodable {
+    @Persisted var count: Int
 }
