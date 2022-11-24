@@ -4,7 +4,7 @@
 import Foundation
 import RealmSwift
 
-/// Information about friends
+/// Friends info
 struct Friends: Decodable {
     let response: Response
 
@@ -13,7 +13,7 @@ struct Friends: Decodable {
     }
 }
 
-/// Realm object
+/// Friend info
 final class Friend: Object, Decodable {
     @Persisted var id: Int
     @Persisted var photo: String

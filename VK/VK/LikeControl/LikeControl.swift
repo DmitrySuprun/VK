@@ -7,7 +7,7 @@ import UIKit
 final class LikeControl: UIControl {
     // MARK: - Private Constants
 
-    private enum Constants {
+    private struct Constants {
         static let likedImageName = "heart.fill"
         static let unLikesImageName = "heart"
     }

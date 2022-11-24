@@ -7,7 +7,7 @@ import UIKit
 final class FriendsListTableViewController: UITableViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    private struct Constants {
         static let friendsCellID = "friendsCellID"
         static let friendsInfoSegueID = "friendsInfoSegueID"
         static let emptyCharacter = Character("")
@@ -16,7 +16,7 @@ final class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var users: [Friend] = []
+    var friends: [Friend] = []
 
     // MARK: - Private Properties
 
@@ -27,7 +27,7 @@ final class FriendsListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeFriendsSortedMap(friendsInfo: users)
+        makeFriendsSortedMap(friendsInfo: friends)
         fetchData()
     }
 
@@ -37,8 +37,8 @@ final class FriendsListTableViewController: UITableViewController {
         networkService.fetchFriends { result in
             switch result {
             case let .success(friends):
-                self.users = friends.response.items
-                self.makeFriendsSortedMap(friendsInfo: self.users)
+                self.friends = friends.response.items
+                self.makeFriendsSortedMap(friendsInfo: self.friends)
                 self.tableView.reloadData()
             case let .failure(error): print(error)
             }
@@ -99,10 +99,10 @@ final class FriendsListTableViewController: UITableViewController {
         let sortedKeys = sortedFriendsMap.keys.sorted()
         let key = sortedKeys[indexPath.section]
         guard let friendsListSection = sortedFriendsMap[key] else { return UITableViewCell() }
-        let friendsInfo = friendsListSection[indexPath.row]
+        let friend = friendsListSection[indexPath.row]
         cell.configure(
-            nameLabelText: "\(friendsInfo.firstName + Constants.spaceName + friendsInfo.lastName)",
-            avatarImageName: friendsInfo.photo
+            nameLabelText: "\(friend.firstName + Constants.spaceName + friend.lastName)",
+            avatarImageName: friend.photo
         )
         return cell
     }

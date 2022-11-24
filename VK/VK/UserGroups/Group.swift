@@ -4,23 +4,17 @@
 import Foundation
 import RealmSwift
 
-/// Group info
-struct Group {
-    let name: String
-    let imageName: String
-}
-
-/// Group info
+/// Groups information
 struct Groups: Decodable {
     let response: Response
 
     struct Response: Decodable {
-        let items: [GroupsItems]
+        let items: [Group]
     }
 }
 
-/// Realm object
-final class GroupsItems: Object, Decodable {
+/// Group information
+final class Group: Object, Decodable {
     @Persisted var id: Int
     @Persisted var photo: String
     @Persisted var name: String

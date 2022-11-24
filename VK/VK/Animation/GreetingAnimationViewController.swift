@@ -7,7 +7,7 @@ import UIKit
 final class GreetingAnimationViewController: UIViewController {
     // MARK: - Private Constants
 
-    private enum Constants {
+    private struct Constants {
         static let loginViewControllerID = "loginViewControllerID"
         static let mainStoryboardName = "Main"
     }

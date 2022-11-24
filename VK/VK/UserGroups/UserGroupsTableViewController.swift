@@ -7,14 +7,14 @@ import UIKit
 final class UserGroupsTableViewController: UITableViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    private struct Constants {
         static let groupCellID = "groupCellID"
         static let cellNibName = "GroupTableViewCell"
     }
 
     // MARK: - Public Properties
 
-    var groups: [GroupsItems] = []
+    var groups: [Group] = []
 
     // MARK: - Private Properties
 

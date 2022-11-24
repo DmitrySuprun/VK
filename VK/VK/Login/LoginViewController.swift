@@ -7,7 +7,7 @@ import UIKit
 final class LoginViewController: UIViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    private struct Constants {
         static let loginText = "1"
         static let passwordText = "1"
         static let errorText = "Error"

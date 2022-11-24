@@ -7,7 +7,7 @@ import UIKit
 final class NewsTableViewController: UITableViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    private struct Constants {
         static let newsTableViewCellID = "newsTableViewCellID"
     }
 

@@ -7,9 +7,10 @@ import UIKit
 final class UserPhotosCollectionViewController: UICollectionViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    private struct Constants {
         static let userPhotosCollectionViewCellID = "userPhotosCollectionViewCellID"
         static let photoViewControllerSegueID = "photoViewControllerSegueID"
+        static let defaultValue
     }
 
     // MARK: - Public Properties

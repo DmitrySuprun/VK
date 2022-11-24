@@ -7,7 +7,7 @@ import UIKit
 final class AllGroupsViewController: UITableViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    private struct Constants {
         static let groupCellID = "groupCellID"
         static let cellNibName = "GroupTableViewCell"
     }
@@ -18,7 +18,7 @@ final class AllGroupsViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var groups: [GroupsItems] = []
+    var groups: [Group] = []
 
     // MARK: - Private Properties
 
@@ -33,7 +33,7 @@ final class AllGroupsViewController: UITableViewController {
 
     // MARK: - Private Methods
 
-    private func fetchGroupsSearch(searchName: String) {
+    private func fetchGroups(searchName: String) {
         networkService.fetchGroupsSearch(searchName: searchName) { [weak self] result in
             switch result {
             case let .success(groups): self?.groups = groups.response.items
@@ -79,6 +79,6 @@ final class AllGroupsViewController: UITableViewController {
 
 extension AllGroupsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        fetchGroupsSearch(searchName: searchText)
+        fetchGroups(searchName: searchText)
     }
 }
