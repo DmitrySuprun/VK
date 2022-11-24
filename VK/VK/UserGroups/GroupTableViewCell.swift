@@ -14,6 +14,6 @@ final class GroupTableViewCell: UITableViewCell {
 
     func configure(nameLabelText: String, groupsImageName: String) {
         groupsNameLabel.text = nameLabelText
-        groupsImageView.image = UIImage(named: groupsImageName)
+        groupsImageView.loadImage(urlName: groupsImageName)
     }
 }

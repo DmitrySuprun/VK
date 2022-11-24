@@ -13,6 +13,15 @@ final class AvatarView: UIView {
         }
     }
 
+    lazy var avatarImageView = {
+        let imageView = UIImageView()
+        imageView.frame = bounds
+        imageView.layer.cornerRadius = bounds.width / 2
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .systemBlue
+        return imageView
+    }()
+
     // MARK: - Private IBInspectable Properties
 
     @IBInspectable private var shadowColor: UIColor = .black {
@@ -32,17 +41,6 @@ final class AvatarView: UIView {
             layer.shadowRadius = shadowRadius
         }
     }
-
-    // MARK: - Private Properties
-
-    private lazy var avatarImageView = {
-        let imageView = UIImageView()
-        imageView.frame = bounds
-        imageView.layer.cornerRadius = bounds.width / 2
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = .systemBlue
-        return imageView
-    }()
 
     // MARK: - Initializers
 

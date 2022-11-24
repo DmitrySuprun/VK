@@ -21,7 +21,7 @@ final class FriendsTableViewCell: UITableViewCell {
 
     func configure(nameLabelText: String, avatarImageName: String) {
         nameLabel.text = nameLabelText
-        avatarView.image = UIImage(named: avatarImageName)
+        avatarView.avatarImageView.loadImage(urlName: avatarImageName)
     }
 
     // MARK: - Private Properties

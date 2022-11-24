@@ -1,13 +1,14 @@
 // NetworkService.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Alamofire
 import Foundation
 
 /// Service for loading API data
 final class NetworkService {
     // MARK: - Private Constants
 
-    private enum Constants {
+    private struct Constants {
         static let scheme = "http"
         static let host = "api.vk.com"
         static let path = "/method/"
@@ -18,7 +19,35 @@ final class NetworkService {
 
     // MARK: - Public Methods
 
-    func fetchData(method: String, queryItems: [URLQueryItem]) {
+    func fetchUserGroups(userID: Int, completion: @escaping (Result<Groups, Error>) -> ()) {
+        let queryItems = [
+            URLQueryItem(name: "owner_id", value: String(userID)),
+            URLQueryItem(name: "extended", value: "1")
+        ]
+        fetchData(queryItems: queryItems, method: "groups.get", completion: completion)
+    }
+
+    func fetchAllUserPhotos(userID: Int, completion: @escaping (Result<Photos, Error>) -> ()) {
+        let queryItems = [
+            URLQueryItem(name: "owner_id", value: String(userID)),
+            URLQueryItem(name: "extended", value: "1")
+        ]
+        fetchData(queryItems: queryItems, method: "photos.getAll", completion: completion)
+    }
+
+    func fetchFriends(completion: @escaping (Result<Friends, Error>) -> ()) {
+        let queryItems = [
+            URLQueryItem(name: "fields", value: "nickname"),
+            URLQueryItem(name: "fields", value: "photo_100")
+        ]
+        fetchData(queryItems: queryItems, method: "friends.get", completion: completion)
+    }
+
+    func fetchData<T: Decodable>(
+        queryItems: [URLQueryItem],
+        method: String,
+        completion: @escaping (Result<T, Error>) -> ()
+    ) {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.scheme
         urlComponents.host = Constants.host
@@ -33,16 +62,11 @@ final class NetworkService {
             value: Constants.versionValueName
         ))
 
-        guard let url = urlComponents.url else { return }
-        let request = URLRequest(url: url)
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else { return }
-            let json = try? JSONSerialization.jsonObject(with: data)
-            print(json)
-            print(response)
-            print(error)
+        AF.request(urlComponents).responseDecodable(of: T.self) { dataResponse in
+            switch dataResponse.result {
+            case let .success(data): completion(.success(data))
+            case let .failure(afError): completion(.failure(afError))
+            }
         }
-        task.resume()
     }
 }

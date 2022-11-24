@@ -14,13 +14,18 @@ final class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var groups: [Group] = []
+    var groups: [Groups.Items] = []
+
+    // MARK: - Private Properties
+
+    private let networkService = NetworkService()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        fetchGroups()
     }
 
     // MARK: - Private Methods
@@ -30,6 +35,16 @@ final class UserGroupsTableViewController: UITableViewController {
             UINib(nibName: Constants.cellNibName, bundle: nil),
             forCellReuseIdentifier: Constants.groupCellID
         )
+    }
+
+    private func fetchGroups() {
+        networkService.fetchUserGroups(userID: 159_716_695) { [weak self] result in
+            switch result {
+            case let .success(groups): self?.groups = groups.response.items
+            case let .failure(error): print(error)
+            }
+            self?.tableView.reloadData()
+        }
     }
 
     // MARK: - Table view data source
@@ -49,7 +64,7 @@ final class UserGroupsTableViewController: UITableViewController {
         ) as? GroupTableViewCell
         else { return UITableViewCell() }
         let group = groups[indexPath.row]
-        cell.configure(nameLabelText: group.name, groupsImageName: group.imageName)
+        cell.configure(nameLabelText: group.name, groupsImageName: group.photo)
         return cell
     }
 

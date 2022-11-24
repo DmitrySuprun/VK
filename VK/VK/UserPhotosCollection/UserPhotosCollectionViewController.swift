@@ -14,15 +14,39 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     // MARK: - Public Properties
 
-    var usersInfo: [UserInfo] = []
+    var userID: Int?
+    var usersPhotos: Photos?
 
-    // MARK: - Public Properties
+    // MARK: - Private Properties
+
+    private let networkService = NetworkService()
+
+    // MARK: - Life Cycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        fetchData()
+    }
+
+    // MARK: - Public Methods
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.photoViewControllerSegueID,
               let photoViewController = segue.destination as? UserPhotosViewController
         else { return }
-        photoViewController.userInfo = usersInfo.first
+        photoViewController.userPhotos = usersPhotos
+    }
+
+    // MARK: - Private Methods
+
+    private func fetchData() {
+        networkService.fetchAllUserPhotos(userID: userID ?? 0) { [weak self] result in
+            switch result {
+            case let .success(photos): self?.usersPhotos = photos
+            case let .failure(error): print(error)
+            }
+            self?.collectionView.reloadData()
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -32,7 +56,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        usersInfo.count
+        usersPhotos?.response.items.count ?? 0
     }
 
     override func collectionView(
@@ -45,8 +69,8 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
         cell.configure(
-            imageName: usersInfo[indexPath.row].avatarName,
-            likesCount: usersInfo[indexPath.row].likesCount
+            imageName: usersPhotos?.response.items[indexPath.row].sizes.last?.url ?? "",
+            likesCount: usersPhotos?.response.items[indexPath.row].likes.count ?? 0
         )
         return cell
     }

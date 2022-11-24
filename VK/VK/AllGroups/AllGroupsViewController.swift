@@ -82,7 +82,7 @@ final class AllGroupsViewController: UITableViewController {
         else { return }
 
         if !userGroupsViewController.groups.contains(where: { $0.name == groups[indexPath.row].name }) {
-            userGroupsViewController.groups.append(filteredGroups[indexPath.row])
+//            userGroupsViewController.groups.append(filteredGroups[indexPath.row])
             userGroupsViewController.tableView.reloadData()
         }
         navigationController?.popViewController(animated: true)
