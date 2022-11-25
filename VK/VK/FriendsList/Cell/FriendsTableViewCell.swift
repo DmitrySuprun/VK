@@ -17,14 +17,14 @@ final class FriendsTableViewCell: UITableViewCell {
         setupTapGestureRecognizer()
     }
 
-    // MARK: - Public Properties
+    // MARK: - Public Methods
 
     func configure(nameLabelText: String, avatarImageName: String) {
         nameLabel.text = nameLabelText
         avatarView.avatarImageView.loadImage(urlName: avatarImageName)
     }
 
-    // MARK: - Private Properties
+    // MARK: - Private Methods
 
     private func setupTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSpringAnimationAction))
