@@ -37,8 +37,8 @@ final class FriendsTableViewCell: UITableViewCell {
         animation.fromValue = CGRect(
             x: 0,
             y: 0,
-            width: avatarView.bounds.width - 5,
-            height: avatarView.bounds.height - 5
+            width: avatarView.bounds.width - 10,
+            height: avatarView.bounds.height - 10
         )
         animation.toValue = avatarView.bounds
         animation.initialVelocity = 0.1

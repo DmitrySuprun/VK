@@ -11,7 +11,6 @@ final class FriendsListTableViewController: UITableViewController {
         static let friendsCellID = "friendsCellID"
         static let friendsInfoSegueID = "friendsInfoSegueID"
         static let emptyCharacter = Character("")
-        static let spaceName = " "
     }
 
     // MARK: - Public Properties
@@ -34,17 +33,16 @@ final class FriendsListTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func fetchData() {
-        networkService.fetchFriends { result in
+        networkService.fetchFriends { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case let .success(friends):
-                self.friends = friends.response.friends
+            case let .success(responseFriends):
+                self.friends = responseFriends.friends
                 self.makeFriendsSortedMap(friendsInfo: self.friends)
                 self.tableView.reloadData()
-            case let .failure(error): print(error)
+            case let .failure(error):
+                print(error)
             }
-        }
-        networkService.fetchUserGroups(userID: 1) { result in
-            print(result)
         }
     }
 
@@ -99,11 +97,13 @@ final class FriendsListTableViewController: UITableViewController {
         let sortedKeys = sortedFriendsMap.keys.sorted()
         let key = sortedKeys[indexPath.section]
         guard let friendsListSection = sortedFriendsMap[key] else { return UITableViewCell() }
-        let friend = friendsListSection[indexPath.row]
-        cell.configure(
-            nameLabelText: "\(friend.lastName + Constants.spaceName + friend.firstName)",
-            avatarImageName: friend.photo
-        )
+        if friendsListSection.indices.contains([indexPath.row]) {
+            let friend = friendsListSection[indexPath.row]
+            cell.configure(
+                nameLabelText: "\(friend.lastName) \(friend.firstName)",
+                avatarImageName: friend.photo
+            )
+        }
         return cell
     }
 

@@ -37,7 +37,7 @@ final class AllGroupsViewController: UITableViewController {
         networkService.fetchGroupsSearch(searchName: searchName) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(groups): self.groups = groups.response.groups
+            case let .success(responseGroups): self.groups = responseGroups.groups
             case let .failure(error): print(error)
             }
             self.tableView?.reloadData()
@@ -80,7 +80,7 @@ final class AllGroupsViewController: UITableViewController {
 
 extension AllGroupsViewController: UISearchBarDelegate {
     // MARK: - UISearchBarDelegate Methods
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         fetchGroups(searchName: searchText)
     }

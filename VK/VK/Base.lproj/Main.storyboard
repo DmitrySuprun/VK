@@ -400,7 +400,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woT-eN-7C1" customClass="AvatarView" customModule="VK" customModuleProvider="target">
                                             <rect key="frame" x="20" y="10.000000000000004" width="50" height="50.333333333333343"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="Qbk-6F-95X"/>
                                                 <constraint firstAttribute="width" constant="50" id="iRS-QU-F8I"/>

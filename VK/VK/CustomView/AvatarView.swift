@@ -59,7 +59,7 @@ final class AvatarView: UIView {
     private func setupUI() {
         addSubview(avatarImageView)
         layer.cornerRadius = bounds.width / 2
-        layer.shadowColor = shadowColor.cgColor
+        layer.shadowColor = UIColor.systemOrange.cgColor
         layer.shadowRadius = shadowRadius
         layer.shadowOpacity = shadowOpacity
         layer.shadowOffset = CGSize(width: 5, height: 5)

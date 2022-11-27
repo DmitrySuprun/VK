@@ -12,12 +12,13 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         static let photoViewControllerSegueID = "photoViewControllerSegueID"
         static let defaultIntValue = 0
         static let defaultStringValue = ""
+        static let defaultBoolValue = false
     }
 
     // MARK: - Public Properties
 
     var userID: Int?
-    var usersPhotos: Photos?
+    var photos: ResponseAllPhotos?
 
     // MARK: - Private Properties
 
@@ -36,18 +37,21 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         guard segue.identifier == Constants.photoViewControllerSegueID,
               let photoViewController = segue.destination as? UserPhotosViewController
         else { return }
-        photoViewController.userPhotos = usersPhotos
+        photoViewController.userPhotos = photos
     }
 
     // MARK: - Private Methods
 
     private func fetchData() {
         networkService.fetchAllUserPhotos(userID: userID ?? 0) { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case let .success(photos): self?.usersPhotos = photos
-            case let .failure(error): print(error)
+            case let .success(photos):
+                self.photos = photos
+            case let .failure(error):
+                print(error)
             }
-            self?.collectionView.reloadData()
+            self.collectionView.reloadData()
         }
     }
 
@@ -58,7 +62,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        usersPhotos?.response.photos.count ?? 0
+        photos?.photos.count ?? 0
     }
 
     override func collectionView(
@@ -71,8 +75,9 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
         cell.configure(
-            imageName: usersPhotos?.response.photos[indexPath.row].sizes.last?.url ?? Constants.defaultStringValue,
-            likesCount: usersPhotos?.response.photos[indexPath.row].likes.count ?? Constants.defaultIntValue
+            imageName: photos?.photos[indexPath.row].photoURLName ?? Constants.defaultStringValue,
+            likesCount: photos?.photos[indexPath.row].likesCount ?? Constants.defaultIntValue,
+            isLiked: photos?.photos[indexPath.row].isLike ?? Constants.defaultBoolValue
         )
         return cell
     }

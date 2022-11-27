@@ -19,14 +19,14 @@ final class NetworkService {
 
     // MARK: - Public Methods
 
-    func fetchGroupsSearch(searchName: String, completion: @escaping (Result<Groups, Error>) -> ()) {
+    func fetchGroupsSearch(searchName: String, completion: @escaping (Result<ResponseGroups, Error>) -> ()) {
         let queryItems = [
             URLQueryItem(name: "q", value: searchName)
         ]
         fetchData(queryItems: queryItems, method: "groups.search", completion: completion)
     }
 
-    func fetchUserGroups(userID: Int, completion: @escaping (Result<Groups, Error>) -> ()) {
+    func fetchUserGroups(userID: Int, completion: @escaping (Result<ResponseGroups, Error>) -> ()) {
         let queryItems = [
             URLQueryItem(name: "owner_id", value: String(userID)),
             URLQueryItem(name: "extended", value: "1")
@@ -34,7 +34,7 @@ final class NetworkService {
         fetchData(queryItems: queryItems, method: "groups.get", completion: completion)
     }
 
-    func fetchAllUserPhotos(userID: Int, completion: @escaping (Result<Photos, Error>) -> ()) {
+    func fetchAllUserPhotos(userID: Int, completion: @escaping (Result<ResponseAllPhotos, Error>) -> ()) {
         let queryItems = [
             URLQueryItem(name: "owner_id", value: String(userID)),
             URLQueryItem(name: "extended", value: "1")
@@ -42,7 +42,7 @@ final class NetworkService {
         fetchData(queryItems: queryItems, method: "photos.getAll", completion: completion)
     }
 
-    func fetchFriends(completion: @escaping (Result<Friends, Error>) -> ()) {
+    func fetchFriends(completion: @escaping (Result<ResponseFriends, Error>) -> ()) {
         let queryItems = [
             URLQueryItem(name: "fields", value: "nickname"),
             URLQueryItem(name: "fields", value: "photo_100")
@@ -73,8 +73,10 @@ final class NetworkService {
 
         AF.request(urlComponents).responseDecodable(of: T.self) { dataResponse in
             switch dataResponse.result {
-            case let .success(data): completion(.success(data))
-            case let .failure(afError): completion(.failure(afError))
+            case let .success(data):
+                completion(.success(data))
+            case let .failure(afError):
+                completion(.failure(afError))
             }
         }
     }
