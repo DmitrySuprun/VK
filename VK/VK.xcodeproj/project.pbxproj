@@ -16,6 +16,7 @@
 		D507E391291C219800679342 /* PopViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507E390291C219800679342 /* PopViewControllerAnimatedTransitioning.swift */; };
 		D507E397291D811D00679342 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507E396291D811D00679342 /* CustomInteractiveTransition.swift */; };
 		D507E399291D85AA00679342 /* CustomPopAnimationNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507E398291D85AA00679342 /* CustomPopAnimationNavigationViewController.swift */; };
+		D51170F029348D2500E162CD /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51170EF29348D2500E162CD /* Array+Extension.swift */; };
 		D52A17AA292B8D6600B49180 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A17A9292B8D6600B49180 /* Session.swift */; };
 		D52A17AE292CF87500B49180 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A17AD292CF87500B49180 /* NetworkService.swift */; };
 		D52A17B1292D27A700B49180 /* WebViewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A17B0292D27A700B49180 /* WebViewLoginViewController.swift */; };
@@ -58,6 +59,7 @@
 		D507E390291C219800679342 /* PopViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		D507E396291D811D00679342 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		D507E398291D85AA00679342 /* CustomPopAnimationNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimationNavigationViewController.swift; sourceTree = "<group>"; };
+		D51170EF29348D2500E162CD /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		D52A17A9292B8D6600B49180 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D52A17AD292CF87500B49180 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		D52A17B0292D27A700B49180 /* WebViewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewLoginViewController.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				D56AC1E4292FCF0D00E10040 /* UIImageView+Extension.swift */,
+				D51170EF29348D2500E162CD /* Array+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				D56AC1E7292FDE5A00E10040 /* ResponseAllPhotos.swift in Sources */,
 				D56643F1291460A000306D42 /* ResponseGroups.swift in Sources */,
 				D507E383291ACBCF00679342 /* DotsAnimationView.swift in Sources */,
+				D51170F029348D2500E162CD /* Array+Extension.swift in Sources */,
 				D56AC1E5292FCF0D00E10040 /* UIImageView+Extension.swift in Sources */,
 				D56643952911605D00306D42 /* LoginViewController.swift in Sources */,
 				D5499991291A86160085A3B7 /* NewsTableViewCell.swift in Sources */,

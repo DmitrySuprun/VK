@@ -7,7 +7,7 @@ import UIKit
 final class AllGroupsViewController: UITableViewController {
     // MARK: - Private Constants
 
-    private struct Constants {
+    private enum Constants {
         static let groupCellID = "groupCellID"
         static let cellNibName = "GroupTableViewCell"
     }

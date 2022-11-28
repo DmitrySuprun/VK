@@ -7,7 +7,7 @@ import UIKit
 final class FriendsListTableViewController: UITableViewController {
     // MARK: - Constants
 
-    private struct Constants {
+    private enum Constants {
         static let friendsCellID = "friendsCellID"
         static let friendsInfoSegueID = "friendsInfoSegueID"
         static let emptyCharacter = Character("")

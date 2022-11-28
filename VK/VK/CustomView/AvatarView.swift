@@ -7,18 +7,11 @@ import UIKit
 final class AvatarView: UIView {
     // MARK: - Public Properties
 
-    var image: UIImage? {
-        didSet {
-            avatarImageView.image = image
-        }
-    }
-
     lazy var avatarImageView = {
         let imageView = UIImageView()
         imageView.frame = bounds
         imageView.layer.cornerRadius = bounds.width / 2
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .systemBlue
         return imageView
     }()
 
@@ -59,7 +52,7 @@ final class AvatarView: UIView {
     private func setupUI() {
         addSubview(avatarImageView)
         layer.cornerRadius = bounds.width / 2
-        layer.shadowColor = UIColor.systemOrange.cgColor
+        layer.shadowColor = backgroundColor?.cgColor
         layer.shadowRadius = shadowRadius
         layer.shadowOpacity = shadowOpacity
         layer.shadowOffset = CGSize(width: 5, height: 5)

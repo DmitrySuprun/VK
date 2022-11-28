@@ -7,7 +7,7 @@ import RealmSwift
 struct ResponseAllPhotos: Decodable {
     // MARK: - Constants
 
-    private struct Constants {
+    private enum Constants {
         static let imageQualityKeyName = "x"
         static let isLikedIntValue = 0
     }

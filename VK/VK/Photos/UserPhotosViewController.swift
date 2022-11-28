@@ -7,7 +7,7 @@ import UIKit
 final class UserPhotosViewController: UIViewController {
     // MARK: - Private Constants
 
-    private struct Constants {
+    private enum Constants {
         static let emptyText = ""
         static let oneIndices = 1
         static let twoIndices = 2

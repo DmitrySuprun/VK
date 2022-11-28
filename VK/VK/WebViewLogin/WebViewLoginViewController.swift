@@ -8,7 +8,7 @@ import WebKit
 final class WebViewLoginViewController: UIViewController {
     // MARK: - Private Constants
 
-    private struct Constants {
+    private enum Constants {
         static let oAuthURLName =
             "https://oauth.vk.com/authorize?client_id=8090325&revoke=1&response_type=token&scope=friends,groups,photos"
         static let validPathName = "/blank.html"

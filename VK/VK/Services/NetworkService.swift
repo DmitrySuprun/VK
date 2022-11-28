@@ -8,13 +8,26 @@ import Foundation
 final class NetworkService {
     // MARK: - Private Constants
 
-    private struct Constants {
+    private enum Constants {
         static let scheme = "http"
         static let host = "api.vk.com"
         static let path = "/method/"
         static let accessTokenKeyName = "access_token"
         static let versionKeyName = "v"
         static let versionValueName = "5.131"
+
+        static let groupSearchMethodName = "groups.search"
+        static let groupsGetMethodName = "groups.get"
+        static let friendsGetMethodName = "friends.get"
+        static let getAllPhotosMethodName = "photos.getAll"
+
+        static let queryItemOwnerIDName = "owner_id"
+        static let queryItemExtendedName = "extended"
+        static let queryItemFieldsName = "fields"
+
+        static let queryItemValueNickName = "nickname"
+        static let queryItemValuePhotoName = "photo_100"
+        static let queryItemValueTrue = "1"
     }
 
     // MARK: - Public Methods
@@ -23,31 +36,31 @@ final class NetworkService {
         let queryItems = [
             URLQueryItem(name: "q", value: searchName)
         ]
-        fetchData(queryItems: queryItems, method: "groups.search", completion: completion)
+        fetchData(queryItems: queryItems, method: Constants.groupSearchMethodName, completion: completion)
     }
 
     func fetchUserGroups(userID: Int, completion: @escaping (Result<ResponseGroups, Error>) -> ()) {
         let queryItems = [
-            URLQueryItem(name: "owner_id", value: String(userID)),
-            URLQueryItem(name: "extended", value: "1")
+            URLQueryItem(name: Constants.queryItemOwnerIDName, value: String(userID)),
+            URLQueryItem(name: Constants.queryItemExtendedName, value: Constants.queryItemValueTrue)
         ]
-        fetchData(queryItems: queryItems, method: "groups.get", completion: completion)
+        fetchData(queryItems: queryItems, method: Constants.groupSearchMethodName, completion: completion)
     }
 
     func fetchAllUserPhotos(userID: Int, completion: @escaping (Result<ResponseAllPhotos, Error>) -> ()) {
         let queryItems = [
-            URLQueryItem(name: "owner_id", value: String(userID)),
-            URLQueryItem(name: "extended", value: "1")
+            URLQueryItem(name: Constants.queryItemOwnerIDName, value: String(userID)),
+            URLQueryItem(name: Constants.queryItemExtendedName, value: Constants.queryItemValueTrue)
         ]
-        fetchData(queryItems: queryItems, method: "photos.getAll", completion: completion)
+        fetchData(queryItems: queryItems, method: Constants.getAllPhotosMethodName, completion: completion)
     }
 
     func fetchFriends(completion: @escaping (Result<ResponseFriends, Error>) -> ()) {
         let queryItems = [
-            URLQueryItem(name: "fields", value: "nickname"),
-            URLQueryItem(name: "fields", value: "photo_100")
+            URLQueryItem(name: Constants.queryItemFieldsName, value: Constants.queryItemValueNickName),
+            URLQueryItem(name: Constants.queryItemFieldsName, value: Constants.queryItemValuePhotoName)
         ]
-        fetchData(queryItems: queryItems, method: "friends.get", completion: completion)
+        fetchData(queryItems: queryItems, method: Constants.friendsGetMethodName, completion: completion)
     }
 
     // MARK: - Private Methods
