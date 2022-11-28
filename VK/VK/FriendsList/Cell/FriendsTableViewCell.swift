@@ -17,14 +17,14 @@ final class FriendsTableViewCell: UITableViewCell {
         setupTapGestureRecognizer()
     }
 
-    // MARK: - Public Properties
+    // MARK: - Public Methods
 
     func configure(nameLabelText: String, avatarImageName: String) {
         nameLabel.text = nameLabelText
-        avatarView.image = UIImage(named: avatarImageName)
+        avatarView.avatarImageView.loadImage(urlName: avatarImageName)
     }
 
-    // MARK: - Private Properties
+    // MARK: - Private Methods
 
     private func setupTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSpringAnimationAction))
@@ -37,8 +37,8 @@ final class FriendsTableViewCell: UITableViewCell {
         animation.fromValue = CGRect(
             x: 0,
             y: 0,
-            width: avatarView.bounds.width - 5,
-            height: avatarView.bounds.height - 5
+            width: avatarView.bounds.width - 10,
+            height: avatarView.bounds.height - 10
         )
         animation.toValue = avatarView.bounds
         animation.initialVelocity = 0.1

@@ -15,7 +15,7 @@ final class WebViewLoginViewController: UIViewController {
         static let ampersandCharacterName = "&"
         static let equalCharacterName = "="
         static let emptyCharacterName = ""
-        static let defaultValueInt = 0
+        static let defaultIntValue = 0
         static let tokenKeyName = "access_token"
         static let userIDKeyName = "user_id"
         static let tabBarViewControllerID = "tabBarID"
@@ -85,7 +85,7 @@ extension WebViewLoginViewController: WKNavigationDelegate {
         let token = params[Constants.tokenKeyName]
         let userID = params[Constants.userIDKeyName]
         Session.shared.token = token ?? Constants.emptyCharacterName
-        Session.shared.userID = Int(userID ?? Constants.emptyCharacterName) ?? Constants.defaultValueInt
+        Session.shared.userID = Int(userID ?? Constants.emptyCharacterName) ?? Constants.defaultIntValue
         decisionHandler(.cancel)
 
         presentNextViewController()

@@ -400,7 +400,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woT-eN-7C1" customClass="AvatarView" customModule="VK" customModuleProvider="target">
                                             <rect key="frame" x="20" y="10.000000000000004" width="50" height="50.333333333333343"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="Qbk-6F-95X"/>
                                                 <constraint firstAttribute="width" constant="50" id="iRS-QU-F8I"/>
@@ -419,6 +419,7 @@
                                 <connections>
                                     <outlet property="avatarView" destination="woT-eN-7C1" id="V7h-rQ-zCz"/>
                                     <outlet property="nameLabel" destination="4ty-wh-Gwf" id="F6T-dK-4mW"/>
+                                    <segue destination="ZS2-Nt-f0Z" kind="show" identifier="friendsInfoSegueID" id="lNS-ym-8bp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -560,25 +561,25 @@
             <objects>
                 <viewController id="ADL-HF-DD8" customClass="UserPhotosViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NIx-YH-g3o">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="qBf-UN-2s9">
-                                <rect key="frame" x="146.66666666666666" y="341.66666666666669" width="100" height="100"/>
+                                <rect key="frame" x="146.66666666666666" y="376" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="0hn-lf-SUO"/>
                                     <constraint firstAttribute="height" constant="100" id="pai-d8-g8i"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="24G-RY-c9r">
-                                <rect key="frame" x="76.666666666666686" y="271.66666666666669" width="240" height="240"/>
+                                <rect key="frame" x="76.666666666666686" y="306" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="PD3-pk-s68"/>
                                     <constraint firstAttribute="height" constant="240" id="fN1-Ny-1wS"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="RhP-YM-joa">
-                                <rect key="frame" x="393" y="271.66666666666669" width="240" height="240"/>
+                                <rect key="frame" x="393" y="306" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="kux-l0-RY7"/>
                                     <constraint firstAttribute="height" constant="240" id="xfC-7x-7Di"/>

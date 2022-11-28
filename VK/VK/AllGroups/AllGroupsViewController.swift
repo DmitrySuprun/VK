@@ -5,7 +5,7 @@ import UIKit
 
 /// All existing groups
 final class AllGroupsViewController: UITableViewController {
-    // MARK: - Constants
+    // MARK: - Private Constants
 
     private enum Constants {
         static let groupCellID = "groupCellID"
@@ -18,26 +18,11 @@ final class AllGroupsViewController: UITableViewController {
 
     // MARK: - Public Properties
 
-    var groups = [
-        Group(name: "North", imageName: "101"),
-        Group(name: "South", imageName: "102"),
-        Group(name: "West", imageName: "103"),
-        Group(name: "East", imageName: "104"),
-        Group(name: "Earth", imageName: "105"),
-        Group(name: "Water", imageName: "106"),
-        Group(name: "Air", imageName: "100")
-    ]
+    var groups: [Group] = []
 
     // MARK: - Private Properties
 
-    private var filteredGroups: [Group] {
-        let searchText = groupsSearchBar.text ?? ""
-        if searchText.isEmpty {
-            return groups
-        } else {
-            return groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        }
-    }
+    private var networkService = NetworkService()
 
     // MARK: - Life Cycle
 
@@ -47,6 +32,17 @@ final class AllGroupsViewController: UITableViewController {
     }
 
     // MARK: - Private Methods
+
+    private func fetchGroups(searchName: String) {
+        networkService.fetchGroupsSearch(searchName: searchName) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(responseGroups): self.groups = responseGroups.groups
+            case let .failure(error): print(error)
+            }
+            self.tableView?.reloadData()
+        }
+    }
 
     private func setupTableView() {
         tableView.register(
@@ -62,7 +58,7 @@ final class AllGroupsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filteredGroups.count
+        groups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,20 +67,11 @@ final class AllGroupsViewController: UITableViewController {
             for: indexPath
         ) as? GroupTableViewCell
         else { return UITableViewCell() }
-        let group = filteredGroups[indexPath.row]
-        cell.configure(nameLabelText: group.name, groupsImageName: group.imageName)
+        cell.configure(nameLabelText: groups[indexPath.row].name, groupsImageName: groups[indexPath.row].photo)
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let userGroupsViewController =
-            navigationController?.viewControllers.first as? UserGroupsTableViewController
-        else { return }
-
-        if !userGroupsViewController.groups.contains(where: { $0.name == groups[indexPath.row].name }) {
-            userGroupsViewController.groups.append(filteredGroups[indexPath.row])
-            userGroupsViewController.tableView.reloadData()
-        }
         navigationController?.popViewController(animated: true)
     }
 }
@@ -92,7 +79,9 @@ final class AllGroupsViewController: UITableViewController {
 // MARK: - UISearchBarDelegate
 
 extension AllGroupsViewController: UISearchBarDelegate {
+    // MARK: - UISearchBarDelegate Methods
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        tableView.reloadData()
+        fetchGroups(searchName: searchText)
     }
 }

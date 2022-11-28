@@ -9,7 +9,9 @@ final class UserPhotosViewController: UIViewController {
 
     private enum Constants {
         static let emptyText = ""
+        static let oneIndices = 1
         static let twoIndices = 2
+        static let defaultValue = 0
     }
 
     // MARK: - Private IBOutlets
@@ -26,7 +28,7 @@ final class UserPhotosViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var userInfo: UserInfo?
+    var userPhotos: ResponseAllPhotos?
 
     // MARK: - Private Properties
 
@@ -83,13 +85,16 @@ final class UserPhotosViewController: UIViewController {
                 self?.previousImageView.image = self?.currentImageView.image
                 self?.currentImageView.image = self?.nextImageView.image
                 self?.currentImageIndex += 1
-                if self?.currentImageIndex == self?.userInfo?.imagesNames.count {
+                if self?.currentImageIndex == self?.userPhotos?.photos.count {
                     self?.currentImageIndex = 0
                 }
                 self?.calculatePreviousNextIndex()
-                self?.nextImageView.image = UIImage(
-                    named: self?.userInfo?.imagesNames[self?.nextImageIndex ?? 0] ?? Constants.emptyText
+                self?.nextImageView.loadImage(
+                    urlName:
+                    self?.userPhotos?.photos[self?.nextImageIndex ?? Constants.defaultValue].photoURLName
+                        ?? Constants.emptyText
                 )
+
                 self?.currentImageView.transform = .identity
                 self?.nextImageView.transform = .identity
                 self?.nextImageView.alpha = 0
@@ -100,11 +105,17 @@ final class UserPhotosViewController: UIViewController {
                 self?.currentImageView.image = self?.previousImageView.image
                 self?.currentImageIndex -= 1
                 if self?.currentImageIndex ?? 0 < 0 {
-                    self?.currentImageIndex = (self?.userInfo?.imagesNames.count ?? 0) - 1
+                    self?.currentImageIndex =
+                        (self?.userPhotos?.photos.count ?? Constants.defaultValue) - Constants.oneIndices
                 }
                 self?.calculatePreviousNextIndex()
-                self?.previousImageView.image = UIImage(
-                    named: self?.userInfo?.imagesNames[self?.previousImageIndex ?? 0] ?? Constants.emptyText
+                self?.previousImageView.loadImage(
+                    urlName:
+                    self?.userPhotos?.photos[
+                        self?.previousImageIndex
+                            ?? Constants.defaultValue
+                    ].photoURLName
+                        ?? Constants.emptyText
                 )
                 self?.currentImageView.transform = .identity
                 self?.currentImageView.alpha = 1
@@ -115,8 +126,6 @@ final class UserPhotosViewController: UIViewController {
         }
     }
 
-    // MARK: - Private Methods
-
     private func setupPanGestureRecognizer() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(viewPannedAction(_:)))
         view.addGestureRecognizer(panGestureRecognizer)
@@ -124,24 +133,26 @@ final class UserPhotosViewController: UIViewController {
 
     private func setupImages() {
         currentImageView.image = UIImage(
-            named: userInfo?.imagesNames[currentImageIndex] ?? Constants.emptyText
+            named: userPhotos?.photos[currentImageIndex].photoURLName ?? Constants.emptyText
         )
-        nextImageView.image = UIImage(
-            named: userInfo?.imagesNames[nextImageIndex] ?? Constants.emptyText
+        nextImageView.loadImage(
+            urlName: userPhotos?.photos[nextImageIndex].photoURLName ?? Constants.emptyText
         )
-        previousImageView.image = UIImage(
-            named: userInfo?.imagesNames[previousImageIndex] ?? Constants.emptyText
+
+        previousImageView.loadImage(
+            urlName: userPhotos?.photos[previousImageIndex].photoURLName ?? Constants.emptyText
         )
+
         nextImageView.alpha = 0
     }
 
     private func calculatePreviousNextIndex() {
         switch currentImageIndex {
         case 0:
-            previousImageIndex = (userInfo?.imagesNames.count ?? 0) - 1
+            previousImageIndex = (userPhotos?.photos.count ?? Constants.defaultValue) - Constants.oneIndices
             nextImageIndex = 1
-        case (userInfo?.imagesNames.count ?? 0) - 1:
-            previousImageIndex = (userInfo?.imagesNames.count ?? 0) - Constants.twoIndices
+        case (userPhotos?.photos.count ?? Constants.defaultValue) - Constants.oneIndices:
+            previousImageIndex = (userPhotos?.photos.count ?? Constants.defaultValue) - Constants.twoIndices
             nextImageIndex = 0
         default:
             previousImageIndex = currentImageIndex - 1
