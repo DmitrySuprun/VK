@@ -20,17 +20,29 @@ final class FriendsListTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private var sortedFriendsMap: [Character: [Friend]] = [:]
-    private var networkService = NetworkService()
+    private let networkService = NetworkService()
+    private let databaseService = DatabaseService()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         makeFriendsSortedMap(friendsInfo: friends)
-        fetchData()
+        loadData()
     }
 
     // MARK: - Private Methods
+
+    private func loadData() {
+        fetchData()
+        guard let friends = databaseService.loadData(objectType: Friend.self) else { return }
+        makeFriendsSortedMap(friendsInfo: friends)
+        tableView.reloadData()
+    }
+
+    private func saveData() {
+        databaseService.saveData(objects: friends)
+    }
 
     private func fetchData() {
         networkService.fetchFriends { [weak self] result in
@@ -38,8 +50,7 @@ final class FriendsListTableViewController: UITableViewController {
             switch result {
             case let .success(responseFriends):
                 self.friends = responseFriends.friends
-                self.makeFriendsSortedMap(friendsInfo: self.friends)
-                self.tableView.reloadData()
+                self.saveData()
             case let .failure(error):
                 print(error)
             }
