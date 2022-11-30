@@ -63,8 +63,6 @@ final class UserGroupsTableViewController: UITableViewController {
                         at: modifications.map { IndexPath(row: $0, section: 0) },
                         with: .fade
                     )
-                }, completion: { finished in
-                    print("Update isFinished -", finished)
                 })
 
             case let .error(error):

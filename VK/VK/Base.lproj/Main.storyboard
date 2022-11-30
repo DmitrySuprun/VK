@@ -170,7 +170,7 @@
         <!--Search-->
         <scene sceneID="HfA-3A-hVn">
             <objects>
-                <tableViewController title="Search" id="hm6-v9-Fx5" customClass="UserGroupsTableViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="userGroupsViewControllerID" title="Search" id="hm6-v9-Fx5" customClass="UserGroupsTableViewController" customModule="VK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="XWq-o0-X8O">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

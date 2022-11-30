@@ -13,35 +13,44 @@ final class FriendsListTableViewController: UITableViewController {
         static let emptyCharacter = Character("")
     }
 
-    // MARK: - Public Properties
-
-    var friends: [Friend] = []
-
     // MARK: - Private Properties
 
     private var sortedFriendsMap: [Character: [Friend]] = [:]
     private let networkService = NetworkService()
-    private let databaseService = DatabaseService()
+    private var databaseService = DatabaseService()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeFriendsSortedMap(friendsInfo: friends)
+        setupNotification()
         loadFriendsFromDatabaseService()
     }
 
     // MARK: - Private Methods
 
+    private func setupNotification() {
+        databaseService.setupNotification(objectType: Friend.self) { [weak self] changes in
+            guard let self = self else { return }
+            switch changes {
+            case .initial:
+                self.tableView.reloadData()
+                // MARK: - TODO Fix delete objects
+            case let .update(results, deletions, _, _):
+                guard deletions.isEmpty else { return }
+                self.makeSortedFriendsMap(friendsInfo: Array(results))
+                self.tableView.reloadData()
+            case .error:
+                break
+            }
+        }
+    }
+
     private func loadFriendsFromDatabaseService() {
         fetchData()
         guard let friends = databaseService.load(objectType: Friend.self) else { return }
-        makeFriendsSortedMap(friendsInfo: friends)
+        makeSortedFriendsMap(friendsInfo: friends)
         tableView.reloadData()
-    }
-
-    private func saveInDatabaseService() {
-        databaseService.save(objects: friends)
     }
 
     private func fetchData() {
@@ -49,15 +58,14 @@ final class FriendsListTableViewController: UITableViewController {
             guard let self = self else { return }
             switch result {
             case let .success(responseFriends):
-                self.friends = responseFriends.friends
-                self.saveInDatabaseService()
+                self.databaseService.save(objects: responseFriends.friends)
             case let .failure(error):
                 print(error)
             }
         }
     }
 
-    private func makeFriendsSortedMap(friendsInfo: [Friend]) {
+    private func makeSortedFriendsMap(friendsInfo: [Friend]) {
         var friendsMap: [Character: [Friend]] = [:]
         for info in friendsInfo {
             if let key = info.lastName.first {
@@ -127,5 +135,22 @@ final class FriendsListTableViewController: UITableViewController {
         let headerView = view as? UITableViewHeaderFooterView
         headerView?.contentView.backgroundColor = .systemGray6
         headerView?.contentView.alpha = 0.3
+    }
+
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        // MARK: - TODO Fix delete objects
+        guard editingStyle == .delete else { return }
+        let sortedKeys = sortedFriendsMap.keys.sorted()
+        let key = sortedKeys[indexPath.section]
+        guard let friend = sortedFriendsMap[key]?.remove(at: indexPath.row) else { return }
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        if tableView.numberOfRows(inSection: indexPath.row) == 1 {
+            tableView.deleteSections(IndexSet(indexPath), with: .fade)
+        }
+        databaseService.delete(object: friend)
     }
 }
