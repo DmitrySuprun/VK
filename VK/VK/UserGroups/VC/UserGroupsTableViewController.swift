@@ -21,9 +21,7 @@ final class UserGroupsTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
-    private let databaseService = DatabaseService()
-
-    private var notificationToken = NotificationToken()
+    private var databaseService = DatabaseService()
 
     // MARK: - Life Cycle
 
@@ -37,62 +35,53 @@ final class UserGroupsTableViewController: UITableViewController {
     private func setupViewController() {
         setupTableView()
         setupNotificationGroups()
-        loadData()
+        loadGroupFromDatabaseService()
     }
 
     private func setupNotificationGroups() {
-        do {
-            let realm = try Realm()
-            let objects = realm.objects(Group.self)
+        databaseService.setupNotification(objectType: Group.self) { [weak self] changes in
+            guard let self = self else { return }
 
-            notificationToken = objects.observe { changes in
+            switch changes {
+            case .initial:
+                self.tableView.reloadData()
 
-                switch changes {
-                case .initial:
-                    self.tableView.reloadData()
+            case let .update(result, deletions, insertions, modifications):
+                self.groups = Array(result)
+                self.tableView.performBatchUpdates({
+                    self.tableView.deleteRows(
+                        at: deletions.map { IndexPath(row: $0, section: 0) },
+                        with: .fade
+                    )
 
-                case let .update(result, deletions, insertions, modifications):
+                    self.tableView.insertRows(
+                        at: insertions.map { IndexPath(row: $0, section: 0) },
+                        with: .fade
+                    )
 
-                    self.groups = Array(result)
+                    self.tableView.reloadRows(
+                        at: modifications.map { IndexPath(row: $0, section: 0) },
+                        with: .fade
+                    )
+                }, completion: { finished in
+                    print("Update isFinished -", finished)
+                })
 
-                    self.tableView.performBatchUpdates({
-                        self.tableView.deleteRows(
-                            at: deletions.map { IndexPath(row: $0, section: 0) },
-                            with: .fade
-                        )
-
-                        self.tableView.insertRows(
-                            at: insertions.map { IndexPath(row: $0, section: 0) },
-                            with: .fade
-                        )
-
-                        self.tableView.reloadRows(
-                            at: modifications.map { IndexPath(row: $0, section: 0) },
-                            with: .fade
-                        )
-                    }, completion: { finished in
-                        print("Update isFinished -", finished)
-                    })
-
-                case let .error(error):
-                    print(#function, error)
-                }
+            case let .error(error):
+                print(#function, error)
             }
-
-        } catch {
-            print(#function, error)
         }
     }
 
-    private func loadData() {
-        fetchGroups()
-        guard let groups = databaseService.loadData(objectType: Group.self) else { return }
+    private func loadGroupFromDatabaseService() {
+        fetchUserGroups()
+        guard let groups = databaseService.load(objectType: Group.self) else { return }
         self.groups = groups
         tableView.reloadData()
     }
 
-    private func saveData(groupsForSave: [Group]) {
-        databaseService.saveData(objects: groupsForSave)
+    private func saveInDatabaseService(groups: [Group]) {
+        databaseService.save(objects: groups)
     }
 
     private func setupTableView() {
@@ -102,12 +91,12 @@ final class UserGroupsTableViewController: UITableViewController {
         )
     }
 
-    private func fetchGroups() {
+    private func fetchUserGroups() {
         networkService.fetchUserGroups(userID: Session.shared.userID ?? Constants.defaultUserID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(responseGroups):
-                self.saveData(groupsForSave: responseGroups.groups)
+                self.saveInDatabaseService(groups: responseGroups.groups)
             case let .failure(error):
                 print(error)
             }
@@ -143,13 +132,6 @@ final class UserGroupsTableViewController: UITableViewController {
     ) {
         guard editingStyle == .delete else { return }
         let group = groups[indexPath.row]
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.delete(group)
-            }
-        } catch {
-            print(#function, error)
-        }
+        databaseService.delete(object: group)
     }
 }

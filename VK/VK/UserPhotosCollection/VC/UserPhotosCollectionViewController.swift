@@ -26,7 +26,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
+        loadGroupFromDatabaseService()
     }
 
     // MARK: - Public Methods
@@ -40,23 +40,23 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Methods
 
-    private func loadData() {
-        fetchData()
-        guard let savedPhotos = dataBaseService.loadData(objectType: Photo.self) else { return }
+    private func loadGroupFromDatabaseService() {
+        fetchAllUserPhotos()
+        guard let savedPhotos = dataBaseService.load(objectType: Photo.self) else { return }
         photos = savedPhotos.filter { $0.ownerID == self.userID }
         collectionView.reloadData()
     }
 
-    private func saveData(data: [Photo]) {
-        dataBaseService.saveData(objects: data)
+    private func saveInDatabaseService(photos: [Photo]) {
+        dataBaseService.save(objects: photos)
     }
 
-    private func fetchData() {
+    private func fetchAllUserPhotos() {
         networkService.fetchAllUserPhotos(userID: userID ?? 0) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(responsePhotos):
-                self.saveData(data: responsePhotos.photos)
+                self.saveInDatabaseService(photos: responsePhotos.photos)
             case let .failure(error):
                 print(error)
             }

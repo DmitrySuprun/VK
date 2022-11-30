@@ -5,9 +5,13 @@ import RealmSwift
 
 /// Realm Database service
 struct DatabaseService {
+    // MARK: - Private Properties
+
+    private var notificationToken = NotificationToken()
+
     // MARK: - Public Methods
 
-    func saveData<T: Object>(objects: [T]) {
+    func save<T: Object>(objects: [T]) {
         do {
             // MARK: - TODO Remove migration config
 
@@ -22,7 +26,7 @@ struct DatabaseService {
         }
     }
 
-    func loadData<T: Object>(objectType: T.Type) -> [T]? {
+    func load<T: Object>(objectType: T.Type) -> [T]? {
         do {
             let realm = try Realm()
             print("❌", realm.configuration.fileURL)
@@ -31,6 +35,30 @@ struct DatabaseService {
         } catch {
             print(#function, error)
             return nil
+        }
+    }
+
+    mutating func setupNotification<T: Object>(
+        objectType: T.Type,
+        completion: @escaping (RealmCollectionChange<Results<T>>) -> ()
+    ) {
+        do {
+            let realm = try Realm()
+            let objects = realm.objects(objectType)
+            notificationToken = objects.observe(completion)
+        } catch {
+            print(#function, error)
+        }
+    }
+
+    func delete<T: Object>(object: T) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(object)
+            }
+        } catch {
+            print(#function, error)
         }
     }
 }
