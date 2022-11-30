@@ -29,12 +29,16 @@ final class UserGroupsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewController()
+    }
+
+    // MARK: - Private Methods
+
+    private func setupViewController() {
         setupTableView()
         setupNotificationGroups()
         loadData()
     }
-
-    // MARK: - Private Methods
 
     private func setupNotificationGroups() {
         do {
@@ -54,17 +58,17 @@ final class UserGroupsTableViewController: UITableViewController {
                     self.tableView.performBatchUpdates({
                         self.tableView.deleteRows(
                             at: deletions.map { IndexPath(row: $0, section: 0) },
-                            with: .automatic
+                            with: .fade
                         )
 
                         self.tableView.insertRows(
                             at: insertions.map { IndexPath(row: $0, section: 0) },
-                            with: .automatic
+                            with: .fade
                         )
 
                         self.tableView.reloadRows(
                             at: modifications.map { IndexPath(row: $0, section: 0) },
-                            with: .automatic
+                            with: .fade
                         )
                     }, completion: { finished in
                         print("Update isFinished -", finished)
@@ -138,7 +142,14 @@ final class UserGroupsTableViewController: UITableViewController {
         forRowAt indexPath: IndexPath
     ) {
         guard editingStyle == .delete else { return }
-        groups.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        let group = groups[indexPath.row]
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(group)
+            }
+        } catch {
+            print(#function, error)
+        }
     }
 }

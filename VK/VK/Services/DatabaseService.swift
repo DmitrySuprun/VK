@@ -5,15 +5,14 @@ import RealmSwift
 
 /// Realm Database service
 struct DatabaseService {
-    // MARK: - Public Properties
+    // MARK: - Public Methods
 
     func saveData<T: Object>(objects: [T]) {
         do {
-            // MARK: - FIXME Remove migration config
+            // MARK: - TODO Remove migration config
 
             let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: false)
             let realm = try Realm(configuration: configuration)
-            let savedObjects = Array(realm.objects(T.self))
 
             try realm.write {
                 objects.forEach { realm.add($0, update: .modified) }
@@ -26,6 +25,7 @@ struct DatabaseService {
     func loadData<T: Object>(objectType: T.Type) -> [T]? {
         do {
             let realm = try Realm()
+            print("❌", realm.configuration.fileURL)
             let objects = Array(realm.objects(objectType))
             return objects
         } catch {
