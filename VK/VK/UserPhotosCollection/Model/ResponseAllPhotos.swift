@@ -24,6 +24,7 @@ struct ResponseAllPhotos: Decodable {
 
     private enum PhotosInfoCodingKeys: String, CodingKey {
         case id
+        case ownerID = "owner_id"
         case sizes
         case likes
     }
@@ -46,6 +47,7 @@ struct ResponseAllPhotos: Decodable {
 
     init(from decoder: Decoder) throws {
         var photoURLName = ""
+        var ownerID = 0
         var likesCount = 0
         var isLike = false
 
@@ -55,6 +57,8 @@ struct ResponseAllPhotos: Decodable {
 
         while !items.isAtEnd {
             let photosInfoContainer = try items.nestedContainer(keyedBy: PhotosInfoCodingKeys.self)
+
+            ownerID = try photosInfoContainer.decode(Int.self, forKey: .ownerID)
 
             let likesContainer =
                 try photosInfoContainer.nestedContainer(keyedBy: LikesCodingKeys.self, forKey: .likes)
@@ -74,6 +78,7 @@ struct ResponseAllPhotos: Decodable {
 
             let photo = Photo()
             photo.photoURLName = photoURLName
+            photo.ownerID = ownerID
             photo.likesCount = likesCount
             photo.isLike = isLike
             photos.append(photo)

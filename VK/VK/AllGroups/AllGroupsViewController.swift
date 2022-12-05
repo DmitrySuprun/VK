@@ -10,6 +10,8 @@ final class AllGroupsViewController: UITableViewController {
     private enum Constants {
         static let groupCellID = "groupCellID"
         static let cellNibName = "GroupTableViewCell"
+        static let storyboardName = "Main"
+        static let userGroupsViewControllerID = "userGroupsViewControllerID"
     }
 
     // MARK: - IBOutlets
@@ -23,6 +25,7 @@ final class AllGroupsViewController: UITableViewController {
     // MARK: - Private Properties
 
     private var networkService = NetworkService()
+    private var databaseService = DatabaseService()
 
     // MARK: - Life Cycle
 
@@ -72,6 +75,7 @@ final class AllGroupsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        databaseService.save(objects: [groups[indexPath.row]])
         navigationController?.popViewController(animated: true)
     }
 }

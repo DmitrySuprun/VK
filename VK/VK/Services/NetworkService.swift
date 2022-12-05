@@ -5,7 +5,7 @@ import Alamofire
 import Foundation
 
 /// Service for loading API data
-final class NetworkService {
+struct NetworkService {
     // MARK: - Private Constants
 
     private enum Constants {
@@ -21,6 +21,7 @@ final class NetworkService {
         static let friendsGetMethodName = "friends.get"
         static let getAllPhotosMethodName = "photos.getAll"
 
+        static let queryItemSearchName = "q"
         static let queryItemOwnerIDName = "owner_id"
         static let queryItemExtendedName = "extended"
         static let queryItemFieldsName = "fields"
@@ -34,7 +35,7 @@ final class NetworkService {
 
     func fetchGroupsSearch(searchName: String, completion: @escaping (Result<ResponseGroups, Error>) -> ()) {
         let queryItems = [
-            URLQueryItem(name: "q", value: searchName)
+            URLQueryItem(name: Constants.queryItemSearchName, value: searchName)
         ]
         fetchData(queryItems: queryItems, method: Constants.groupSearchMethodName, completion: completion)
     }
@@ -44,7 +45,7 @@ final class NetworkService {
             URLQueryItem(name: Constants.queryItemOwnerIDName, value: String(userID)),
             URLQueryItem(name: Constants.queryItemExtendedName, value: Constants.queryItemValueTrue)
         ]
-        fetchData(queryItems: queryItems, method: Constants.groupSearchMethodName, completion: completion)
+        fetchData(queryItems: queryItems, method: Constants.groupsGetMethodName, completion: completion)
     }
 
     func fetchAllUserPhotos(userID: Int, completion: @escaping (Result<ResponseAllPhotos, Error>) -> ()) {

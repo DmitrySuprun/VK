@@ -28,7 +28,7 @@ final class UserPhotosViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var userPhotos: ResponseAllPhotos?
+    var userPhotos: [Photo] = []
 
     // MARK: - Private Properties
 
@@ -85,13 +85,13 @@ final class UserPhotosViewController: UIViewController {
                 self?.previousImageView.image = self?.currentImageView.image
                 self?.currentImageView.image = self?.nextImageView.image
                 self?.currentImageIndex += 1
-                if self?.currentImageIndex == self?.userPhotos?.photos.count {
+                if self?.currentImageIndex == self?.userPhotos.count {
                     self?.currentImageIndex = 0
                 }
-                self?.calculatePreviousNextIndex()
+                self?.calculateIndices()
                 self?.nextImageView.loadImage(
                     urlName:
-                    self?.userPhotos?.photos[self?.nextImageIndex ?? Constants.defaultValue].photoURLName
+                    self?.userPhotos[self?.nextImageIndex ?? Constants.defaultValue].photoURLName
                         ?? Constants.emptyText
                 )
 
@@ -106,12 +106,12 @@ final class UserPhotosViewController: UIViewController {
                 self?.currentImageIndex -= 1
                 if self?.currentImageIndex ?? 0 < 0 {
                     self?.currentImageIndex =
-                        (self?.userPhotos?.photos.count ?? Constants.defaultValue) - Constants.oneIndices
+                        (self?.userPhotos.count ?? Constants.defaultValue) - Constants.oneIndices
                 }
-                self?.calculatePreviousNextIndex()
+                self?.calculateIndices()
                 self?.previousImageView.loadImage(
                     urlName:
-                    self?.userPhotos?.photos[
+                    self?.userPhotos[
                         self?.previousImageIndex
                             ?? Constants.defaultValue
                     ].photoURLName
@@ -133,26 +133,26 @@ final class UserPhotosViewController: UIViewController {
 
     private func setupImages() {
         currentImageView.image = UIImage(
-            named: userPhotos?.photos[currentImageIndex].photoURLName ?? Constants.emptyText
+            named: userPhotos[currentImageIndex].photoURLName
         )
         nextImageView.loadImage(
-            urlName: userPhotos?.photos[nextImageIndex].photoURLName ?? Constants.emptyText
+            urlName: userPhotos[nextImageIndex].photoURLName
         )
 
         previousImageView.loadImage(
-            urlName: userPhotos?.photos[previousImageIndex].photoURLName ?? Constants.emptyText
+            urlName: userPhotos[previousImageIndex].photoURLName
         )
 
         nextImageView.alpha = 0
     }
 
-    private func calculatePreviousNextIndex() {
+    private func calculateIndices() {
         switch currentImageIndex {
         case 0:
-            previousImageIndex = (userPhotos?.photos.count ?? Constants.defaultValue) - Constants.oneIndices
+            previousImageIndex = (userPhotos.count) - Constants.oneIndices
             nextImageIndex = 1
-        case (userPhotos?.photos.count ?? Constants.defaultValue) - Constants.oneIndices:
-            previousImageIndex = (userPhotos?.photos.count ?? Constants.defaultValue) - Constants.twoIndices
+        case (userPhotos.count) - Constants.oneIndices:
+            previousImageIndex = (userPhotos.count) - Constants.twoIndices
             nextImageIndex = 0
         default:
             previousImageIndex = currentImageIndex - 1

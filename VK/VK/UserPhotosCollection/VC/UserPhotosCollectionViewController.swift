@@ -10,25 +10,23 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     private enum Constants {
         static let userPhotosCollectionViewCellID = "userPhotosCollectionViewCellID"
         static let photoViewControllerSegueID = "photoViewControllerSegueID"
-        static let defaultIntValue = 0
-        static let defaultStringValue = ""
-        static let defaultBoolValue = false
     }
 
     // MARK: - Public Properties
 
     var userID: Int?
-    var photos: ResponseAllPhotos?
+    var photos: [Photo] = []
 
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
+    private let dataBaseService = DatabaseService()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
+        loadGroupFromDatabaseService()
     }
 
     // MARK: - Public Methods
@@ -42,12 +40,23 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Methods
 
-    private func fetchData() {
+    private func loadGroupFromDatabaseService() {
+        fetchAllUserPhotos()
+        guard let savedPhotos = dataBaseService.load(objectType: Photo.self) else { return }
+        photos = savedPhotos.filter { $0.ownerID == self.userID }
+        collectionView.reloadData()
+    }
+
+    private func saveInDatabaseService(photos: [Photo]) {
+        dataBaseService.save(objects: photos)
+    }
+
+    private func fetchAllUserPhotos() {
         networkService.fetchAllUserPhotos(userID: userID ?? 0) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(photos):
-                self.photos = photos
+            case let .success(responsePhotos):
+                self.saveInDatabaseService(photos: responsePhotos.photos)
             case let .failure(error):
                 print(error)
             }
@@ -62,7 +71,7 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos?.photos.count ?? 0
+        photos.count
     }
 
     override func collectionView(
@@ -75,9 +84,9 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
         cell.configure(
-            imageName: photos?.photos[indexPath.row].photoURLName ?? Constants.defaultStringValue,
-            likesCount: photos?.photos[indexPath.row].likesCount ?? Constants.defaultIntValue,
-            isLiked: photos?.photos[indexPath.row].isLike ?? Constants.defaultBoolValue
+            imageName: photos[indexPath.row].photoURLName,
+            likesCount: photos[indexPath.row].likesCount,
+            isLiked: photos[indexPath.row].isLike
         )
         return cell
     }

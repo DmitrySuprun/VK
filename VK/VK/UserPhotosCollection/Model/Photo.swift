@@ -5,7 +5,8 @@ import RealmSwift
 
 /// Photo info
 final class Photo: Object {
-    @Persisted var photoURLName: String
+    @Persisted(primaryKey: true) var photoURLName: String
+    @Persisted var ownerID: Int
     @Persisted var likesCount: Int
     @Persisted var isLike: Bool
 }

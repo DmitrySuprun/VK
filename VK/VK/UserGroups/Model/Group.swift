@@ -15,7 +15,7 @@ final class Group: Object, Decodable {
 
     // MARK: - @Persisted Properties
 
-    @Persisted var id: Int
+    @Persisted(primaryKey: true) var id: Int
     @Persisted var photo: String
     @Persisted var name: String
 }

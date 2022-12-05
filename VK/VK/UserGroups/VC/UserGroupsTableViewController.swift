@@ -1,6 +1,7 @@
 // UserGroupsTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 /// UserGroups List
@@ -10,6 +11,7 @@ final class UserGroupsTableViewController: UITableViewController {
     private enum Constants {
         static let groupCellID = "groupCellID"
         static let cellNibName = "GroupTableViewCell"
+        static let defaultUserID = 0
     }
 
     // MARK: - Public Properties
@@ -19,16 +21,66 @@ final class UserGroupsTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
+    private var databaseService = DatabaseService()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        fetchGroups()
+        setupViewController()
     }
 
     // MARK: - Private Methods
+
+    private func setupViewController() {
+        setupTableView()
+        setupNotificationGroups()
+        loadGroupFromDatabaseService()
+    }
+
+    private func setupNotificationGroups() {
+        databaseService.setupNotification(objectType: Group.self) { [weak self] changes in
+            guard let self = self else { return }
+
+            switch changes {
+            case .initial:
+                self.tableView.reloadData()
+
+            case let .update(result, deletions, insertions, modifications):
+                self.groups = Array(result)
+                self.tableView.performBatchUpdates({
+                    self.tableView.deleteRows(
+                        at: deletions.map { IndexPath(row: $0, section: 0) },
+                        with: .fade
+                    )
+
+                    self.tableView.insertRows(
+                        at: insertions.map { IndexPath(row: $0, section: 0) },
+                        with: .fade
+                    )
+
+                    self.tableView.reloadRows(
+                        at: modifications.map { IndexPath(row: $0, section: 0) },
+                        with: .fade
+                    )
+                })
+
+            case let .error(error):
+                print(#function, error)
+            }
+        }
+    }
+
+    private func loadGroupFromDatabaseService() {
+        fetchUserGroups()
+        guard let groups = databaseService.load(objectType: Group.self) else { return }
+        self.groups = groups
+        tableView.reloadData()
+    }
+
+    private func saveInDatabaseService(groups: [Group]) {
+        databaseService.save(objects: groups)
+    }
 
     private func setupTableView() {
         tableView.register(
@@ -37,12 +89,12 @@ final class UserGroupsTableViewController: UITableViewController {
         )
     }
 
-    private func fetchGroups() {
-        networkService.fetchUserGroups(userID: 159_716_695) { [weak self] result in
+    private func fetchUserGroups() {
+        networkService.fetchUserGroups(userID: Session.shared.userID ?? Constants.defaultUserID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(responseGroups):
-                self.groups = responseGroups.groups
+                self.saveInDatabaseService(groups: responseGroups.groups)
             case let .failure(error):
                 print(error)
             }
@@ -77,7 +129,7 @@ final class UserGroupsTableViewController: UITableViewController {
         forRowAt indexPath: IndexPath
     ) {
         guard editingStyle == .delete else { return }
-        groups.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        let group = groups[indexPath.row]
+        databaseService.delete(object: group)
     }
 }
