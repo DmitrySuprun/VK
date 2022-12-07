@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="newsContentTableViewCellID" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="395" id="5Cg-kY-Q8s" customClass="NewsContentTableViewCell" customModule="VK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="395"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Cg-kY-Q8s" id="5Hf-nz-BDe">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="395"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69l-9D-366">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="93"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tVk-Wo-psJ">
+                        <rect key="frame" x="0.0" y="95" width="393" height="300"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="241" id="Vkb-YY-siB"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="tVk-Wo-psJ" secondAttribute="trailing" id="3hI-jK-xpc"/>
+                    <constraint firstAttribute="bottom" secondItem="tVk-Wo-psJ" secondAttribute="bottom" id="5ej-2J-eId"/>
+                    <constraint firstItem="69l-9D-366" firstAttribute="leading" secondItem="5Hf-nz-BDe" secondAttribute="leading" id="O1j-PZ-XgY"/>
+                    <constraint firstAttribute="trailing" secondItem="69l-9D-366" secondAttribute="trailing" id="R0i-64-gXd"/>
+                    <constraint firstItem="tVk-Wo-psJ" firstAttribute="top" secondItem="69l-9D-366" secondAttribute="bottom" id="s0S-rB-vjZ"/>
+                    <constraint firstItem="tVk-Wo-psJ" firstAttribute="leading" secondItem="5Hf-nz-BDe" secondAttribute="leading" id="u2W-cE-DEP"/>
+                    <constraint firstItem="69l-9D-366" firstAttribute="top" secondItem="5Hf-nz-BDe" secondAttribute="top" id="yvV-dO-Gjj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentImageView" destination="tVk-Wo-psJ" id="mq0-WB-feD"/>
+                <outlet property="contentLabel" destination="69l-9D-366" id="Rhp-ih-Qu1"/>
+            </connections>
+            <point key="canvasLocation" x="-121.37404580152672" y="42.605633802816904"/>
+        </tableViewCell>
+    </objects>
+</document>

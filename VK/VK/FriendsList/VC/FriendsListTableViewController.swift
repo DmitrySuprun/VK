@@ -35,7 +35,9 @@ final class FriendsListTableViewController: UITableViewController {
             switch changes {
             case .initial:
                 self.tableView.reloadData()
+
                 // MARK: - TODO Fix delete objects
+
             case let .update(results, deletions, _, _):
                 guard deletions.isEmpty else { return }
                 self.makeSortedFriendsMap(friendsInfo: Array(results))
@@ -143,6 +145,7 @@ final class FriendsListTableViewController: UITableViewController {
         forRowAt indexPath: IndexPath
     ) {
         // MARK: - TODO Fix delete objects
+
         guard editingStyle == .delete else { return }
         let sortedKeys = sortedFriendsMap.keys.sorted()
         let key = sortedKeys[indexPath.section]
