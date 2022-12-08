@@ -5,15 +5,19 @@ import UIKit
 
 /// Button for display and manage reactions and status of news
 final class NewsButtonsTableViewCell: UITableViewCell {
-    // MARK: - IBOutlets
+    // MARK: - Private IBOutlets
 
-    @IBOutlet var likeButton: UIButton!
-    @IBOutlet var commentsButton: UIButton!
-    @IBOutlet var shareButton: UIButton!
+    @IBOutlet private var likeButton: UIButton!
+    @IBOutlet private var commentsButton: UIButton!
+    @IBOutlet private var shareButton: UIButton!
+    @IBOutlet var viewsButton: UIButton!
 
-    // MARK: - Life Cycle
+    // MARK: - Public Methods
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    func configureCell(likeCount: Int, commentsCount: Int, shareCount: Int, viewsCount: Int) {
+        likeButton.setTitle(String(likeCount), for: .normal)
+        commentsButton.setTitle(String(commentsCount), for: .normal)
+        shareButton.setTitle(String(shareCount), for: .normal)
+        viewsButton.setTitle(String(viewsCount), for: .normal)
     }
 }

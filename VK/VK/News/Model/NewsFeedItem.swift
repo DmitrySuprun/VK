@@ -3,23 +3,38 @@
 
 import Foundation
 
-// News
+/// News info
 struct NewsFeedItem: Decodable {
+    /// News date
     let date: Int
+    /// News ID
     let id: Int?
+    /// News owner ID
     let ownerID: Int?
+    /// News source ID
+    let sourceID: Int?
+    /// News text
     let text: String?
+    /// News attachments list
     let attachments: [Attachments]?
+    /// News comments info
     let comments: Comments?
+    /// News likes info
     let likes: Likes?
+    /// News reposts info
     let reposts: Reposts?
+    /// News views info
     let views: Views?
-    let type: String?
+    /// News type
+    let type: String
+    /// News photo type photos
+    let photos: Photos?
 
     enum CodingKeys: String, CodingKey {
         case date
         case id
         case ownerID = "owner_id"
+        case sourceID = "source_id"
         case text
         case attachments
         case comments
@@ -27,41 +42,6 @@ struct NewsFeedItem: Decodable {
         case reposts
         case views
         case type
-    }
-
-    struct Attachments: Decodable {
-        let type: String?
-        let photo: Photo?
-    }
-
-    struct Photo: Decodable {
-        let sizes: [Sizes]
-    }
-
-    struct Sizes: Decodable {
-        let type: String
-        let url: String
-    }
-
-    struct Comments: Decodable {
-        let count: Int
-    }
-
-    struct Likes: Decodable {
-        let count: Int
-        let isUserLikes: Int
-
-        enum CodingKeys: String, CodingKey {
-            case count
-            case isUserLikes = "user_likes"
-        }
-    }
-
-    struct Reposts: Decodable {
-        let count: Int
-    }
-
-    struct Views: Decodable {
-        let count: Int
+        case photos
     }
 }

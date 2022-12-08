@@ -69,6 +69,7 @@
                 <outlet property="commentsButton" destination="YYY-hE-XqR" id="8XR-22-1Ld"/>
                 <outlet property="likeButton" destination="YnG-u5-u9o" id="lCS-UU-9mA"/>
                 <outlet property="shareButton" destination="1ye-nE-2ff" id="VDD-xL-rWD"/>
+                <outlet property="viewsButton" destination="weG-cf-pdW" id="aua-wR-lV3"/>
             </connections>
             <point key="canvasLocation" x="-140" y="-19"/>
         </tableViewCell>

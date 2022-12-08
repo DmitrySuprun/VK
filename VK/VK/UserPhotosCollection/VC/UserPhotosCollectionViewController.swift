@@ -84,9 +84,10 @@ final class UserPhotosCollectionViewController: UICollectionViewController {
         ) as? UserPhotoCollectionViewCell
         else { return UserPhotoCollectionViewCell() }
         cell.configure(
-            imageName: photos[indexPath.row].photoURLName,
+            imageURLName: photos[indexPath.row].photoURLName,
             likesCount: photos[indexPath.row].likesCount,
-            isLiked: photos[indexPath.row].isLike
+            isLiked: photos[indexPath.row].isLike,
+            networkService: networkService
         )
         return cell
     }

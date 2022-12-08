@@ -85,7 +85,6 @@ extension WebViewLoginViewController: WKNavigationDelegate {
         let token = params[Constants.tokenKeyName]
         let userID = params[Constants.userIDKeyName]
         Session.shared.token = token ?? Constants.emptyCharacterName
-        print(token)
         Session.shared.userID = Int(userID ?? Constants.emptyCharacterName) ?? Constants.defaultIntValue
         decisionHandler(.cancel)
 

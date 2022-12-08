@@ -12,9 +12,12 @@ final class UserPhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(imageName: String, likesCount: Int, isLiked: Bool) {
-        userPhotoImageView.loadImage(urlName: imageName)
+    func configure(imageURLName: String, likesCount: Int, isLiked: Bool, networkService: NetworkService) {
         likeControl.likeCount = likesCount
         likeControl.isLiked = isLiked
+        networkService.loadImage(urlName: imageURLName) { [weak self] data in
+            guard let data, let self else { return }
+            self.userPhotoImageView.image = UIImage(data: data)
+        }
     }
 }

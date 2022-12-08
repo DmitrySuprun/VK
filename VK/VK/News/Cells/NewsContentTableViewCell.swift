@@ -4,11 +4,11 @@
 import UIKit
 
 /// Content of news
-class NewsContentTableViewCell: UITableViewCell {
+final class NewsContentTableViewCell: UITableViewCell {
     // MARK: - IBOutlets
 
-    @IBOutlet var contentImageView: UIImageView!
-    @IBOutlet var contentLabel: UILabel!
+    @IBOutlet private var contentImageView: UIImageView!
+    @IBOutlet private var contentLabel: UILabel!
 
     // MARK: - LifeCycle
 
@@ -19,8 +19,16 @@ class NewsContentTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    func configureCell(imageUrlName: String, newsText: String) {
-        contentImageView.loadImage(urlName: imageUrlName)
+    func configureCell(imageUrlName: String, newsText: String, networkService: NetworkService) {
         contentLabel.text = newsText
+        networkService.loadImage(urlName: imageUrlName) { [weak self] data in
+            guard let data, let self else { return }
+            self.contentImageView.image = UIImage(data: data)
+        }
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        contentImageView.image = nil
     }
 }

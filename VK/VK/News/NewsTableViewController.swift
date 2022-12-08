@@ -16,19 +16,21 @@ final class NewsTableViewController: UITableViewController {
 
         static let newsButtonsTableViewCellID = "newsButtonsTableViewCellID"
         static let newsButtonsTableViewCellNibName = "NewsButtonsTableViewCell"
+
+        static let emptyStringName = ""
     }
 
     // MARK: - Private Properties
 
-    private var news: ResponseNewsFeed?
     private let networkService = NetworkService()
+    private var news: ResponseNewsFeed?
 
     // MARK: - LifiCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCell()
-        loadNews()
+        fetchNews()
     }
 
     // MARK: - Private Methods
@@ -57,7 +59,7 @@ final class NewsTableViewController: UITableViewController {
         )
     }
 
-    private func loadNews() {
+    private func fetchNews() {
         networkService.fetchNewsFeeds { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -81,7 +83,10 @@ final class NewsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let newsOwnerID = news?.newsFeedItems[indexPath.section].ownerID
+        var newsOwnerID = news?.newsFeedItems[indexPath.section].ownerID
+        if newsOwnerID == nil {
+            newsOwnerID = news?.newsFeedItems[indexPath.section].sourceID
+        }
         switch indexPath.row {
         case 0:
             guard let cell = tableView.dequeueReusableCell(
@@ -92,13 +97,11 @@ final class NewsTableViewController: UITableViewController {
             let newsOwnerProfile = news?.newsFeedProfiles.first { profile in
                 profile.id == newsOwnerID
             }
-            let newsOwnerGroup = news?.newsFeedGroups.first { group in
-                group.id == newsOwnerID
-            }
             cell.configureCell(
-                avatarImageName: newsOwnerProfile?.photo ?? "",
-                titleName: newsOwnerProfile?.firstName ?? "",
-                newsUnixTimeDate: news?.newsFeedItems.first?.date ?? 0
+                avatarImageURLName: newsOwnerProfile?.photo ?? Constants.emptyStringName,
+                titleName: newsOwnerProfile?.fullName ?? Constants.emptyStringName,
+                newsUnixTimeDate: news?.newsFeedItems[indexPath.section].date ?? 0,
+                networkService: networkService
             )
             return cell
         case 1:
@@ -109,8 +112,11 @@ final class NewsTableViewController: UITableViewController {
             else { return UITableViewCell() }
             cell.configureCell(
                 imageUrlName: news?.newsFeedItems[indexPath.section]
-                    .attachments?.first?.photo?.sizes.last?.url ?? "",
-                newsText: news?.newsFeedItems[indexPath.section].text ?? ""
+                    .attachments?.first?.photo?.sizes.last?.url
+                    ?? news?.newsFeedItems[indexPath.section].photos?.items.first?.sizes.last?.url
+                    ?? Constants.emptyStringName,
+                newsText: news?.newsFeedItems[indexPath.section].text ?? Constants.emptyStringName,
+                networkService: networkService
             )
             return cell
         case 2:
@@ -119,6 +125,12 @@ final class NewsTableViewController: UITableViewController {
                 for: indexPath
             ) as? NewsButtonsTableViewCell
             else { return UITableViewCell() }
+            cell.configureCell(
+                likeCount: news?.newsFeedItems[indexPath.section].likes?.count ?? 0,
+                commentsCount: news?.newsFeedItems[indexPath.section].comments?.count ?? 0,
+                shareCount: news?.newsFeedItems[indexPath.section].reposts?.count ?? 0,
+                viewsCount: news?.newsFeedItems[indexPath.section].views?.count ?? 0
+            )
             return cell
         default:
             return UITableViewCell()

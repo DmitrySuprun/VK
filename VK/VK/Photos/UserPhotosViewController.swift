@@ -32,6 +32,7 @@ final class UserPhotosViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private let networkService = NetworkService()
     private var currentImageIndex = 1
     private var nextImageIndex = 2
     private var previousImageIndex = 0
@@ -89,11 +90,17 @@ final class UserPhotosViewController: UIViewController {
                     self?.currentImageIndex = 0
                 }
                 self?.calculateIndices()
-                self?.nextImageView.loadImage(
+                self?.networkService.loadImage(
                     urlName:
-                    self?.userPhotos[self?.nextImageIndex ?? Constants.defaultValue].photoURLName
+                    self?.userPhotos[
+                        self?.nextImageIndex
+                            ?? Constants.defaultValue
+                    ].photoURLName
                         ?? Constants.emptyText
-                )
+                ) { [weak self] data in
+                    guard let data, let self else { return }
+                    self.nextImageView.image = UIImage(data: data)
+                }
 
                 self?.currentImageView.transform = .identity
                 self?.nextImageView.transform = .identity
@@ -109,14 +116,17 @@ final class UserPhotosViewController: UIViewController {
                         (self?.userPhotos.count ?? Constants.defaultValue) - Constants.oneIndices
                 }
                 self?.calculateIndices()
-                self?.previousImageView.loadImage(
+                self?.networkService.loadImage(
                     urlName:
                     self?.userPhotos[
                         self?.previousImageIndex
                             ?? Constants.defaultValue
                     ].photoURLName
                         ?? Constants.emptyText
-                )
+                ) { [weak self] data in
+                    guard let data, let self else { return }
+                    self.previousImageView.image = UIImage(data: data)
+                }
                 self?.currentImageView.transform = .identity
                 self?.currentImageView.alpha = 1
                 self?.previousImageView.transform = .identity
@@ -135,13 +145,22 @@ final class UserPhotosViewController: UIViewController {
         currentImageView.image = UIImage(
             named: userPhotos[currentImageIndex].photoURLName
         )
-        nextImageView.loadImage(
-            urlName: userPhotos[nextImageIndex].photoURLName
-        )
 
-        previousImageView.loadImage(
-            urlName: userPhotos[previousImageIndex].photoURLName
-        )
+        networkService.loadImage(
+            urlName:
+            userPhotos[nextImageIndex].photoURLName
+        ) { [weak self] data in
+            guard let data, let self else { return }
+            self.nextImageView.image = UIImage(data: data)
+        }
+
+        networkService.loadImage(
+            urlName:
+            userPhotos[previousImageIndex].photoURLName
+        ) { [weak self] data in
+            guard let data, let self else { return }
+            self.previousImageView.image = UIImage(data: data)
+        }
 
         nextImageView.alpha = 0
     }

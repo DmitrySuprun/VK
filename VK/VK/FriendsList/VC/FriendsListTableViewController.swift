@@ -122,7 +122,8 @@ final class FriendsListTableViewController: UITableViewController {
             let friend = friendsListSection[indexPath.row]
             cell.configure(
                 nameLabelText: "\(friend.lastName) \(friend.firstName)",
-                avatarImageName: friend.photo
+                avatarImageURLName: friend.photo,
+                networkService: networkService
             )
         }
         return cell

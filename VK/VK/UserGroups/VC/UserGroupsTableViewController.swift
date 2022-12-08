@@ -119,7 +119,11 @@ final class UserGroupsTableViewController: UITableViewController {
         ) as? GroupTableViewCell
         else { return UITableViewCell() }
         let group = groups[indexPath.row]
-        cell.configure(nameLabelText: group.name, groupsImageName: group.photo)
+        cell.configure(
+            nameLabelText: group.name,
+            groupsImageURLName: group.photo,
+            networkService: networkService
+        )
         return cell
     }
 
