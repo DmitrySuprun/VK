@@ -35,9 +35,15 @@ final class NewsTitleTableViewCell: UITableViewCell {
     ) {
         titleNameLabel.text = titleName
         newsDateLabel.text = dateConverter(unixTimeDate: newsUnixTimeDate)
-        networkService.loadImage(urlName: avatarImageURLName) { [weak self] data in
-            guard let data, let self else { return }
-            self.titleImageView.image = UIImage(data: data)
+        networkService.loadImage(urlName: avatarImageURLName) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(data):
+                guard let data else { return }
+                self.titleImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(#function, error)
+            }
         }
     }
 

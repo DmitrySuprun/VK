@@ -19,16 +19,22 @@ final class NewsContentTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    func configureCell(imageUrlName: String, newsText: String, networkService: NetworkService) {
-        contentLabel.text = newsText
-        networkService.loadImage(urlName: imageUrlName) { [weak self] data in
-            guard let data, let self else { return }
-            self.contentImageView.image = UIImage(data: data)
-        }
-    }
-
     override func prepareForReuse() {
         super.prepareForReuse()
         contentImageView.image = nil
+    }
+
+    func configureCell(imageUrlName: String, newsText: String, networkService: NetworkService) {
+        contentLabel.text = newsText
+        networkService.loadImage(urlName: imageUrlName) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(data):
+                guard let data else { return }
+                self.contentImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(#function, error)
+            }
+        }
     }
 }

@@ -5,6 +5,6 @@ import Foundation
 
 /// Reposts info
 struct Reposts: Decodable {
-    /// reposts count
+    /// Reposts count
     let count: Int
 }

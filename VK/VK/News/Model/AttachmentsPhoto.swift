@@ -5,6 +5,6 @@ import Foundation
 
 /// News photo
 struct AttachmentsPhoto: Decodable {
-    /// photo sizes list
+    /// Photo sizes list
     let sizes: [Sizes]
 }

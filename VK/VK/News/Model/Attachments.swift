@@ -5,8 +5,8 @@ import Foundation
 
 /// News attachments
 struct Attachments: Decodable {
-    /// attachments type
+    /// Attachments type
     let type: String?
-    /// photo type attachments
+    /// Photo type attachments
     let photo: AttachmentsPhoto?
 }

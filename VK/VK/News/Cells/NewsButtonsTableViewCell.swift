@@ -10,7 +10,7 @@ final class NewsButtonsTableViewCell: UITableViewCell {
     @IBOutlet private var likeButton: UIButton!
     @IBOutlet private var commentsButton: UIButton!
     @IBOutlet private var shareButton: UIButton!
-    @IBOutlet var viewsButton: UIButton!
+    @IBOutlet private var viewsButton: UIButton!
 
     // MARK: - Public Methods
 

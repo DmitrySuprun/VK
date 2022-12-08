@@ -21,9 +21,15 @@ final class FriendsTableViewCell: UITableViewCell {
 
     func configure(nameLabelText: String, avatarImageURLName: String, networkService: NetworkService) {
         nameLabel.text = nameLabelText
-        networkService.loadImage(urlName: avatarImageURLName) { [weak self] data in
-            guard let data, let self else { return }
-            self.avatarView.avatarImageView.image = UIImage(data: data)
+        networkService.loadImage(urlName: avatarImageURLName) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(data):
+                guard let data else { return }
+                self.avatarView.avatarImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(#function, error)
+            }
         }
     }
 

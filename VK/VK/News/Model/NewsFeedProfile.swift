@@ -9,11 +9,11 @@ struct NewsFeedProfile: Decodable {
     let id: Int
     /// Avatar photo url
     let photo: String
-    /// user First Name
+    /// User First Name
     let firstName: String
-    /// user Last Name
+    /// User Last Name
     let lastName: String
-    /// user Full Name
+    /// User Full Name
     var fullName: String {
         "\(firstName) \(lastName)"
     }

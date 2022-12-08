@@ -5,8 +5,8 @@ import Foundation
 
 /// Photo sizes
 struct Sizes: Decodable {
-    /// type of photo size
+    /// Type of photo size
     let type: String
-    /// photo url
+    /// Photo url
     let url: String
 }

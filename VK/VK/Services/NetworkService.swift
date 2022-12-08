@@ -106,14 +106,14 @@ struct NetworkService {
         }
     }
 
-    func loadImage(urlName: String, completion: @escaping (Data?) -> ()) {
+    func loadImage(urlName: String, completion: @escaping (Result<Data?, Error>) -> ()) {
         guard let url = URL(string: urlName) else { return }
         AF.request(url).response(completionHandler: { dataResponse in
             switch dataResponse.result {
             case let .success(data):
-                completion(data)
+                completion(.success(data))
             case let .failure(error):
-                print(#function, error)
+                completion(.failure(error))
             }
         })
     }
