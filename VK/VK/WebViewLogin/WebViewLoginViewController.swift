@@ -10,7 +10,7 @@ final class WebViewLoginViewController: UIViewController {
 
     private enum Constants {
         static let oAuthURLName =
-            "https://oauth.vk.com/authorize?client_id=8090325&revoke=1&response_type=token&scope=friends,groups,photos"
+            "https://oauth.vk.com/authorize?client_id=8090325&revoke=1&response_type=token&scope=friends,groups,photos,wall"
         static let validPathName = "/blank.html"
         static let ampersandCharacterName = "&"
         static let equalCharacterName = "="

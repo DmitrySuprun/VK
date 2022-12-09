@@ -12,8 +12,17 @@ final class GroupTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    func configure(nameLabelText: String, groupsImageName: String) {
+    func configure(nameLabelText: String, groupsImageURLName: String, networkService: NetworkService) {
         groupsNameLabel.text = nameLabelText
-        groupsImageView.loadImage(urlName: groupsImageName)
+        networkService.loadImage(urlName: groupsImageURLName) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(data):
+                guard let data else { return }
+                self.groupsImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(#function, error)
+            }
+        }
     }
 }

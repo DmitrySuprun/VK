@@ -19,9 +19,18 @@ final class FriendsTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(nameLabelText: String, avatarImageName: String) {
+    func configure(nameLabelText: String, avatarImageURLName: String, networkService: NetworkService) {
         nameLabel.text = nameLabelText
-        avatarView.avatarImageView.loadImage(urlName: avatarImageName)
+        networkService.loadImage(urlName: avatarImageURLName) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(data):
+                guard let data else { return }
+                self.avatarView.avatarImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(#function, error)
+            }
+        }
     }
 
     // MARK: - Private Methods

@@ -20,15 +20,18 @@ struct NetworkService {
         static let groupsGetMethodName = "groups.get"
         static let friendsGetMethodName = "friends.get"
         static let getAllPhotosMethodName = "photos.getAll"
+        static let newsFeedMethodName = "newsfeed.get"
 
         static let queryItemSearchName = "q"
         static let queryItemOwnerIDName = "owner_id"
         static let queryItemExtendedName = "extended"
         static let queryItemFieldsName = "fields"
+        static let queryItemFilterName = "filter"
 
         static let queryItemValueNickName = "nickname"
         static let queryItemValuePhotoName = "photo_100"
         static let queryItemValueTrue = "1"
+        static let queryItemValueFilerName = "post"
     }
 
     // MARK: - Public Methods
@@ -64,6 +67,14 @@ struct NetworkService {
         fetchData(queryItems: queryItems, method: Constants.friendsGetMethodName, completion: completion)
     }
 
+    func fetchNewsFeeds(completion: @escaping (Result<ResponseNewsFeed, Error>) -> ()) {
+        let queryItems = [
+            URLQueryItem(name: Constants.queryItemFilterName, value: Constants.queryItemValueFilerName),
+            URLQueryItem(name: Constants.queryItemOwnerIDName, value: String(Session.shared.userID ?? 0))
+        ]
+        fetchData(queryItems: queryItems, method: Constants.newsFeedMethodName, completion: completion)
+    }
+
     // MARK: - Private Methods
 
     private func fetchData<T: Decodable>(
@@ -93,5 +104,17 @@ struct NetworkService {
                 completion(.failure(afError))
             }
         }
+    }
+
+    func loadImage(urlName: String, completion: @escaping (Result<Data?, Error>) -> ()) {
+        guard let url = URL(string: urlName) else { return }
+        AF.request(url).response(completionHandler: { dataResponse in
+            switch dataResponse.result {
+            case let .success(data):
+                completion(.success(data))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        })
     }
 }

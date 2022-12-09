@@ -70,7 +70,12 @@ final class AllGroupsViewController: UITableViewController {
             for: indexPath
         ) as? GroupTableViewCell
         else { return UITableViewCell() }
-        cell.configure(nameLabelText: groups[indexPath.row].name, groupsImageName: groups[indexPath.row].photo)
+        cell.configure(
+            nameLabelText: groups[indexPath.row].name,
+            groupsImageURLName:
+            groups[indexPath.row].photo,
+            networkService: networkService
+        )
         return cell
     }
 

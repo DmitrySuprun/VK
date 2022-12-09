@@ -32,6 +32,7 @@ final class UserPhotosViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private let networkService = NetworkService()
     private var currentImageIndex = 1
     private var nextImageIndex = 2
     private var previousImageIndex = 0
@@ -82,44 +83,63 @@ final class UserPhotosViewController: UIViewController {
             appearViewPropertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 1)
 
             toRightViewPropertyAnimator.addCompletion { [weak self] _ in
-                self?.previousImageView.image = self?.currentImageView.image
-                self?.currentImageView.image = self?.nextImageView.image
-                self?.currentImageIndex += 1
-                if self?.currentImageIndex == self?.userPhotos.count {
-                    self?.currentImageIndex = 0
+                guard let self else { return }
+                self.previousImageView.image = self.currentImageView.image
+                self.currentImageView.image = self.nextImageView.image
+                self.currentImageIndex += 1
+                if self.currentImageIndex == self.userPhotos.count {
+                    self.currentImageIndex = 0
                 }
-                self?.calculateIndices()
-                self?.nextImageView.loadImage(
+                self.calculateIndices()
+                self.networkService.loadImage(
                     urlName:
-                    self?.userPhotos[self?.nextImageIndex ?? Constants.defaultValue].photoURLName
-                        ?? Constants.emptyText
-                )
+                    self.userPhotos[
+                        self.nextImageIndex
+                    ].photoURLName
+                ) { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case let .success(data):
+                        guard let data else { return }
+                        self.nextImageView.image = UIImage(data: data)
+                    case let .failure(error):
+                        print(#function, error)
+                    }
+                }
 
-                self?.currentImageView.transform = .identity
-                self?.nextImageView.transform = .identity
-                self?.nextImageView.alpha = 0
+                self.currentImageView.transform = .identity
+                self.nextImageView.transform = .identity
+                self.nextImageView.alpha = 0
             }
 
             toLeftViewPropertyAnimator.addCompletion { [weak self] _ in
-                self?.nextImageView.image = self?.currentImageView.image
-                self?.currentImageView.image = self?.previousImageView.image
-                self?.currentImageIndex -= 1
-                if self?.currentImageIndex ?? 0 < 0 {
-                    self?.currentImageIndex =
-                        (self?.userPhotos.count ?? Constants.defaultValue) - Constants.oneIndices
+                guard let self else { return }
+                self.nextImageView.image = self.currentImageView.image
+                self.currentImageView.image = self.previousImageView.image
+                self.currentImageIndex -= 1
+                if self.currentImageIndex < 0 {
+                    self.currentImageIndex =
+                        (self.userPhotos.count) - Constants.oneIndices
                 }
-                self?.calculateIndices()
-                self?.previousImageView.loadImage(
+                self.calculateIndices()
+                self.networkService.loadImage(
                     urlName:
-                    self?.userPhotos[
-                        self?.previousImageIndex
-                            ?? Constants.defaultValue
+                    self.userPhotos[
+                        self.previousImageIndex
                     ].photoURLName
-                        ?? Constants.emptyText
-                )
-                self?.currentImageView.transform = .identity
-                self?.currentImageView.alpha = 1
-                self?.previousImageView.transform = .identity
+                ) { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case let .success(data):
+                        guard let data else { return }
+                        self.previousImageView.image = UIImage(data: data)
+                    case let .failure(error):
+                        print(#function, error)
+                    }
+                }
+                self.currentImageView.transform = .identity
+                self.currentImageView.alpha = 1
+                self.previousImageView.transform = .identity
             }
 
         default: break
@@ -135,13 +155,34 @@ final class UserPhotosViewController: UIViewController {
         currentImageView.image = UIImage(
             named: userPhotos[currentImageIndex].photoURLName
         )
-        nextImageView.loadImage(
-            urlName: userPhotos[nextImageIndex].photoURLName
-        )
 
-        previousImageView.loadImage(
-            urlName: userPhotos[previousImageIndex].photoURLName
-        )
+        networkService.loadImage(
+            urlName:
+            userPhotos[nextImageIndex].photoURLName
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(data):
+                guard let data else { return }
+                self.nextImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(#function, error)
+            }
+        }
+
+        networkService.loadImage(
+            urlName:
+            userPhotos[previousImageIndex].photoURLName
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(data):
+                guard let data else { return }
+                self.previousImageView.image = UIImage(data: data)
+            case let .failure(error):
+                print(#function, error)
+            }
+        }
 
         nextImageView.alpha = 0
     }

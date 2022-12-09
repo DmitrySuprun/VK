@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="newsButtonsTableViewCellID" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="53" id="5Vg-pu-GU5" customClass="NewsButtonsTableViewCell" customModule="VK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="53"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Vg-pu-GU5" id="2MJ-59-4P0">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="53"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLf-3p-qXt">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YnG-u5-u9o">
+                                <rect key="frame" x="8" y="8" width="78.333333333333329" height="34.333333333333336"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="heart" catalog="system" title="251"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YYY-hE-XqR">
+                                <rect key="frame" x="94" y="8" width="73.333333333333314" height="34.333333333333336"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="bubble.right" catalog="system" title="23"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ye-nE-2ff">
+                                <rect key="frame" x="175" y="8" width="72" height="34.333333333333336"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="arrowshape.turn.up.right" catalog="system" title="48"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="weG-cf-pdW">
+                                <rect key="frame" x="306" y="7.6666666666666679" width="79" height="35"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system" title="30"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YnG-u5-u9o" firstAttribute="leading" secondItem="DLf-3p-qXt" secondAttribute="leading" constant="8" id="45x-gk-ERi"/>
+                            <constraint firstAttribute="height" constant="50" id="8KQ-io-jpG"/>
+                            <constraint firstItem="1ye-nE-2ff" firstAttribute="leading" secondItem="YYY-hE-XqR" secondAttribute="trailing" constant="7.6666666666666856" id="Q9u-sT-ZGO"/>
+                            <constraint firstItem="YYY-hE-XqR" firstAttribute="leading" secondItem="YnG-u5-u9o" secondAttribute="trailing" constant="7.6666666666666714" id="jcD-Y8-Rov"/>
+                            <constraint firstItem="1ye-nE-2ff" firstAttribute="centerY" secondItem="YYY-hE-XqR" secondAttribute="centerY" id="kQd-rt-1zW"/>
+                            <constraint firstItem="YnG-u5-u9o" firstAttribute="centerY" secondItem="DLf-3p-qXt" secondAttribute="centerY" id="puz-ch-rHr"/>
+                            <constraint firstItem="weG-cf-pdW" firstAttribute="centerY" secondItem="1ye-nE-2ff" secondAttribute="centerY" id="rAc-I8-fds"/>
+                            <constraint firstItem="YYY-hE-XqR" firstAttribute="centerY" secondItem="YnG-u5-u9o" secondAttribute="centerY" id="rc9-ys-jkO"/>
+                            <constraint firstAttribute="trailing" secondItem="weG-cf-pdW" secondAttribute="trailing" constant="8" id="uBW-N1-7hz"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="DLf-3p-qXt" secondAttribute="trailing" id="GOe-Nm-pLQ"/>
+                    <constraint firstItem="DLf-3p-qXt" firstAttribute="top" secondItem="2MJ-59-4P0" secondAttribute="top" id="UAX-Vj-zdD"/>
+                    <constraint firstAttribute="bottom" secondItem="DLf-3p-qXt" secondAttribute="bottom" id="Ykc-GK-IIR"/>
+                    <constraint firstItem="DLf-3p-qXt" firstAttribute="leading" secondItem="2MJ-59-4P0" secondAttribute="leading" id="sfK-9N-11d"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="commentsButton" destination="YYY-hE-XqR" id="8XR-22-1Ld"/>
+                <outlet property="likeButton" destination="YnG-u5-u9o" id="lCS-UU-9mA"/>
+                <outlet property="shareButton" destination="1ye-nE-2ff" id="VDD-xL-rWD"/>
+                <outlet property="viewsButton" destination="weG-cf-pdW" id="aua-wR-lV3"/>
+            </connections>
+            <point key="canvasLocation" x="-140" y="-19"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrowshape.turn.up.right" catalog="system" width="128" height="104"/>
+        <image name="bubble.right" catalog="system" width="128" height="110"/>
+        <image name="eye" catalog="system" width="128" height="79"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
