@@ -17,7 +17,7 @@ final class FriendsListTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
-    private let networkServiceFriends = NetworkServiceFriends()
+    private let networkServiceFriends = FriendsNetworkService()
     private var sortedFriendsMap: [Character: [Friend]] = [:]
     private var databaseService = DatabaseService()
 
@@ -51,13 +51,13 @@ final class FriendsListTableViewController: UITableViewController {
     }
 
     private func loadFriendsFromDatabaseService() {
-        fetchData()
+        fetchFriends()
         guard let friends = databaseService.load(objectType: Friend.self) else { return }
         makeSortedFriendsMap(friendsInfo: friends)
         tableView.reloadData()
     }
 
-    private func fetchData() {
+    private func fetchFriends() {
         firstly {
             networkServiceFriends.fetchFriends()
         }.done { responseFriends in

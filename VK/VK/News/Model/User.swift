@@ -18,7 +18,7 @@ struct User: Decodable {
     let firstName: String
     /// User second name
     let lastName: String
-    /// User avatar image
+    /// User avatar image path
     let avatarImageURLName: String
     /// User full name
     var fullName: String {

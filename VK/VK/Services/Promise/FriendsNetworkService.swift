@@ -1,4 +1,4 @@
-// NetworkServiceFriends.swift
+// FriendsNetworkService.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Alamofire
@@ -6,7 +6,7 @@ import Foundation
 import PromiseKit
 
 /// Network service for loading Friends with PromiseKit
-struct NetworkServiceFriends {
+struct FriendsNetworkService {
     // MARK: - Private Constants
 
     private enum Constants {
