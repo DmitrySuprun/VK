@@ -1,6 +1,7 @@
 // FriendsListTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import PromiseKit
 import UIKit
 
 /// Friends List
@@ -15,8 +16,9 @@ final class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var sortedFriendsMap: [Character: [Friend]] = [:]
     private let networkService = NetworkService()
+    private let networkServiceFriends = NetworkServiceFriends()
+    private var sortedFriendsMap: [Character: [Friend]] = [:]
     private var databaseService = DatabaseService()
 
     // MARK: - Life Cycle
@@ -56,14 +58,13 @@ final class FriendsListTableViewController: UITableViewController {
     }
 
     private func fetchData() {
-        networkService.fetchFriends { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(responseFriends):
-                self.databaseService.save(objects: responseFriends.friends)
-            case let .failure(error):
-                print(error)
-            }
+        firstly {
+            networkServiceFriends.fetchFriends()
+        }.done { responseFriends in
+            self.databaseService.save(objects: responseFriends.friends)
+        }.catch { error in
+            print(#function)
+            print(error.localizedDescription)
         }
     }
 
