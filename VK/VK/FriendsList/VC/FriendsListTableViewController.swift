@@ -63,7 +63,6 @@ final class FriendsListTableViewController: UITableViewController {
         }.done { responseFriends in
             self.databaseService.save(objects: responseFriends.friends)
         }.catch { error in
-            print(#function)
             print(error.localizedDescription)
         }
     }

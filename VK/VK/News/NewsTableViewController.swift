@@ -67,7 +67,7 @@ final class NewsTableViewController: UITableViewController {
                 self.newsFeed = result.response
                 self.tableView.reloadData()
             case let .failure(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
     }

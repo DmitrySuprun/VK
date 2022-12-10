@@ -66,7 +66,6 @@ final class UserGroupsTableViewController: UITableViewController {
                 })
 
             case let .error(error):
-                print(#function)
                 print(error.localizedDescription)
             }
         }

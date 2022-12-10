@@ -28,7 +28,7 @@ final class FriendsTableViewCell: UITableViewCell {
                 guard let data else { return }
                 self.avatarView.avatarImageView.image = UIImage(data: data)
             case let .failure(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
     }

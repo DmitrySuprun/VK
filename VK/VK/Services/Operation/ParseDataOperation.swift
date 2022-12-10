@@ -20,7 +20,6 @@ final class ParseDataOperation: Operation {
             let response = try JSONDecoder().decode(ResponseGroups.self, from: data)
             outputData = response.groups
         } catch {
-            print(#function)
             print(error.localizedDescription)
         }
     }
