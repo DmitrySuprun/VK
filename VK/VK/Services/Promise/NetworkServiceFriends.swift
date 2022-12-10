@@ -23,7 +23,7 @@ struct NetworkServiceFriends {
         static let queryItemValuePhotoName = "photo_100"
     }
 
-    // MARK: - Private Methods
+    // MARK: - Public Methods
 
     func fetchFriends() -> Promise<ResponseFriends> {
         var urlComponents = URLComponents()
