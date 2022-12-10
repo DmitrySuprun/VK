@@ -117,4 +117,40 @@ struct NetworkService {
             }
         })
     }
+
+    func getGroupDataRequest(userID: Int) -> DataRequest {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = Constants.scheme
+        urlComponents.host = Constants.host
+        urlComponents.path = Constants.path + Constants.groupsGetMethodName
+        let queryItems = [
+            URLQueryItem(name: Constants.queryItemOwnerIDName, value: String(userID)),
+            URLQueryItem(name: Constants.queryItemExtendedName, value: Constants.queryItemValueTrue)
+        ]
+        urlComponents.queryItems = queryItems
+        urlComponents.queryItems?.append(URLQueryItem(
+            name: Constants.accessTokenKeyName,
+            value: Session.shared.token
+        ))
+        urlComponents.queryItems?.append(URLQueryItem(
+            name: Constants.versionKeyName,
+            value: Constants.versionValueName
+        ))
+        return AF.request(urlComponents)
+    }
+
+    func getGroups() {
+        let operationQueue = OperationQueue()
+        let request = getGroupDataRequest(userID: Session.shared.userID ?? 0)
+        let getDataOperation = GetDataOperation(request: request)
+        operationQueue.addOperation(getDataOperation)
+
+        let parseDataOperation = ParseDataOperation()
+        parseDataOperation.addDependency(getDataOperation)
+        operationQueue.addOperation(parseDataOperation)
+
+        let saveToDatabaseOperation = SaveToDatabaseOperation()
+        saveToDatabaseOperation.addDependency(parseDataOperation)
+        operationQueue.addOperation(saveToDatabaseOperation)
+    }
 }
