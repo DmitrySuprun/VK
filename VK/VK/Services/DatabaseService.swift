@@ -22,7 +22,7 @@ struct DatabaseService {
                 objects.forEach { realm.add($0, update: .modified) }
             }
         } catch {
-            print(#function, error)
+            print(error.localizedDescription)
         }
     }
 
@@ -33,7 +33,7 @@ struct DatabaseService {
             let objects = Array(realm.objects(objectType))
             return objects
         } catch {
-            print(#function, error)
+            print(error.localizedDescription)
             return nil
         }
     }
@@ -47,7 +47,7 @@ struct DatabaseService {
             let objects = realm.objects(objectType)
             notificationToken = objects.observe(completion)
         } catch {
-            print(#function, error)
+            print(error.localizedDescription)
         }
     }
 
@@ -58,7 +58,7 @@ struct DatabaseService {
                 realm.delete(object)
             }
         } catch {
-            print(#function, error)
+            print(error.localizedDescription)
         }
     }
 }

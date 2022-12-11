@@ -23,7 +23,7 @@ final class NewsTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let networkService = NetworkService()
-    private var news: ResponseNewsFeed?
+    private var newsFeed: NewsFeed?
 
     // MARK: - LifiCycle
 
@@ -64,10 +64,10 @@ final class NewsTableViewController: UITableViewController {
             guard let self = self else { return }
             switch result {
             case let .success(result):
-                self.news = result
+                self.newsFeed = result.response
                 self.tableView.reloadData()
             case let .failure(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
     }
@@ -75,7 +75,7 @@ final class NewsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        news?.newsFeedItems.count ?? 0
+        newsFeed?.items.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,9 +83,9 @@ final class NewsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var newsOwnerID = news?.newsFeedItems[indexPath.section].ownerID
+        var newsOwnerID = newsFeed?.items[indexPath.section].ownerID
         if newsOwnerID == nil {
-            newsOwnerID = news?.newsFeedItems[indexPath.section].sourceID
+            newsOwnerID = newsFeed?.items[indexPath.section].sourceID
         }
         switch indexPath.row {
         case 0:
@@ -94,13 +94,13 @@ final class NewsTableViewController: UITableViewController {
                 for: indexPath
             ) as? NewsTitleTableViewCell
             else { return UITableViewCell() }
-            let newsOwnerProfile = news?.newsFeedProfiles.first { profile in
+            let newsOwnerProfile = newsFeed?.profiles.first { profile in
                 profile.id == newsOwnerID
             }
             cell.configureCell(
-                avatarImageURLName: newsOwnerProfile?.photo ?? Constants.emptyStringName,
+                avatarImageURLName: newsOwnerProfile?.avatarImageURLName ?? Constants.emptyStringName,
                 titleName: newsOwnerProfile?.fullName ?? Constants.emptyStringName,
-                newsUnixTimeDate: news?.newsFeedItems[indexPath.section].date ?? 0,
+                newsUnixTimeDate: newsFeed?.items[indexPath.section].date ?? 0,
                 networkService: networkService
             )
             return cell
@@ -111,11 +111,11 @@ final class NewsTableViewController: UITableViewController {
             ) as? NewsContentTableViewCell
             else { return UITableViewCell() }
             cell.configureCell(
-                imageUrlName: news?.newsFeedItems[indexPath.section]
+                imageUrlName: newsFeed?.items[indexPath.section]
                     .attachments?.first?.photo?.sizes.last?.url
-                    ?? news?.newsFeedItems[indexPath.section].photos?.items.first?.sizes.last?.url
+                    ?? newsFeed?.items[indexPath.section].photos?.items.first?.sizes.last?.url
                     ?? Constants.emptyStringName,
-                newsText: news?.newsFeedItems[indexPath.section].text ?? Constants.emptyStringName,
+                newsText: newsFeed?.items[indexPath.section].text ?? Constants.emptyStringName,
                 networkService: networkService
             )
             return cell
@@ -126,10 +126,10 @@ final class NewsTableViewController: UITableViewController {
             ) as? NewsButtonsTableViewCell
             else { return UITableViewCell() }
             cell.configureCell(
-                likeCount: news?.newsFeedItems[indexPath.section].likes?.count ?? 0,
-                commentsCount: news?.newsFeedItems[indexPath.section].comments?.count ?? 0,
-                shareCount: news?.newsFeedItems[indexPath.section].reposts?.count ?? 0,
-                viewsCount: news?.newsFeedItems[indexPath.section].views?.count ?? 0
+                likeCount: newsFeed?.items[indexPath.section].likes?.count ?? 0,
+                commentsCount: newsFeed?.items[indexPath.section].comments?.count ?? 0,
+                shareCount: newsFeed?.items[indexPath.section].reposts?.count ?? 0,
+                viewsCount: newsFeed?.items[indexPath.section].views?.count ?? 0
             )
             return cell
         default:

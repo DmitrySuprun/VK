@@ -42,7 +42,7 @@ final class NewsTitleTableViewCell: UITableViewCell {
                 guard let data else { return }
                 self.titleImageView.image = UIImage(data: data)
             case let .failure(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
     }

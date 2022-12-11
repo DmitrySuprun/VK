@@ -1,6 +1,7 @@
 // FriendsListTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import PromiseKit
 import UIKit
 
 /// Friends List
@@ -15,8 +16,8 @@ final class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
+    private let friendsNetworkService = FriendsNetworkService()
     private var sortedFriendsMap: [Character: [Friend]] = [:]
-    private let networkService = NetworkService()
     private var databaseService = DatabaseService()
 
     // MARK: - Life Cycle
@@ -49,21 +50,19 @@ final class FriendsListTableViewController: UITableViewController {
     }
 
     private func loadFriendsFromDatabaseService() {
-        fetchData()
+        fetchFriends()
         guard let friends = databaseService.load(objectType: Friend.self) else { return }
         makeSortedFriendsMap(friendsInfo: friends)
         tableView.reloadData()
     }
 
-    private func fetchData() {
-        networkService.fetchFriends { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(responseFriends):
-                self.databaseService.save(objects: responseFriends.friends)
-            case let .failure(error):
-                print(error)
-            }
+    private func fetchFriends() {
+        firstly {
+            friendsNetworkService.fetchFriends()
+        }.done { responseFriends in
+            self.databaseService.save(objects: responseFriends.friends)
+        }.catch { error in
+            print(error.localizedDescription)
         }
     }
 
@@ -122,8 +121,7 @@ final class FriendsListTableViewController: UITableViewController {
             let friend = friendsListSection[indexPath.row]
             cell.configure(
                 nameLabelText: "\(friend.lastName) \(friend.firstName)",
-                avatarImageURLName: friend.photo,
-                networkService: networkService
+                avatarImageURLName: friend.photo
             )
         }
         return cell

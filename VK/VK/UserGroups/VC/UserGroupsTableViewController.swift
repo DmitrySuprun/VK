@@ -66,7 +66,7 @@ final class UserGroupsTableViewController: UITableViewController {
                 })
 
             case let .error(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
     }
@@ -90,16 +90,7 @@ final class UserGroupsTableViewController: UITableViewController {
     }
 
     private func fetchUserGroups() {
-        networkService.fetchUserGroups(userID: Session.shared.userID ?? Constants.defaultUserID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(responseGroups):
-                self.saveInDatabaseService(groups: responseGroups.groups)
-            case let .failure(error):
-                print(error)
-            }
-            self.tableView.reloadData()
-        }
+        networkService.getGroups()
     }
 
     // MARK: - Table view data source

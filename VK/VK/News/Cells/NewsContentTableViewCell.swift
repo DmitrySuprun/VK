@@ -33,7 +33,7 @@ final class NewsContentTableViewCell: UITableViewCell {
                 guard let data else { return }
                 self.contentImageView.image = UIImage(data: data)
             case let .failure(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
     }

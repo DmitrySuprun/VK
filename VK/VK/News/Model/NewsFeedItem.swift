@@ -5,6 +5,21 @@ import Foundation
 
 /// News info
 struct NewsFeedItem: Decodable {
+    private enum CodingKeys: String, CodingKey {
+        case date
+        case id
+        case ownerID = "owner_id"
+        case sourceID = "source_id"
+        case text
+        case attachments
+        case comments
+        case likes
+        case reposts
+        case views
+        case type
+        case photos
+    }
+
     /// News date
     let date: Int
     /// News ID
@@ -29,19 +44,4 @@ struct NewsFeedItem: Decodable {
     let type: String
     /// News photo type photos
     let photos: Photos?
-
-    enum CodingKeys: String, CodingKey {
-        case date
-        case id
-        case ownerID = "owner_id"
-        case sourceID = "source_id"
-        case text
-        case attachments
-        case comments
-        case likes
-        case reposts
-        case views
-        case type
-        case photos
-    }
 }

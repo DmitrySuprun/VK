@@ -103,7 +103,7 @@ final class UserPhotosViewController: UIViewController {
                         guard let data else { return }
                         self.nextImageView.image = UIImage(data: data)
                     case let .failure(error):
-                        print(#function, error)
+                        print(error.localizedDescription)
                     }
                 }
 
@@ -134,7 +134,7 @@ final class UserPhotosViewController: UIViewController {
                         guard let data else { return }
                         self.previousImageView.image = UIImage(data: data)
                     case let .failure(error):
-                        print(#function, error)
+                        print(error.localizedDescription)
                     }
                 }
                 self.currentImageView.transform = .identity
@@ -166,7 +166,7 @@ final class UserPhotosViewController: UIViewController {
                 guard let data else { return }
                 self.nextImageView.image = UIImage(data: data)
             case let .failure(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
 
@@ -180,7 +180,7 @@ final class UserPhotosViewController: UIViewController {
                 guard let data else { return }
                 self.previousImageView.image = UIImage(data: data)
             case let .failure(error):
-                print(#function, error)
+                print(error.localizedDescription)
             }
         }
 
