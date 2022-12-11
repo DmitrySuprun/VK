@@ -16,7 +16,7 @@ final class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private let networkServiceFriends = FriendsNetworkService()
+    private let friendsNetworkServiceFriends = FriendsNetworkService()
     private var sortedFriendsMap: [Character: [Friend]] = [:]
     private var databaseService = DatabaseService()
 
@@ -58,7 +58,7 @@ final class FriendsListTableViewController: UITableViewController {
 
     private func fetchFriends() {
         firstly {
-            networkServiceFriends.fetchFriends()
+            friendsNetworkServiceFriends.fetchFriends()
         }.done { responseFriends in
             self.databaseService.save(objects: responseFriends.friends)
         }.catch { error in
