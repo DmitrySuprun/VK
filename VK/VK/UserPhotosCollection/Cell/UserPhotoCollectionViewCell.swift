@@ -5,25 +5,22 @@ import UIKit
 
 /// User Single ImagePost
 final class UserPhotoCollectionViewCell: UICollectionViewCell {
-    // MARK: - Private IBOutletsz
+    // MARK: - Private IBOutlets
 
     @IBOutlet private var userPhotoImageView: UIImageView!
     @IBOutlet private var likeControl: LikeControl!
 
+    // MARK: - Private Properties
+
+    let photoCacheService = PhotoCacheService()
+
     // MARK: - Public Methods
 
-    func configure(imageURLName: String, likesCount: Int, isLiked: Bool, networkService: NetworkService) {
+    func configure(imageURLName: String, likesCount: Int, isLiked: Bool) {
         likeControl.likeCount = likesCount
         likeControl.isLiked = isLiked
-        networkService.loadImage(urlName: imageURLName) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case let .success(data):
-                guard let data else { return }
-                self.userPhotoImageView.image = UIImage(data: data)
-            case let .failure(error):
-                print(error.localizedDescription)
-            }
+        photoCacheService.photo(byUrl: imageURLName) { [weak self] image in
+            self?.userPhotoImageView.image = image
         }
     }
 }
