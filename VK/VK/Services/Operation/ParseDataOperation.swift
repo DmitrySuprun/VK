@@ -7,7 +7,7 @@ import Foundation
 final class ParseDataOperation: Operation {
     // MARK: - Public Properties
 
-    var outputData: [Group] = []
+    var groups: [Group] = []
 
     // MARK: - Public Methods
 
@@ -18,7 +18,7 @@ final class ParseDataOperation: Operation {
 
         do {
             let response = try JSONDecoder().decode(ResponseGroups.self, from: data)
-            outputData = response.groups
+            groups = response.groups
         } catch {
             print(error.localizedDescription)
         }

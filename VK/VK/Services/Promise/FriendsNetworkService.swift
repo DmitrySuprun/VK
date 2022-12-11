@@ -26,6 +26,22 @@ struct FriendsNetworkService {
     // MARK: - Public Methods
 
     func fetchFriends() -> Promise<ResponseFriends> {
+        let promise = Promise<ResponseFriends> { resolver in
+            AF.request(makeURLComponents()).responseDecodable(of: ResponseFriends.self) { dataResponse in
+                switch dataResponse.result {
+                case let .success(data):
+                    resolver.fulfill(data)
+                case let .failure(error):
+                    resolver.reject(error)
+                }
+            }
+        }
+        return promise
+    }
+
+    // MARK: - Private Methods
+
+    private func makeURLComponents() -> URLComponents {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.scheme
         urlComponents.host = Constants.host
@@ -44,17 +60,6 @@ struct FriendsNetworkService {
             name: Constants.versionKeyName,
             value: Constants.versionValueName
         ))
-
-        let promise = Promise<ResponseFriends> { resolver in
-            AF.request(urlComponents).responseDecodable(of: ResponseFriends.self) { dataResponse in
-                switch dataResponse.result {
-                case let .success(data):
-                    resolver.fulfill(data)
-                case let .failure(afError):
-                    resolver.reject(afError)
-                }
-            }
-        }
-        return promise
+        return urlComponents
     }
 }

@@ -10,6 +10,10 @@ final class FriendsTableViewCell: UITableViewCell {
     @IBOutlet private var avatarView: AvatarView!
     @IBOutlet private var nameLabel: UILabel!
 
+    // MARK: - Private Properties
+
+    let networkService = NetworkService()
+
     // MARK: - Life Cycle
 
     override func awakeFromNib() {
@@ -19,7 +23,7 @@ final class FriendsTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(nameLabelText: String, avatarImageURLName: String, networkService: NetworkService) {
+    func configure(nameLabelText: String, avatarImageURLName: String) {
         nameLabel.text = nameLabelText
         networkService.loadImage(urlName: avatarImageURLName) { [weak self] result in
             guard let self else { return }

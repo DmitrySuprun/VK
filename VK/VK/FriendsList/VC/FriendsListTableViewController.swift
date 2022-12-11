@@ -16,7 +16,6 @@ final class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private let networkService = NetworkService()
     private let networkServiceFriends = FriendsNetworkService()
     private var sortedFriendsMap: [Character: [Friend]] = [:]
     private var databaseService = DatabaseService()
@@ -122,8 +121,7 @@ final class FriendsListTableViewController: UITableViewController {
             let friend = friendsListSection[indexPath.row]
             cell.configure(
                 nameLabelText: "\(friend.lastName) \(friend.firstName)",
-                avatarImageURLName: friend.photo,
-                networkService: networkService
+                avatarImageURLName: friend.photo
             )
         }
         return cell

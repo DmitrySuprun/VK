@@ -13,7 +13,7 @@ final class SaveToDatabaseOperation: Operation {
 
     override func main() {
         guard let parseDataOperation = dependencies.first as? ParseDataOperation else { return }
-        let groups = parseDataOperation.outputData
+        let groups = parseDataOperation.groups
         databaseService.save(objects: groups)
     }
 }
