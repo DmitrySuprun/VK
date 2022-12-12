@@ -17,27 +17,6 @@ final class PhotoCacheService {
 
     // MARK: - Private Properties
 
-    private let networkService = NetworkService()
-    private let cacheLifeTime: TimeInterval = 24 * 60 * 60
-    private var images = [String: UIImage]()
-
-    // MARK: - Public Methods
-
-    func photo(byUrl url: String, completion: @escaping (UIImage?) -> Void) {
-        var image: UIImage?
-        if let photo = images[url] {
-            image = photo
-            completion(image)
-        } else if let photo = getImageFromCache(url: url) {
-            image = photo
-            completion(image)
-        } else {
-            loadPhoto(byUrl: url, completion: completion)
-        }
-    }
-
-    // MARK: - Private Methods
-
     private static let pathName: String = {
         let pathName = Constants.imagePathName
         guard let cachesDirectory = FileManager.default.urls(
@@ -51,6 +30,27 @@ final class PhotoCacheService {
         }
         return pathName
     }()
+
+    private let networkService = NetworkService()
+    private let cacheLifeTime: TimeInterval = 24 * 60 * 60
+    private var images = [String: UIImage]()
+
+    // MARK: - Public Methods
+
+    func photo(byUrl url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        var image = UIImage()
+        if let photo = images[url] {
+            image = photo
+            completion(.success(image))
+        } else if let photo = getImageFromCache(url: url) {
+            image = photo
+            completion(.success(image))
+        } else {
+            loadPhoto(byUrl: url, completion: completion)
+        }
+    }
+
+    // MARK: - Private Methods
 
     private func getFilePath(url: String) -> String? {
         guard let cachesDirectory = FileManager.default.urls(
@@ -84,7 +84,7 @@ final class PhotoCacheService {
         return image
     }
 
-    private func loadPhoto(byUrl url: String, completion: @escaping (UIImage?) -> Void) {
+    private func loadPhoto(byUrl url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
         networkService.loadImage(urlName: url) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -94,9 +94,9 @@ final class PhotoCacheService {
                 else { return }
                 self.images[url] = image
                 self.saveImageToCache(url: url, image: image)
-                completion(image)
+                completion(.success(image))
             case let .failure(error):
-                completion(nil)
+                completion(.failure(error))
                 print(error.localizedDescription)
             }
         }

@@ -19,8 +19,20 @@ final class UserPhotoCollectionViewCell: UICollectionViewCell {
     func configure(imageURLName: String, likesCount: Int, isLiked: Bool) {
         likeControl.likeCount = likesCount
         likeControl.isLiked = isLiked
-        photoCacheService.photo(byUrl: imageURLName) { [weak self] image in
-            self?.userPhotoImageView.image = image
+        fetchImage(imageURLName: imageURLName)
+    }
+
+    // MARK: - Private Methods
+
+    private func fetchImage(imageURLName: String) {
+        photoCacheService.photo(byUrl: imageURLName) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(image):
+                self.userPhotoImageView.image = image
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
         }
     }
 }
