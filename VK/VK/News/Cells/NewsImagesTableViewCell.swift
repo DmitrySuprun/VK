@@ -11,7 +11,7 @@ final class NewsImagesTableViewCell: UITableViewCell {
 
     // MARK: - Private Properties
 
-    let networkService = NetworkService()
+    private let networkService = NetworkService()
 
     // MARK: - Public Methods
 

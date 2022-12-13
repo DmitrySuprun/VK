@@ -18,7 +18,7 @@ final class LoginViewController: UIViewController {
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var backgroundScrollView: UIScrollView!
-    @IBOutlet var loadingActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private var loadingActivityIndicatorView: UIActivityIndicatorView!
 
     // MARK: - Private Properties
 
