@@ -9,4 +9,12 @@ struct Sizes: Decodable {
     let type: String
     /// Photo url
     let url: String
+    /// Photo height
+    let height: Int
+    /// Photo width
+    let width: Int
+    /// Photo size ratio
+    var aspectRatio: CGFloat {
+        CGFloat(height) / CGFloat(width)
+    }
 }

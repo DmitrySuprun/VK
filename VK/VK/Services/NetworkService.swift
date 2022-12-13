@@ -27,6 +27,8 @@ struct NetworkService {
         static let queryItemExtendedName = "extended"
         static let queryItemFieldsName = "fields"
         static let queryItemFilterName = "filter"
+        static let queryItemStartTimeName = "end_time"
+        static let queryItemStartFromName = "start_from"
 
         static let queryItemValueNickName = "nickname"
         static let queryItemValuePhotoName = "photo_100"
@@ -67,10 +69,11 @@ struct NetworkService {
         fetchData(queryItems: queryItems, method: Constants.friendsGetMethodName, completion: completion)
     }
 
-    func fetchNewsFeeds(completion: @escaping (Result<ResponseNewsFeed, Error>) -> ()) {
+    func fetchNewsFeeds(startFrom: String, completion: @escaping (Result<ResponseNewsFeed, Error>) -> ()) {
         let queryItems = [
             URLQueryItem(name: Constants.queryItemFilterName, value: Constants.queryItemValueFilerName),
-            URLQueryItem(name: Constants.queryItemOwnerIDName, value: String(Session.shared.userID ?? 0))
+            URLQueryItem(name: Constants.queryItemOwnerIDName, value: String(Session.shared.userID ?? 0)),
+            URLQueryItem(name: Constants.queryItemStartFromName, value: startFrom)
         ]
         fetchData(queryItems: queryItems, method: Constants.newsFeedMethodName, completion: completion)
     }

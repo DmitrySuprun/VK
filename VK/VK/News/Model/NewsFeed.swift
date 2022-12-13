@@ -5,10 +5,19 @@ import Foundation
 
 /// NewsFeed info contains News owner
 struct NewsFeed: Decodable {
+    private enum CodingKeys: String, CodingKey {
+        case items
+        case profiles
+        case groups
+        case nextFrom = "next_from"
+    }
+
     /// NewsFeed list
-    let items: [NewsFeedItem]
+    var items: [NewsFeedItem]
     /// NewsFeed owner User list
-    let profiles: [User]
+    var profiles: [User]
     /// NewsFeed owner Group list
-    let groups: [Group]
+    var groups: [Group]
+    /// Next NewsFeed request ID
+    let nextFrom: String?
 }

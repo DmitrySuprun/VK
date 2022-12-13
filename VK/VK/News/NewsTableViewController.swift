@@ -17,6 +17,9 @@ final class NewsTableViewController: UITableViewController {
         static let newsButtonsTableViewCellID = "newsButtonsTableViewCellID"
         static let newsButtonsTableViewCellNibName = "NewsButtonsTableViewCell"
 
+        static let newsImagesTableViewCellID = "newsImagesTableViewCellID"
+        static let newsImagesTableViewCell = "NewsImagesTableViewCell"
+
         static let emptyStringName = ""
     }
 
@@ -25,15 +28,41 @@ final class NewsTableViewController: UITableViewController {
     private let networkService = NetworkService()
     private var newsFeed: NewsFeed?
 
+    private var nextNewsFrom = Constants.emptyStringName
+    private var isNewsLoading = false
+
     // MARK: - LifiCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerCell()
+        setupTableViewController()
+    }
+
+    // MARK: - Private @Objc Methods
+
+    @objc private func refreshNews() {
         fetchNews()
     }
 
     // MARK: - Private Methods
+
+    private func setupTableViewController() {
+        setupRefreshControl()
+        registerCell()
+        setupTableView()
+        fetchNews()
+    }
+
+    private func setupTableView() {
+        tableView.prefetchDataSource = self
+    }
+
+    private func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
+        refreshControl?.tintColor = .systemBlue
+        refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+    }
 
     private func registerCell() {
         tableView.register(
@@ -57,17 +86,27 @@ final class NewsTableViewController: UITableViewController {
             ),
             forCellReuseIdentifier: Constants.newsButtonsTableViewCellID
         )
+        tableView.register(
+            UINib(
+                nibName: Constants.newsImagesTableViewCell,
+                bundle: nil
+            ),
+            forCellReuseIdentifier: Constants.newsImagesTableViewCellID
+        )
     }
 
     private func fetchNews() {
-        networkService.fetchNewsFeeds { [weak self] result in
+        networkService.fetchNewsFeeds(startFrom: Constants.emptyStringName) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(result):
                 self.newsFeed = result.response
+                self.nextNewsFrom = result.response.nextFrom ?? Constants.emptyStringName
                 self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             case let .failure(error):
                 print(error.localizedDescription)
+                self.refreshControl?.endRefreshing()
             }
         }
     }
@@ -79,7 +118,7 @@ final class NewsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        4
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,12 +136,25 @@ final class NewsTableViewController: UITableViewController {
             let newsOwnerProfile = newsFeed?.profiles.first { profile in
                 profile.id == newsOwnerID
             }
-            cell.configureCell(
-                avatarImageURLName: newsOwnerProfile?.avatarImageURLName ?? Constants.emptyStringName,
-                titleName: newsOwnerProfile?.fullName ?? Constants.emptyStringName,
-                newsUnixTimeDate: newsFeed?.items[indexPath.section].date ?? 0,
-                networkService: networkService
-            )
+            if newsOwnerProfile == nil {
+                let newsOwnerGroup = newsFeed?.groups.first { group in
+                    group.id == (newsOwnerID ?? 0) * -1
+                }
+                cell.configureCell(
+                    avatarImageURLName: newsOwnerGroup?.photo ?? Constants.emptyStringName,
+                    titleName: newsOwnerGroup?.name ?? Constants.emptyStringName,
+                    newsUnixTimeDate: newsFeed?.items[indexPath.section].date ?? 0,
+                    networkService: networkService
+                )
+            } else {
+                cell.configureCell(
+                    avatarImageURLName: newsOwnerProfile?.avatarImageURLName ?? Constants.emptyStringName,
+                    titleName: newsOwnerProfile?.fullName ?? Constants.emptyStringName,
+                    newsUnixTimeDate: newsFeed?.items[indexPath.section].date ?? 0,
+                    networkService: networkService
+                )
+            }
+
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(
@@ -111,15 +163,21 @@ final class NewsTableViewController: UITableViewController {
             ) as? NewsContentTableViewCell
             else { return UITableViewCell() }
             cell.configureCell(
-                imageUrlName: newsFeed?.items[indexPath.section]
-                    .attachments?.first?.photo?.sizes.last?.url
-                    ?? newsFeed?.items[indexPath.section].photos?.items.first?.sizes.last?.url
-                    ?? Constants.emptyStringName,
-                newsText: newsFeed?.items[indexPath.section].text ?? Constants.emptyStringName,
-                networkService: networkService
+                newsText: newsFeed?.items[indexPath.section].text ?? Constants.emptyStringName
             )
             return cell
         case 2:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.newsImagesTableViewCellID,
+                for: indexPath
+            ) as? NewsImagesTableViewCell
+            else { return UITableViewCell() }
+            cell.configureCell(
+                imageName: newsFeed?.items[indexPath.section].attachments?.first?.photo?.sizes.last?.url
+                    ?? Constants.emptyStringName
+            )
+            return cell
+        case 3:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: Constants.newsButtonsTableViewCellID,
                 for: indexPath
@@ -134,6 +192,54 @@ final class NewsTableViewController: UITableViewController {
             return cell
         default:
             return UITableViewCell()
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 2:
+            let tableWidth = tableView.bounds.width
+            let imageAspectRatio = (
+                newsFeed?.items[indexPath.section]
+                    .attachments?.first?.photo?.sizes.last?.aspectRatio
+                    ?? newsFeed?.items[indexPath.section].photos?.items.first?.sizes.last?.aspectRatio
+            )
+                ?? 1
+            let cellHeight = tableWidth * imageAspectRatio
+            return cellHeight
+        default:
+            return UITableView.automaticDimension
+        }
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension NewsTableViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let maxSection = indexPaths.map(\.section).max(),
+              let newsFeed
+        else { return }
+        if maxSection > newsFeed.items.count - 3, !isNewsLoading {
+            isNewsLoading = true
+            networkService.fetchNewsFeeds(startFrom: nextNewsFrom) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case let .success(response):
+                    let indexSet = IndexSet(
+                        integersIn:
+                        (self.newsFeed?.items.count ?? 0) ..<
+                            (self.newsFeed?.items.count ?? 0) + response.response.items.count
+                    )
+                    self.newsFeed?.items.append(contentsOf: response.response.items)
+                    self.newsFeed?.groups.append(contentsOf: response.response.groups)
+                    self.nextNewsFrom = response.response.nextFrom ?? ""
+                    self.tableView.insertSections(indexSet, with: .automatic)
+                    self.isNewsLoading = false
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
 }

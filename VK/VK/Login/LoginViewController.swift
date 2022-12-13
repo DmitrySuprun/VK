@@ -1,25 +1,28 @@
 // LoginViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import PromiseKit
 import UIKit
 
 /// User authentication
 final class LoginViewController: UIViewController {
-    // MARK: - Constants
+    // MARK: - Private Constants
 
     private enum Constants {
-        static let loginText = "1"
-        static let passwordText = "1"
-        static let errorText = "Error"
-        static let wrongPasswordText = "Wrong Password"
-        static let okText = "Ok"
+        static let tabBarID = "tabBarID"
+        static let storyboardMainName = "Main"
     }
 
-    // MARK: - IBOutlets
+    // MARK: - Private IBOutlets
 
     @IBOutlet private var loginTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
-    @IBOutlet var backgroundScrollView: UIScrollView!
+    @IBOutlet private var backgroundScrollView: UIScrollView!
+    @IBOutlet var loadingActivityIndicatorView: UIActivityIndicatorView!
+
+    // MARK: - Private Properties
+
+    let authService = AuthService()
 
     // MARK: - LifeCycle
 
@@ -38,14 +41,25 @@ final class LoginViewController: UIViewController {
         removeObserver()
     }
 
-    // MARK: - Public Methods
+    // MARK: - Private IBAction Methods
 
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        let checkResult = checkUserData()
-        if !checkResult {
-            showLoginError()
+    @IBAction private func enterButtonAction(_ sender: Any) {
+        firstly {
+            self.loadingActivityIndicatorView.isHidden = false
+            self.loadingActivityIndicatorView.startAnimating()
+            return authService.isValidAuthData(login: loginTextField.text, password: passwordTextField.text)
+        }.done { isValidAuthentication in
+            if isValidAuthentication {
+                let storyBoard = UIStoryboard(name: Constants.storyboardMainName, bundle: nil)
+                let tabBarViewController = storyBoard.instantiateViewController(withIdentifier: Constants.tabBarID)
+                tabBarViewController.modalPresentationStyle = .fullScreen
+                self.present(tabBarViewController, animated: true)
+            } else {
+                self.showLoginError()
+            }
+        }.catch { error in
+            print(error.localizedDescription)
         }
-        return checkResult
     }
 
     // MARK: - Objc Private Methods
@@ -74,6 +88,7 @@ final class LoginViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupUI() {
+        loadingActivityIndicatorView.isHidden = true
         let hideKeyboardGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardAction))
         backgroundScrollView.addGestureRecognizer(hideKeyboardGestureRecognizer)
     }
@@ -104,30 +119,5 @@ final class LoginViewController: UIViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-    }
-
-    private func checkUserData() -> Bool {
-        let login = loginTextField.text
-        let password = passwordTextField.text
-        if login == Constants.loginText, password == Constants.passwordText {
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-// MARK: - AlertController
-
-private extension LoginViewController {
-    func showLoginError() {
-        let alertWrongPassword = UIAlertController(
-            title: Constants.errorText,
-            message: Constants.wrongPasswordText,
-            preferredStyle: .alert
-        )
-        let okButton = UIAlertAction(title: Constants.okText, style: .default, handler: nil)
-        alertWrongPassword.addAction(okButton)
-        present(alertWrongPassword, animated: true, completion: nil)
     }
 }

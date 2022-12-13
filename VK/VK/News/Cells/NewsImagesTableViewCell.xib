@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="newsImagesTableViewCellID" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="342" id="csl-5a-Fck" customClass="NewsImagesTableViewCell" customModule="VK" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="342"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="csl-5a-Fck" id="LEl-5e-mC3">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="342"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LY8-qA-f8H">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="342"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="LY8-qA-f8H" secondAttribute="bottom" id="Bkd-7z-LwZ"/>
+                    <constraint firstItem="LY8-qA-f8H" firstAttribute="leading" secondItem="LEl-5e-mC3" secondAttribute="leading" id="KNR-lv-TfU"/>
+                    <constraint firstAttribute="trailing" secondItem="LY8-qA-f8H" secondAttribute="trailing" id="NxS-bi-HZi"/>
+                    <constraint firstItem="LY8-qA-f8H" firstAttribute="top" secondItem="LEl-5e-mC3" secondAttribute="top" id="r9c-9k-pxw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentImageView" destination="LY8-qA-f8H" id="XEy-jT-n0G"/>
+            </connections>
+            <point key="canvasLocation" x="-37.404580152671755" y="12.67605633802817"/>
+        </tableViewCell>
+    </objects>
+</document>

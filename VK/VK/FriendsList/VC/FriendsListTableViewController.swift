@@ -28,6 +28,19 @@ final class FriendsListTableViewController: UITableViewController {
         loadFriendsFromDatabaseService()
     }
 
+    // MARK: - Public Methods
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == Constants.friendsInfoSegueID,
+              let userPhotosViewController = segue.destination as? UserPhotosCollectionViewController
+        else { return }
+        guard let friendInfoIndexPath = tableView.indexPathForSelectedRow else { return }
+        let sortedKeys = sortedFriendsMap.keys.sorted()
+        let key = sortedKeys[friendInfoIndexPath.section]
+        guard let friendsInfo = sortedFriendsMap[key]?[friendInfoIndexPath.row] else { return }
+        userPhotosViewController.userID = friendsInfo.id
+    }
+
     // MARK: - Private Methods
 
     private func setupNotification() {
@@ -81,19 +94,6 @@ final class FriendsListTableViewController: UITableViewController {
             }
         }
         sortedFriendsMap = friendsMap
-    }
-
-    // MARK: - Public Methods
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == Constants.friendsInfoSegueID,
-              let userPhotosViewController = segue.destination as? UserPhotosCollectionViewController
-        else { return }
-        guard let friendInfoIndexPath = tableView.indexPathForSelectedRow else { return }
-        let sortedKeys = sortedFriendsMap.keys.sorted()
-        let key = sortedKeys[friendInfoIndexPath.section]
-        guard let friendsInfo = sortedFriendsMap[key]?[friendInfoIndexPath.row] else { return }
-        userPhotosViewController.userID = friendsInfo.id
     }
 
     // MARK: - Table view data source
