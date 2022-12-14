@@ -42,7 +42,7 @@ final class NewsTableViewController: UITableViewController {
     // MARK: - Private @Objc Methods
 
     @objc private func refreshNews() {
-        fetchNews()
+        fetchNewsFeed()
     }
 
     // MARK: - Private Methods
@@ -51,7 +51,7 @@ final class NewsTableViewController: UITableViewController {
         setupRefreshControl()
         registerCell()
         setupTableView()
-        fetchNews()
+        fetchNewsFeed()
     }
 
     private func setupTableView() {
@@ -96,7 +96,7 @@ final class NewsTableViewController: UITableViewController {
         )
     }
 
-    private func fetchNews() {
+    private func fetchNewsFeed() {
         networkService.fetchNewsFeeds(startFrom: Constants.emptyStringName) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -108,6 +108,27 @@ final class NewsTableViewController: UITableViewController {
             case let .failure(error):
                 print(error.localizedDescription)
                 self.refreshControl?.endRefreshing()
+            }
+        }
+    }
+
+    private func fetchNewsFeedPrevious() {
+        networkService.fetchNewsFeeds(startFrom: nextNewsFrom) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(response):
+                let indexSet = IndexSet(
+                    integersIn:
+                    (self.newsFeed?.items.count ?? 0) ..<
+                        (self.newsFeed?.items.count ?? 0) + response.response.items.count
+                )
+                self.newsFeed?.items.append(contentsOf: response.response.items)
+                self.newsFeed?.groups.append(contentsOf: response.response.groups)
+                self.nextNewsFrom = response.response.nextFrom ?? Constants.emptyStringName
+                self.tableView.insertSections(indexSet, with: .automatic)
+                self.isNewsLoading = false
+            case let .failure(error):
+                print(error.localizedDescription)
             }
         }
     }
@@ -163,7 +184,7 @@ final class NewsTableViewController: UITableViewController {
                 for: indexPath
             ) as? NewsContentTableViewCell
             else { return UITableViewCell() }
-            cell.configureCell(
+            cell.configure(
                 newsText: newsFeed?.items[indexPath.section].text ?? Constants.emptyStringName
             )
             return cell
@@ -173,7 +194,7 @@ final class NewsTableViewController: UITableViewController {
                 for: indexPath
             ) as? NewsImagesTableViewCell
             else { return UITableViewCell() }
-            cell.configureCell(
+            cell.configure(
                 imageName: newsFeed?.items[indexPath.section].attachments?.first?.photo?.sizes.last?.url
                     ?? Constants.emptyStringName
             )
@@ -223,24 +244,7 @@ extension NewsTableViewController: UITableViewDataSourcePrefetching {
         else { return }
         if maxSection > newsFeed.items.count - 3, !isNewsLoading {
             isNewsLoading = true
-            networkService.fetchNewsFeeds(startFrom: nextNewsFrom) { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case let .success(response):
-                    let indexSet = IndexSet(
-                        integersIn:
-                        (self.newsFeed?.items.count ?? 0) ..<
-                            (self.newsFeed?.items.count ?? 0) + response.response.items.count
-                    )
-                    self.newsFeed?.items.append(contentsOf: response.response.items)
-                    self.newsFeed?.groups.append(contentsOf: response.response.groups)
-                    self.nextNewsFrom = response.response.nextFrom ?? ""
-                    self.tableView.insertSections(indexSet, with: .automatic)
-                    self.isNewsLoading = false
-                case let .failure(error):
-                    print(error.localizedDescription)
-                }
-            }
+            fetchNewsFeedPrevious()
         }
     }
 }

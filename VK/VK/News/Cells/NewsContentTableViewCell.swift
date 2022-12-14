@@ -16,7 +16,9 @@ final class NewsContentTableViewCell: UITableViewCell {
         contentLabel.numberOfLines = 0
     }
 
-    func configureCell(newsText: String) {
+    // MARK: - Public Methods
+
+    func configure(newsText: String) {
         contentLabel.text = newsText
     }
 }

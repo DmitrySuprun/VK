@@ -15,7 +15,7 @@ final class NewsImagesTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(imageName: String) {
+    func configure(imageName: String) {
         networkService.loadImage(urlName: imageName) { [weak self] result in
             switch result {
             case let .success(data):
