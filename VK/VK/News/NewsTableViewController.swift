@@ -21,6 +21,7 @@ final class NewsTableViewController: UITableViewController {
         static let newsImagesTableViewCell = "NewsImagesTableViewCell"
 
         static let emptyStringName = ""
+        static let refreshingText = "Refreshing..."
     }
 
     // MARK: - Private Properties
@@ -59,7 +60,7 @@ final class NewsTableViewController: UITableViewController {
 
     private func setupRefreshControl() {
         refreshControl = UIRefreshControl()
-        refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
+        refreshControl?.attributedTitle = NSAttributedString(string: Constants.refreshingText)
         refreshControl?.tintColor = .systemBlue
         refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
     }

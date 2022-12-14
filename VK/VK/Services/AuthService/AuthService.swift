@@ -5,10 +5,10 @@ import Foundation
 import PromiseKit
 
 /// Authentication service
-class AuthService {
-    // MARK: - Constants
+final class AuthService {
+    // MARK: - Private Constants
 
-    enum Constants {
+    private enum Constants {
         static let loginText = "1"
         static let passwordText = "1"
     }

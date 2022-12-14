@@ -22,8 +22,8 @@ extension LoginViewController {
             message: AlertConstants.wrongPasswordText,
             preferredStyle: .alert
         )
-        let okButton = UIAlertAction(title: AlertConstants.okText, style: .default, handler: nil)
-        alertWrongPassword.addAction(okButton)
+        let okButtonAction = UIAlertAction(title: AlertConstants.okText, style: .default, handler: nil)
+        alertWrongPassword.addAction(okButtonAction)
         present(alertWrongPassword, animated: true, completion: nil)
     }
 }

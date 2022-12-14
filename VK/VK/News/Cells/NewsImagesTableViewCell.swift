@@ -5,9 +5,9 @@ import UIKit
 
 /// News images content
 final class NewsImagesTableViewCell: UITableViewCell {
-    // MARK: - IBoutlets
+    // MARK: - Private IBOutlets
 
-    @IBOutlet var contentImageView: UIImageView!
+    @IBOutlet private var contentImageView: UIImageView!
 
     // MARK: - Private Properties
 
