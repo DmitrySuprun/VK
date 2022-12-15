@@ -23,12 +23,12 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iz-PP-qDw">
                                         <rect key="frame" x="44.666666666666657" y="227.66666666666669" width="304" height="304.00000000000006"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number or email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bIV-oO-m4j">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" placeholder="Phone number or email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bIV-oO-m4j">
                                                 <rect key="frame" x="8" y="196" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7x9-9t-pj5">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7x9-9t-pj5">
                                                 <rect key="frame" x="8" y="142" width="288" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -45,8 +45,8 @@
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Enter"/>
                                                 <connections>
+                                                    <action selector="enterButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="If2-gF-ceN"/>
                                                     <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ivq-NH-a68"/>
-                                                    <segue destination="rXp-rr-TdO" kind="presentation" modalPresentationStyle="fullScreen" id="53d-uA-Dty"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="dZe-up-Qw6">
@@ -55,6 +55,13 @@
                                                     <constraint firstAttribute="width" secondItem="dZe-up-Qw6" secondAttribute="height" multiplier="1:1" id="puE-j8-2av"/>
                                                 </constraints>
                                             </imageView>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Xz5-AY-zIC">
+                                                <rect key="frame" x="91.333333333333343" y="101.33333333333331" width="121" height="101"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="101" id="1Vk-oE-x0m"/>
+                                                    <constraint firstAttribute="width" constant="121" id="fSj-Ix-Kwg"/>
+                                                </constraints>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <constraints>
@@ -66,10 +73,12 @@
                                             <constraint firstItem="dZe-up-Qw6" firstAttribute="top" secondItem="4iz-PP-qDw" secondAttribute="top" constant="12" id="MqK-J3-8MC"/>
                                             <constraint firstItem="dZe-up-Qw6" firstAttribute="centerX" secondItem="4iz-PP-qDw" secondAttribute="centerX" id="Mtx-eo-7Qm"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="BwR-Ld-C4z" secondAttribute="trailing" id="PmY-g5-E5z"/>
+                                            <constraint firstItem="Xz5-AY-zIC" firstAttribute="centerY" secondItem="4iz-PP-qDw" secondAttribute="centerY" id="Pwg-Hw-Iky"/>
                                             <constraint firstItem="bIV-oO-m4j" firstAttribute="top" secondItem="7x9-9t-pj5" secondAttribute="bottom" constant="20" id="Six-gP-0AV"/>
                                             <constraint firstItem="BwR-Ld-C4z" firstAttribute="top" secondItem="dZe-up-Qw6" secondAttribute="bottom" constant="8" symbolic="YES" id="Zaw-AE-IRd"/>
                                             <constraint firstItem="BwR-Ld-C4z" firstAttribute="leading" secondItem="4iz-PP-qDw" secondAttribute="leadingMargin" id="hBZ-Li-l9N"/>
                                             <constraint firstItem="qbK-dM-ClR" firstAttribute="trailing" secondItem="4iz-PP-qDw" secondAttribute="trailingMargin" id="j7P-7l-vp6"/>
+                                            <constraint firstItem="Xz5-AY-zIC" firstAttribute="centerX" secondItem="4iz-PP-qDw" secondAttribute="centerX" id="qmq-Zw-iAp"/>
                                             <constraint firstItem="dZe-up-Qw6" firstAttribute="width" secondItem="4iz-PP-qDw" secondAttribute="width" multiplier="0.236842" id="sPD-lp-OGV"/>
                                             <constraint firstItem="7x9-9t-pj5" firstAttribute="top" secondItem="BwR-Ld-C4z" secondAttribute="bottom" constant="20" id="txq-4K-Dnd"/>
                                             <constraint firstAttribute="width" secondItem="4iz-PP-qDw" secondAttribute="height" multiplier="1:1" id="uur-WN-VSu"/>
@@ -101,13 +110,14 @@
                     </view>
                     <connections>
                         <outlet property="backgroundScrollView" destination="HBB-x1-UVP" id="IWi-Lv-SRz"/>
+                        <outlet property="loadingActivityIndicatorView" destination="Xz5-AY-zIC" id="8x6-Ig-gfZ"/>
                         <outlet property="loginTextField" destination="bIV-oO-m4j" id="gpa-jT-62Y"/>
                         <outlet property="passwordTextField" destination="7x9-9t-pj5" id="jH4-58-QbE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-103" y="-1"/>
+            <point key="canvasLocation" x="-103.05343511450381" y="-1.4084507042253522"/>
         </scene>
         <!--Web View Login View Controller-->
         <scene sceneID="SG3-UU-LUj">
@@ -394,6 +404,7 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ty-wh-Gwf">
                                             <rect key="frame" x="78" y="24.666666666666671" width="295" height="21"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

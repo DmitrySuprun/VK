@@ -19,6 +19,7 @@ final class WebViewLoginViewController: UIViewController {
         static let tokenKeyName = "access_token"
         static let userIDKeyName = "user_id"
         static let tabBarViewControllerID = "tabBarID"
+        static let loginViewControllerID = "loginViewControllerID"
         static let storyboardMainName = "Main"
     }
 
@@ -46,7 +47,7 @@ final class WebViewLoginViewController: UIViewController {
     private func presentNextViewController() {
         let storyboard = UIStoryboard(name: Constants.storyboardMainName, bundle: nil)
         let viewController = storyboard.instantiateViewController(
-            withIdentifier: Constants.tabBarViewControllerID
+            withIdentifier: Constants.loginViewControllerID
         )
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)

@@ -19,6 +19,7 @@ final class FriendsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupTapGestureRecognizer()
+        setupUI()
     }
 
     // MARK: - Public Methods
@@ -38,6 +39,13 @@ final class FriendsTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private Methods
+
+    private func setupUI() {
+        avatarView.translatesAutoresizingMaskIntoConstraints = true
+        nameLabel.translatesAutoresizingMaskIntoConstraints = true
+        avatarView.frame = CGRect(x: 10, y: 10, width: 50, height: 50)
+        nameLabel.frame = CGRect(x: 100, y: 10, width: 200, height: 50)
+    }
 
     private func setupTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSpringAnimationAction))
